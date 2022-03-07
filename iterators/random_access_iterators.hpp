@@ -5,6 +5,7 @@
 #include <iterator_traits.hpp>
 namespace ft
 {
+    // RANDOM_ACCESS_ITERATOR class
     template <typename T>
     class Ra_iterator : public ft::iterator<ft::random_access_iterator , T>
     {
@@ -32,17 +33,17 @@ namespace ft
 
 
 
-           /** ************************************************************************** */
+        /** ************************************************************************** */
 		/**                                  MEMBERS                                   */
 		/** ************************************************************************** */
 
 
 
 
-            iterator_type getIterator() const { return iterator; }
+            iterator_type base() const { return iterator; }
 
-            /** ************************************************************************** */
-		/**                                 OPERATORS                                  */
+        /** ************************************************************************** */
+		/**                                COMPARAISON OPERATORS PROTOTYPES            */
 		/** ************************************************************************** */
         Ra_iterator &operator=(Ra_iterator const &c)
         {
@@ -68,7 +69,7 @@ namespace ft
         friend bool operator<(const Ra_iterator<it1> &, const Ra_iterator <it2> &);
 
         /** ************************************************************************** */
-		/**                                ACCESS OPERATORS                                  */
+		/**                                ACCESS OPERATORS                            */
 		/** ************************************************************************** */
 
         reference operator*()
@@ -103,7 +104,81 @@ namespace ft
             return copie;
         }
 
+        /** ************************************************************************** */
+		/**                                ARETHMETIC OPERATORS                        */
+		/** ************************************************************************** */
+
+
+        Ra_iterator operator+(difference_type n)
+        {
+            return (this->it + n);
+        }
+        
+        Ra_iterator operator-(difference_type n)
+        {
+            return (this->it - n);
+        }
+
+        Ra_iterator operator+=(difference_type n)
+        {
+            it += n;
+            return (*this);
+        }
+
+        Ra_iterator operator-=(difference_type n)
+        {
+            it -= n;
+            return (*this);
+        }
+
+        Ra_iterator operator[](difference_type n)
+        {
+            return (*(this->it));
+        }
+
+
+    }; /// RANDOM_ACCESS_ITERATOR class
+
+    /** ************************************************************************** */
+	/**                                COMPARAISON OPERATORS DEFINITION            */
+	/** ************************************************************************** */
     
-    };
+    template <typename it1, typename it2>
+    bool operator==(const Ra_iterator<it1> &s, const Ra_iterator <it2> &s1)
+    {
+        return (s.it == s1.it);
+    }
+
+    template <typename it1, typename it2>
+    bool operator!=(const Ra_iterator<it1> &s, const Ra_iterator <it2> &s1)
+    {
+        return (s.it != s1.it);
+    }
+
+    template <typename it1, typename it2>
+    bool operator>=(const Ra_iterator<it1> &s, const Ra_iterator <it2> &s1)
+    {
+        return (s.it >= s1.it);
+    }
+
+    template <typename it1, typename it2>
+    bool operator<=(const Ra_iterator<it1> &s, const Ra_iterator <it2> &s1)
+    {
+        return (s.it <= s1.it);
+    }
+
+    template <typename it1, typename it2>
+    bool operator>(const Ra_iterator<it1> &s, const Ra_iterator <it2> &s1)
+    {
+        return (s.it > s1.it);
+    }
+
+    template <typename it1, typename it2>
+    bool operator<(const Ra_iterator<it1> &s, const Ra_iterator <it2> &s1)
+    {
+        return (s.it < s1.it);
+    }
+
+
 } // for namespace
 #endif
