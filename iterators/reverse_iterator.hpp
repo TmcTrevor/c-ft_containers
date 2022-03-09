@@ -33,6 +33,7 @@ namespace ft {
             
             reference operator*() const 
             {
+            
                 return (*--rv);
             }
 
@@ -47,7 +48,7 @@ namespace ft {
                 return (*this++);
             }
 
-            Ra_iterator &operator++()
+            Ra_iterator &operator--()
             {
                  ++rv;
                 return *this;
