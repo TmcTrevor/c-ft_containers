@@ -2,12 +2,13 @@
 # define RANDOM_ACCESS_ITERATOR_HPP
 
 //#include "utils.hpp"
-#include <iterator_traits.hpp>
+#include "iterator_traits.hpp"
+
 namespace ft
 {
     // RANDOM_ACCESS_ITERATOR class
-    template <typename T>
-    class Ra_iterator : public ft::iterator<ft::random_access_iterator , T>
+    template <class T>
+    class Ra_iterator
     {
         public :   
             typedef T         iterator_type;
@@ -26,8 +27,8 @@ namespace ft
 
                 Ra_iterator() {it = NULL;}
                 Ra_iterator(iterator_type a) : it(a) {}
-                template <typename T>
-                Ra_iterator(const Ra_iterator<T>& a) :  {*this = a;}
+                template <typename it1>
+                Ra_iterator(const Ra_iterator<it1>& a)  {*this = a;}
                 ~Ra_iterator(){}
            ////////////////////////////////////////////////////
 
@@ -40,7 +41,7 @@ namespace ft
 
 
 
-            iterator_type base() const { return iterator; }
+            iterator_type base() const { return it; }
 
         /** ************************************************************************** */
 		/**                                COMPARAISON OPERATORS PROTOTYPES            */
@@ -48,6 +49,7 @@ namespace ft
         Ra_iterator &operator=(Ra_iterator const &c)
         {
             it = c.it;
+            return *this;
         }
 
         template <typename it1, typename it2>

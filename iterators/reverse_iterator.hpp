@@ -1,6 +1,8 @@
 #ifndef REVERSE_ITERATOR_HPP
 #define REVERSE_ITERATOR_HPP
 
+#include "iterator_traits.hpp"
+#include "utils.hpp"
 
 namespace ft {
 
@@ -33,7 +35,6 @@ namespace ft {
             
             reference operator*() const 
             {
-            
                 return (*--rv);
             }
 
@@ -42,28 +43,28 @@ namespace ft {
                 return (rv);
             }
 
-            Ra_iterator &operator++()
+            reverse_iterator &operator++()
             {
                 --rv;
                 return (*this++);
             }
 
-            Ra_iterator &operator--()
+            reverse_iterator &operator--()
             {
                  ++rv;
                 return *this;
             }
 
-            Ra_iterator operator--(int)
+            reverse_iterator operator--(int)
             {
-                Ra_iterator copy(*this);
+                reverse_iterator copy(*this);
                 ++rv;
-                return copie;
+                return copy;
             }
 
-            Ra_iterator operator++(int)
+            reverse_iterator operator++(int)
             {   
-                Ra_iterator copy(*this);
+                reverse_iterator copy(*this);
                 --rv;
                 return copy;
             }
@@ -73,29 +74,29 @@ namespace ft {
 		/** ************************************************************************** */
 
 
-        Ra_iterator operator+(difference_type n)
+        reverse_iterator operator+(difference_type n)
         {
             return (this->rv - n);
         }
         
-        Ra_iterator operator-(difference_type n)
+        reverse_iterator operator-(difference_type n)
         {
             return (this->rv + n);
         }
 
-        Ra_iterator operator+=(difference_type n)
+        reverse_iterator operator+=(difference_type n)
         {
             rv -= n;
             return (*this);
         }
 
-        Ra_iterator operator-=(difference_type n)
+        reverse_iterator operator-=(difference_type n)
         {
             rv += n;
             return (*this);
         }
 
-        Ra_iterator operator[](difference_type n)
+        reverse_iterator operator[](difference_type n)
         {
             return (*(this->it));
         }
