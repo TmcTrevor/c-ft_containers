@@ -143,6 +143,41 @@ class vector
         return (const_reverse_iterator(_arr + _current));
     }
 
+     /** ************************************************************************** */
+	 /**                               CAPACITY                                     */
+	 /** ************************************************************************** */
+
+    size_type size() const 
+    {
+        return _current;
+    }
+
+    size_type max_size() const
+    {
+        return alloc->max_size();
+    }
+
+    void resize (size_type n, value_type val = value_type())
+    {
+        if (_capacity < n)
+            _capacity = n;
+        if (_current > n)
+        {
+            for (size_type i = n; i < _current;i++)
+                this->alloc.destroy(_arr + i);
+            this->alloc.deallocate(_arr + n, _capacity);
+        }
+        else
+        {
+            this->alloc.allocate(n);
+             for (size_type i = _current; i < n; i++)
+                this->alloc.construct(_arr +i, val);
+        }
+        _current = n;
+    }
+
+
+
 }; /// end class vector
 } //end namespace
 #endif
