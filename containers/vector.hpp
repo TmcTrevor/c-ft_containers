@@ -4,7 +4,7 @@
 #include <iostream>
 #include "../iterators/random_access_iterator.hpp"
 #include "../iterators/reverse_iterator.hpp"
-
+#include "../iterators/utils.hpp"
 
 
 namespace ft {
@@ -45,32 +45,36 @@ class vector
             _current = 0;
             _arr = nullptr;
             this->alloc = alloc;
+             std::cout << "545613" << std::endl;
    }
 	
     explicit vector (size_type n, const value_type& val = value_type(),
                  const allocator_type& alloc = allocator_type())
                  {
-                    _arr = alloc.allocate(n);
+                    _arr = this->alloc.allocate(n);
                     _current = n;
                     _capacity = n;
                     this->alloc = alloc;
                     for (int i = 0; i < n; i++)
                         this->alloc.construct(_arr + i , val);
+                       // std::cout << "adasd" << std::endl;
                  }
 	
     template <class InputIterator>
-         vector (InputIterator first, InputIterator last,
-                 const allocator_type& alloc = allocator_type())
+         vector (InputIterator first, typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator >::type last,
+                 const allocator_type& alloc = allocator_type()) 
                  {
                     this->alloc = alloc;
                     InputIterator f = first;
+                    _current = 0;
+                    _capacity = 0;
                     while (f != last)
                     {
                         _current++;
                         _capacity++;
                         f++;
                     }
-                    this->alloc.allocate(_current);
+                    _arr = this->alloc.allocate(_capacity);
                     int i = 0;
                     while (first != last)
                     {
@@ -88,9 +92,9 @@ class vector
 
     ~vector() {
         if (_arr != nullptr) {
-        for (int i = 0; i < _current; i++)
-            this->alloc.destroy(_arr + i);
-        this->alloc.deallocate(_arr, _capacity);
+        for (size_type i = 0; i < _current; i++)
+           alloc.destroy(_arr + i);
+        alloc.deallocate(_arr, _capacity);
         }
     }
     

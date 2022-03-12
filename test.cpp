@@ -1,26 +1,46 @@
 #include <iostream>
 #include "containers/vector.hpp"
 #include <vector>
-  
+
+
+// class c{};
+// class b{};
+
 int main()
 {
-     std::vector<int> a;
-    
 
-    a.push_back(10);
-    a.push_back(90);
-    a.push_back(50);
-    a.push_back(20);
+    //ft::vector<int> a(10,15);
+    //  ft::vector<int> b;
+    //ft::vector<int>::iterator it = a.begin();
+    //ft::vector<int>::iterator it2 = a.end();
     
-    ////////////////////////////////////////////////////////////////////////
-     //       Capacity allocation test                                       //
-     ////////////////////////////////////////////////////////////////////////
+    //  ft::vector<int> c(it,it2);
 
-    std::cout << a.capacity() << std::endl << a.size() << std::endl<< std::endl;
-    a.resize(9, 10);
-    std::cout << a.capacity() << std::endl << a.size() << std::endl<< std::endl;
-    a.resize(19, 10);
-    std::cout << a.capacity() << std::endl << a.size() << std::endl<< std::endl;
+    std::istream_iterator<int> start(std::cin);
+    std::istream_iterator<int> end;
+
+    const   std::vector<int> v(start, end);
+    std::cout << v.capacity() << std::endl;
+    // ft::vector<int>::iterator it = v.begin();
+    // for (it = v.begin(); it != v.end();it++)
+    //      std::cout << *it << ' ';
+    // std::cout << std::endl;
+    // while (it++ != a.end())
+    //     std::cout << *it << std::endl;
+    // a.push_back(10);
+    // a.push_back(90);
+    // a.push_back(50);
+    // a.push_back(20);
+    
+    // ////////////////////////////////////////////////////////////////////////
+    //  //       Capacity allocation test                                       //
+    //  ////////////////////////////////////////////////////////////////////////
+
+    // std::cout << a.capacity() << std::endl << a.size() << std::endl<< std::endl;
+    // a.resize(9, 10);
+    // std::cout << a.capacity() << std::endl << a.size() << std::endl<< std::endl;
+    // a.resize(19, 10);
+    // std::cout << a.capacity() << std::endl << a.size() << std::endl<< std::endl;
 
 
      ////////////////////////////////////////////////////////////////////////
