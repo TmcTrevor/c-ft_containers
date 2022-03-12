@@ -9,10 +9,10 @@
 int main()
 {
 
-    //ft::vector<int> a(10,15);
+    ft::vector<int> a(10,15);
     //  ft::vector<int> b;
-    //ft::vector<int>::iterator it = a.begin();
-    //ft::vector<int>::iterator it2 = a.end();
+    // ft::vector<int>::iterator it = a.begin();
+    // ft::vector<int>::iterator it2 = a.end();
     
     //  ft::vector<int> c(it,it2);
 
@@ -20,7 +20,7 @@ int main()
     std::istream_iterator<int> end;
 
     const   std::vector<int> v(start, end);
-    std::cout << v.capacity() << std::endl;
+    //std::cout << v.capacity() << std::endl;
     // ft::vector<int>::iterator it = v.begin();
     // for (it = v.begin(); it != v.end();it++)
     //      std::cout << *it << ' ';

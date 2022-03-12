@@ -60,28 +60,55 @@ class vector
                        // std::cout << "adasd" << std::endl;
                  }
 	
+    template <class Iterator>
+    void vector_impl(Iterator first, Iterator last,std::input_iterator_tag)
+    {
+        //std::cout << "i am in input iteerator" << std::endl;
+        
+    }
+
+     template <class Iterator>
+    void vector_impl(Iterator first, Iterator last, std::random_access_iterator_tag)
+    {
+        std::cout << "i am in ra iteerator" << std::endl;
+        _current = 0;
+        _capacity = 0;
+        while (start != last)
+        {
+            _current++;
+            _capacity++;
+            start++;
+        }
+    }
+    // template <class Iterator>
+    // void vector_impl(Iterator first, Iterator last, const allocator_type &alloc, typename iterator::iterator_category tag)
+    // {
+    //     std::cout << "i am in ra iteerator" << std::endl;
+    // }
     template <class InputIterator>
          vector (InputIterator first, typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator >::type last,
                  const allocator_type& alloc = allocator_type()) 
                  {
+                    //this->vector_impl(first, last, typename iterator_traits<InputIterator>::iterator_category());
                     this->alloc = alloc;
-                    InputIterator f = first;
-                    _current = 0;
-                    _capacity = 0;
-                    while (f != last)
-                    {
-                        _current++;
-                        _capacity++;
-                        f++;
-                    }
-                    _arr = this->alloc.allocate(_capacity);
-                    int i = 0;
-                    while (first != last)
-                    {
-                        this->alloc.construct((_arr + i), *first);
-                        first++;
-                        i++;
-                    }
+                    // InputIterator f = first;
+                    // _current = 0;
+                    // _capacity = 0;
+                    // while (f != last)
+                    // {
+                    //     _current++;
+                    //     _capacity++;
+                    //     f++;
+                    // }
+                    // _arr = this->alloc.allocate(_capacity);
+                    // int i = 0;
+                    // while (first != last)
+                    // {
+                    //     this->alloc.construct((_arr + i), *first);
+                    //     first++;
+                    //     i++;
+                    // }
+                    //std::cout << "dasda" << std::endl;
                  }
 	
     vector (const vector& x)
@@ -91,11 +118,11 @@ class vector
     }
 
     ~vector() {
-        if (_arr != nullptr) {
-        for (size_type i = 0; i < _current; i++)
-           alloc.destroy(_arr + i);
-        alloc.deallocate(_arr, _capacity);
-        }
+        // if (_arr != nullptr) {
+        // for (size_type i = 0; i < _current; i++)
+        //    alloc.destroy(_arr + i);
+        // alloc.deallocate(_arr, _capacity);
+        // }
     }
     
     vector operator=(const vector& c)
