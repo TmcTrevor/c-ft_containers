@@ -6,7 +6,6 @@
 #include "../iterators/reverse_iterator.hpp"
 #include "../iterators/utils.hpp"
 
-
 namespace ft {
 
 template < class T, class Alloc = std::allocator<T> > 
@@ -64,7 +63,8 @@ class vector
     void vector_impl(Iterator first, Iterator last,std::input_iterator_tag)
     {
         //std::cout << "i am in input iteerator" << std::endl;
-        
+
+
     }
 
      template <class Iterator>
@@ -73,11 +73,11 @@ class vector
         std::cout << "i am in ra iteerator" << std::endl;
         _current = 0;
         _capacity = 0;
-        while (start != last)
+        while (first != last)
         {
             _current++;
             _capacity++;
-            start++;
+            first++;
         }
     }
     // template <class Iterator>
@@ -89,10 +89,10 @@ class vector
          vector (InputIterator first, typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator >::type last,
                  const allocator_type& alloc = allocator_type()) 
                  {
-                    //this->vector_impl(first, last, typename iterator_traits<InputIterator>::iterator_category());
                     this->alloc = alloc;
+                    this->vector_impl(first, last, typename iterator_traits<InputIterator>::iterator_category());
                     // InputIterator f = first;
-                    // _current = 0;
+                    // _current = -
                     // _capacity = 0;
                     // while (f != last)
                     // {
@@ -118,11 +118,11 @@ class vector
     }
 
     ~vector() {
-        // if (_arr != nullptr) {
-        // for (size_type i = 0; i < _current; i++)
-        //    alloc.destroy(_arr + i);
-        // alloc.deallocate(_arr, _capacity);
-        // }
+        if (_arr != nullptr) {
+        for (size_type i = 0; i < _current; i++)
+           alloc.destroy(_arr + i);
+        alloc.deallocate(_arr, _capacity);
+        }
     }
     
     vector operator=(const vector& c)
@@ -185,14 +185,14 @@ class vector
 
     size_type max_size() const
     {
-        return alloc->max_size();
+        return alloc.max_size();
     }
 
-    void resize (size_type n, value_type val = value_type())
+    void resize (size_type n, value_type val = value_type()) /// resize the the vector (destroy extra element if n < current size) else reallocate and insert val;
     {
-        if (_capacity < n)
-            _capacity = n;
-        if (_current > n)
+        if (n > max_size())
+            throw std::length_error("vector::resize");
+        if (n < _current)
         {
             for (size_type i = n; i < _current;i++)
                 this->alloc.destroy(_arr + i);
@@ -200,14 +200,135 @@ class vector
         }
         else
         {
-            this->alloc.allocate(n);
-             for (size_type i = _current; i < n; i++)
-                this->alloc.construct(_arr +i, val);
+            // reserve and insert
         }
         _current = n;
     }
 
+    size_type capacity() const
+    {
+        return _capacity;
+    }
+    bool empty() const
+    {
+        if (_current == 0)
+            return (true);
+        return false;
+    }
+    void reserve (size_type n)              // reallocate the array with n 
+    {
+         if (n > max_size())
+            throw std::length_error("vector::resize");
+        if (n > _capacity)
+        {
+            pointer tmp = nullptr;
+            tmp = this->alloc.allocate(n);
+            size_type i;
+            for (i = 0; i < this->size(); i++)
+            {
 
+                this->alloc.construct(tmp + i, _arr[i]);
+                this->alloc.destroy(_arr + i);
+            }
+           // std::cout << "i = " <<  i << std::endl;
+            this->alloc.deallocate(_arr, _capacity);
+            _arr = nullptr;
+            _arr = tmp;
+            _capacity = n;
+           
+        }
+
+    }
+
+
+    void shrink_to_fit()            //// change the allocation size to the _current aka size of vector
+    {
+        if (_capacity != _current)
+        {
+            pointer tmp = nullptr;
+            tmp = this->alloc.allocate(_current);
+            size_type i;
+            for (i = 0; i < this->size(); i++)
+            {
+
+                this->alloc.construct(tmp + i, _arr[i]);
+                this->alloc.destroy(_arr + i);
+            }
+            this->alloc.deallocate(_arr, _capacity);
+            _arr = tmp;
+            _capacity = _current;
+        }
+    }
+
+    /** ************************************************************************** **/
+	/**                               ELEMENT ACCESS                               **/
+	/** ************************************************************************** **/
+       reference operator[] (size_type n)
+       {
+           return  _arr[n];
+       }
+
+        const_reference operator[] (size_type n) const
+        {
+            return _arr[n];
+        }
+
+        reference at (size_type n)
+        {
+            if (n < 0 || n >= size())
+                throw "vector";
+            return _arr[n];
+        }
+        const_reference at (size_type n) const
+        {
+            if (n < 0 || n >= size())
+                    throw "vector";
+            return _arr[n];
+        }
+        reference front()
+        {
+            return (_arr[0]);
+
+        }
+        const_reference front() const
+        {
+            return (_arr[0]);
+        }
+        reference back()
+        {
+            return (_arr[size() - 1]);
+        }
+        const_reference back() const
+        {
+            return (_arr[size() - 1]);
+        }
+
+    /** ************************************************************************** **/
+	/**                               Modifiers                                    **/
+	/** ************************************************************************** **/
+
+    template <class InputIterator>
+    void assign (InputIterator first, typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator >::type last)
+    {
+        InputIterator f;
+        difference_type n = std::distance (f, last);
+        if (n + size() > _capacity)
+        {
+            reserve(n + size());
+            _capacity = n + size();
+        }
+        for (size_type i = size(); i < n; i++)
+        {
+            this->alloc.construct(_arr + i, *first);
+            first++;
+        }
+        _current+= n;
+    }
+	
+    void assign (size_type n, const value_type& val)
+    {
+                   
+    }
 
 }; /// end class vector
 } //end namespace

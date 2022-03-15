@@ -9,28 +9,47 @@
 int main()
 {
 
-    ft::vector<int> a(10,15);
-    //  ft::vector<int> b;
-    // ft::vector<int>::iterator it = a.begin();
+    
+    std::vector<int> a;
+
+    
+
+    // try {
+    // std::cout << a.at(-1) << std::endl;
+    // }
+    // catch(const char *c)
+    // {
+    //   std::cout << c << std::endl;
+    // }
+    // ft::vector<int> b(10,15);
+     //ft::vector<int>::iterator it = a.begin();
     // ft::vector<int>::iterator it2 = a.end();
     
     //  ft::vector<int> c(it,it2);
 
-    std::istream_iterator<int> start(std::cin);
-    std::istream_iterator<int> end;
+    // std::istream_iterator<int> start(std::cin);
+    // std::istream_iterator<int> end;
 
-    const   std::vector<int> v(start, end);
+    // const   std::vector<int> v(start, end);
     //std::cout << v.capacity() << std::endl;
     // ft::vector<int>::iterator it = v.begin();
     // for (it = v.begin(); it != v.end();it++)
     //      std::cout << *it << ' ';
     // std::cout << std::endl;
-    // while (it++ != a.end())
-    //     std::cout << *it << std::endl;
+  //   std::cout << a.capacity() << std::endl << a.size() << std::endl<< std::endl;
+  //   //a.reserve(11);
+  //   while (it != a.end())
+  //  {
+  //    std::cout << *it << " ";
+  //    it++;
+  //  }
+  //  std::cout << std::endl;
+  //   std::cout << a.capacity() << std::endl << a.size() << std::endl<< std::endl;
     // a.push_back(10);
     // a.push_back(90);
     // a.push_back(50);
     // a.push_back(20);
+    // std::cout << a.front() <<  "     ----     " << a.back() << std::endl;
     
     // ////////////////////////////////////////////////////////////////////////
     //  //       Capacity allocation test                                       //
@@ -47,18 +66,52 @@ int main()
      //        resize() test (if capacity > n ) capacity = n; size = n;     //
      //              size = n; capacity unchaged = capacity                 //
      ////////////////////////////////////////////////////////////////////////
-     
-    // std::cout << a.capacity() << std::endl << a.size() << std::endl<< std::endl;
-    // a.resize(1,8);
-    // std::cout << a.capacity() << std::endl << a.size() << std::endl<< std::endl;
-    // std::vector<int>::iterator it = a.begin();
-    // while (it != a.end())
-    // {
-    //     std::cout << *it << std::endl;
-    //     it++;
-    // }
     
 
+    std::vector<int>::iterator it = a.begin();
+   // std::vector<int>::iterator it1 = b.begin();
+
+    while (it != a.end())
+    {
+        std::cout << *it << "  ";
+        it++;
+    }
+    // std::cout << std::endl;
+    // while (it1 != b.end())
+    // {
+    //     std::cout << *it1 << " xo ";
+    //     it1++;
+    // }
+
+
+    // std::cout << std::endl;
+    // try {
+    //  std::cout << a.capacity() << std::endl << a.size() << std::endl<< std::endl;
+    //  a.resize(5,8);
+    //  std::cout << a.capacity() << std::endl << a.size() << std::endl<< std::endl;
+    // } catch (const std::exception &e)
+    // {
+    //     std::cout << e.what() << std::endl;
+    // }
+    // it = a.begin();
+    // while (it != a.end())
+    // {
+    //     std::cout << *it << " ";
+    //     it++;
+    // }
+    // std::cout << std::endl << "iahsdoahsdasdhaskdhajksdhajkshdjash djkash  "<< std::endl;
+    
+    // std::cout << std::endl;
+    // std::cout << b.capacity() << std::endl << b.size() << std::endl<< std::endl;
+    // b.resize(21,8);
+    // std::cout << b.capacity() << std::endl << b.size() << std::endl<< std::endl;
+    // it1 = b.begin();
+    // while (it1 != b.end())
+    // {
+    //     std::cout << *it1 << " ";
+    //     it1++;
+    // }
+    // std::cout << std::endl;
 
 
 
