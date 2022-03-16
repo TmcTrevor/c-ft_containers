@@ -10,9 +10,31 @@ int main()
 {
 
     
-    std::vector<int> a;
-
-    
+    ft::vector<int> a(1, 15);
+    std ::cout << "size = " <<  a.size() << " capacity = " << a.capacity() << std::endl;
+    ft::vector<int> b(20, 2);
+    // a.push_back(10);
+    ft::vector<int>::iterator e = a.begin();
+    ft::vector<int>::iterator x = a.insert(e, 20);
+    std ::cout << "size = " <<  a.size() << " capacity = " << a.capacity() << std::endl;
+    a.insert(a.begin(), b.begin(),b.end());
+    std ::cout << "size = " <<  a.size() << " capacity = " << a.capacity() << std::endl;
+    // std::cout << *e << std::endl;
+    // std::cout << *x << std::endl;
+    // a.push_back(10);
+    // std ::cout << "size = " <<  a.size() << "capacity = " << a.capacity() << std::endl;
+    // a.push_back(90);
+    // a.push_back(50);
+    // a.push_back(20);
+    // a.push_back(20);
+    // a.push_back(20);
+    // b.push_back(100);
+    // b.push_back(900);
+    // b.push_back(500);
+  //  std ::cout << "size = " <<  b.size() << "capacity = " << b.capacity() << std::endl;
+  //   b.assign(19, 14);
+  //  std ::cout << "size = " <<  b.size() << "capacity = " << b.capacity() << std::endl;
+  
 
     // try {
     // std::cout << a.at(-1) << std::endl;
@@ -32,17 +54,17 @@ int main()
 
     // const   std::vector<int> v(start, end);
     //std::cout << v.capacity() << std::endl;
-    // ft::vector<int>::iterator it = v.begin();
+     ft::vector<int>::iterator it = a.begin();
     // for (it = v.begin(); it != v.end();it++)
     //      std::cout << *it << ' ';
     // std::cout << std::endl;
   //   std::cout << a.capacity() << std::endl << a.size() << std::endl<< std::endl;
   //   //a.reserve(11);
-  //   while (it != a.end())
-  //  {
-  //    std::cout << *it << " ";
-  //    it++;
-  //  }
+    while (it != a.end())
+   {
+     std::cout << *it << " ";
+     it++;
+   }
   //  std::cout << std::endl;
   //   std::cout << a.capacity() << std::endl << a.size() << std::endl<< std::endl;
     // a.push_back(10);
@@ -68,14 +90,14 @@ int main()
      ////////////////////////////////////////////////////////////////////////
     
 
-    std::vector<int>::iterator it = a.begin();
-   // std::vector<int>::iterator it1 = b.begin();
+  //   std::vector<int>::iterator it = a.begin();
+  //  // std::vector<int>::iterator it1 = b.begin();
 
-    while (it != a.end())
-    {
-        std::cout << *it << "  ";
-        it++;
-    }
+  //   while (it != a.end())
+  //   {
+  //       std::cout << *it << "  ";
+  //       it++;
+  //   }
     // std::cout << std::endl;
     // while (it1 != b.end())
     // {
