@@ -28,7 +28,7 @@ namespace ft
                 Ra_iterator() {it = NULL;}
                 Ra_iterator(iterator_type a) : it(a) {}
                 template <typename it1>
-                Ra_iterator(const Ra_iterator<it1>& a)  {*this = a;}
+                Ra_iterator(const Ra_iterator<it1>& a) : it(a.base()) {} 
                 ~Ra_iterator(){}
            ////////////////////////////////////////////////////
 
@@ -121,23 +121,26 @@ namespace ft
             return (this->it - n);
         }
 
-        Ra_iterator operator+=(difference_type n)
+        Ra_iterator &operator+=(difference_type n)
         {
             it += n;
             return (*this);
         }
 
-        Ra_iterator operator-=(difference_type n)
+        Ra_iterator &operator-=(difference_type n)
         {
             it -= n;
             return (*this);
         }
 
-        Ra_iterator operator[](difference_type n)
+        reference operator[](difference_type n)
         {
-            return (*(this->it));
+            return (it[n]);
         }
-
+        template<class it1, class it2>
+        friend typename Ra_iterator<it1>::difference_type operator-(const Ra_iterator<it1> &cp1, const Ra_iterator<it2> &cp2);
+		template<class it1>
+		friend Ra_iterator<it1> operator+(typename Ra_iterator<it1>::difference_type n, const Ra_iterator<it1> &cp);
         
     }; /// RANDOM_ACCESS_ITERATOR class
 
@@ -181,6 +184,15 @@ namespace ft
         return (s.it < s1.it);
     }
 
-
+    template<class it1, class it2>
+    typename Ra_iterator<it1>::difference_type operator-(const Ra_iterator<it1> &cp1, const Ra_iterator<it2> &cp2)
+	{
+        return (cp1.base() - cp2.base());
+    }
+    template<class it1>
+	Ra_iterator<it1> operator+(typename Ra_iterator<it1>::difference_type n, const Ra_iterator<it1> &cp)
+    {
+        return (Ra_iterator<it1>(cp.base() + n));
+    }
 } // for namespace
 #endif
