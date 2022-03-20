@@ -95,7 +95,7 @@ class vector
     vector (InputIterator first, typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator >::type last,
                  const allocator_type& alloc = allocator_type()) 
     {
-                    // this->alloc = alloc;
+        this->alloc = alloc;
                     // this->vector_impl(first, last, typename iterator_traits<InputIterator>::iterator_category());
         InputIterator f = first;
         _current = 0;
@@ -228,7 +228,7 @@ class vector
             //     push_back(val);
             if (n > _capacity * 2)
                 reserve(n);
-            else
+            else if (n > _capacity)
                 reserve(_capacity * 2);
             while (n != size())
                 insert(this->end(), n - size(), val);
@@ -306,14 +306,16 @@ class vector
 
         reference at (size_type n)
         {
-            if (n < 0 || n >= size())
-                throw "vector";
+            std::string str = "vector";
+            if (n >= size())
+                    throw std::out_of_range(str);
             return _arr[n];
         }
         const_reference at (size_type n) const
         {
-            if (n < 0 || n >= size())
-                    throw "vector";
+            std::string str = "vector";
+            if (n >= size())
+                    throw std::out_of_range(str);
             return _arr[n];
         }
         reference front()
@@ -409,8 +411,8 @@ class vector
             n++;
             a++;
         }
-        for (size_t i = n; i <= size(); i++)
-            this->alloc.construct(_arr + i + 1, _arr[i]);
+        for (size_t i = size(); i > n; --i)
+            this->alloc.construct(_arr + i, _arr[i - 1]);
         this->alloc.construct(_arr + n, val);
         _current++;
         return (iterator(_arr + n));
@@ -419,62 +421,46 @@ class vector
     void insert (iterator position, size_type n, const value_type& val)
     { 
         iterator a = begin();
-        size_type e = std::distance(a, position);
-        if (n + size() > _capacity)
+        difference_type e = std::distance(a, position);
+        if (empty())
+            reserve(n);
+        else if (n + size() > _capacity)
         {
-            if (n + size() > _capacity * 2)
+            if (n > size())
                 reserve(n + size());
             else
                 reserve(_capacity * 2);    
         }
-        // while (a != position)
-        // {
-        //     e++;
-        //     a++;
-        // }
-        for (size_type i = 0; i <= size(); i++)
-            this->alloc.construct(_arr + i + n, _arr[i]);
-        for (size_type i = e; i <= n + size();i++)
-            this->alloc.construct(_arr + i, val);
+        for (difference_type i = size() - 1; i >= e; --i)
+            this->alloc.construct(_arr + (i + n), _arr[i]);
+        for (size_type i = 0; i < n ;++i)
+            this->alloc.construct(_arr + e++, val);
         _current+=n;
     }
     
     template <class InputIterator>
     void insert (iterator position, InputIterator first, typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator >::type last)
     {
-        size_type e = 0;
-        size_type n = 0;
         InputIterator a = first;
-         iterator pos = begin();
-        while (a != last)
+        difference_type e = std::distance(this->begin(),position);
+        difference_type n =std::distance(a, last);
+        if (empty())
+            reserve(n);
+        else if ((size_type)(n + size()) > _capacity)
         {
-            a++;e++;
-        }
-        if (e != 0)
-        {
-            if (e + size() > _capacity * 2)
-                reserve(e + size());
+            if (n + size() > _capacity * 2)
+                reserve(n + size());
             else
                 reserve(_capacity * 2);
-            while (pos != position)
-            {
-                pos++;n++;
-            }
-            for (size_type i = n; i <= size(); i++)
-                this->alloc.construct(_arr + i + e, _arr[i]);
-            for (size_type i = n; i < e;i++)
-            {
-                this->alloc.construct(_arr + i, *first);
-                first++;
-            }
-            _current+=e;
         }
-        //     iterator a;
-        //     for (;first != last; ++first)
-        //     {
-        //        
-        //         insert(position, *first);
-        //     } //
+        for (difference_type i = size() - 1; i >= e; --i)
+            this->alloc.construct(_arr + (i + n), _arr[i]);
+        for (size_t i = 0; i < (size_t)n ;++i)
+        {
+            this->alloc.construct(_arr + e++, *first);
+            first++;
+        }
+        _current+=n;
     }
 
     iterator erase (iterator position)
@@ -503,14 +489,27 @@ class vector
 		return (iterator(this->_arr + index));
 
     }
-    void swap (vector& x)
-    {
-        vector temp;
+    // void swap (vector& x)
+    // {
+    //     vector temp;
 
-        temp.assign(this->begin(), this->end());
-        this->assign(x.begin(), x.end());
-        x.assign(temp.begin(), temp.end());
-    }
+    //     temp.assign(this->begin(), this->end());
+    //     this->assign(x.begin(), x.end());
+    //     x.assign(temp.begin(), temp.end());
+    // }
+
+    void swap (vector& x)
+	{
+		pointer tmp = this->_arr;
+		size_type _size = this->size();
+		size_type _capacity = this->_capacity;
+		this->_arr = x._arr;
+		this->_current = x._current;
+		this->_capacity = x._capacity;
+		x._arr =  tmp;
+		x._current = _size;
+		x._capacity = _capacity;
+	}
 
     void clear()
     {

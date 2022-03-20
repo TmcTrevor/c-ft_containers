@@ -137,11 +137,6 @@
 //     //     std::cout << e.what() << std::endl;
 //     // }
 //      it = a.begin();
-//      while (it != a.end())
-//     {
-//         std::cout << *it << " ";
-//         it++;
-//     }
 //     // std::cout << std::endl << "iahsdoahsdasdhaskdhajksdhajkshdjash djkash  "<< std::endl;
     
 //     std::cout << std::endl;
@@ -183,16 +178,61 @@
 //      return 0;
 //  }
 
+///// resize 
+// int main()
+// {
+//   ft::vector<std::string> a(10, "string2");
+//   std::vector<std::string> b(10, "string2");
+//  std::string s1, s2, s3, s4, ft_s1, ft_s2, ft_s3, ft_s4;
+//   std::string sit1, sit2, sit3, ft_sit1, ft_sit2, ft_sit3;
 
-int main()
-{
-  ft::vector<int> a(10, 7);
-  std::vector<int> b(10, 7);
-//   //   std::cout << a.capacity() << std::endl << a.size() << std::endl<< std::endl;67y
-
-  ft::vector<int>::iterator c = a.begin();
-  std::vector<int>::iterator d = b.begin();
+//   ft::vector<std::string>::iterator it = a.begin();
+//   std::vector<std::string>::iterator it2 = b.begin();
+//    std::vector<std::string>::iterator valid_it, valid_eit;
+//     ft::vector<std::string>::iterator ft_valid_it, ft_valid_eit;
 
 
-  a.re
-}
+
+//   a.resize(1e6, "hello");
+//   b.resize(1e6, "hello");
+//   std::cout << a.capacity() << "-------" << a.size() << std::endl<< std::endl;
+//   std::cout << b.capacity() << "-------" << b.size() << std::endl<< std::endl;
+//   for (size_t i = 0; i < b.size(); ++i)
+//           s1 += a[i];
+
+//   for (ft::vector<std::string>::iterator it3 = a.begin(); it3 != a.end(); ++it3)
+//             ft_s1 += *it3;
+//   if (s1 == ft_s1)
+//     std::cout <<"yup" << std::endl;
+
+//   b.resize(20);
+//   valid_it = b.begin();
+//   valid_eit = b.end();
+//   b.resize(1e5);
+
+
+//   a.resize(20);
+//   ft_valid_it = a.begin();
+//   ft_valid_eit = a.end();
+//   a.resize(1e5);
+
+//   std::cout << a.capacity() << "-------" << a.size() << std::endl<< std::endl;
+//   std::cout << b.capacity() << "-------" << b.size() << std::endl<< std::endl;
+
+  
+//   // while (it != a.end())
+//   // {
+//   //     std::cout << *it << " ";
+//   //     it++;
+//   // }
+
+//   // std::cout << std::endl;
+//   // while (it2 != b.end())
+//   // {
+//   //     std::cout << *it << " ";
+//   //     it2++;
+//   // }
+
+
+// }
+

@@ -558,14 +558,14 @@ void vector_tests(void)
         /*---------------------------------- time limit test --------------------------------------------*/
         {
             time_t start, end, diff;
-            std::vector<char> v(1e7, 'a');
+            std::vector<char> v(17, 'a');
             start = get_time();
             std::vector<char> copy_v(v);
             end = get_time();
             diff = end - start;
             diff = (diff) ? (diff * 20) : 20;
 
-            ft::vector<char> my_v(1e7, 'a');
+            ft::vector<char> my_v(17, 'a');
             alarm(diff);
             ft::vector<char> my_copy_v(my_v);
             alarm(0);

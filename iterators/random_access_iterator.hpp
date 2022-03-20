@@ -177,7 +177,7 @@ namespace ft
     {
         return (s.it > s1.it);
     }
-
+ 
     template <typename it1, typename it2>
     bool operator<(const Ra_iterator<it1> &s, const Ra_iterator <it2> &s1)
     {
