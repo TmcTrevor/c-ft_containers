@@ -2,7 +2,8 @@
 #define REVERSE_ITERATOR_HPP
 
 #include "iterator_traits.hpp"
-#include "utils.hpp"
+#include "../tools/enable_if.hpp"
+#include "../tools/compare.hpp"
 
 namespace ft {
 

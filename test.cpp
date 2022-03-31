@@ -236,3 +236,49 @@
 
 // }
 
+            // Node *r = t->right;
+            // Node *p = t->parent;
+            // Node *r_left = r->left;
+            // Node *r_right = r->right;
+
+            // r->parent = p;
+            // r->left = t;
+            // t->parent = r;
+            // t->right = r_left;
+            // if (r_left != NULL) r_left->parent = t;
+            // r->right = t->left;
+            // if (t->left != NULL) t->left->parent = r;
+            // t->left = r_right;
+            // if (r_right != NULL) r_right->parent = t;
+            // t->height = std::max(height(t->left), height(t->right)) + 1;
+            // r->height = std::max(height(r->left), height(r->right)) + 1;
+            // if (p != NULL)
+            // {
+            //     if (p->left == t) p->left = r;
+            //     else p->right = r;
+            // }
+            // else root = r;
+
+
+
+            // Bst insert
+            /// bst search for x  if current > x go right else go left - current = current-> left 
+            // bst insert x int N
+            // if (N == NULL) N = x;
+            // if (x->data > N->data)
+            //{
+                // while (x->data > N->data)
+                //
+
+                    //N = N->right;
+                    // if (x->data  )
+                // while (x->data < N->data)
+                    // N = N->left;
+           // }
+
+           10 50 798 12 69 15
+
+           10
+                50
+            12     798
+                60
