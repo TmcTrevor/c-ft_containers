@@ -64,14 +64,19 @@ int main()
     c->data.second = 10;
     ft::Node<ft::pair<std::string, int> >::Nodeptr q;
     q = alloc_type.allocate(1);
-    q->data.first = "shit";
-    q->data.second = 15;
+    q->data.first = "hell";
+    q->data.second = -1;
     ft::AVL<ft::pair<std::string, int>, std::less<std::string> > a;
-
     a.root = a.insertNode(a.root, c);
-    a.insertNode(a.root, c);
+   a.root =  a.insertNode(a.root, q);
+   //a.root =  a.insertNode(a.root, q);
     //std::cout << a.root->data.second << std::endl;
-     a.print_node(a.root->right);
-     
-
+     a.print_node(a.root);
 }
+
+
+    //Y
+
+
+        //X
+//y             

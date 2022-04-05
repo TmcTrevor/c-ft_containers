@@ -62,7 +62,7 @@ namespace ft {
 
         void left_rotate(nodeptr t)
         {
-
+            
             //if (t == NULL || t->right == NULL) return;
             if (t == NULL) return;
             
@@ -97,22 +97,31 @@ namespace ft {
                     return t;
                 }
                 
+            //    if (t->right == NULL)
+            //    {
+            //        std::cout << "right is NULL" << std::endl;
+            //    }
+            //    if (t->left == NULL)
+            //    {
+            //        std::cout << "left is NULL" << std::endl;
+            //    }
                first oldfirst = t->data.first;
                first newfirst = new_node->data.first;
                //first lfirst = t->left->data.first;
                //first rfirst = t->right->data.first;
+               //std::cout << oldfirst << std::endl;
                 if (comp_(newfirst,oldfirst))
                 {
                     t->left = insertNode(t->left, new_node);
-                    std::cout << "dasdasd" << std::endl;
+                    std::cout << "dasdasd 1÷÷" << std::endl;
                 }
-                else if (!comp_(newfirst,oldfirst))
+                else if (comp_(oldfirst,newfirst))
                 {
                     t->right = insertNode(t->right, new_node);
                     std::cout << "dasdasd" << std::endl;
                 }
                 else    // duplicated key
-                    return t;
+                     return t;
                 // t->height = 1 + max(height(t->left) , height(t->right));
                 // size_type i = balance_factor(t);
                 // if (i > 1 && newfirst < lfirst)
@@ -125,8 +134,12 @@ namespace ft {
 
                 while (t)
                 {
+                    // if (t->right == NULL)
+                    // {
+                    //     std::cout << "right is NULL" << std::endl;
+                    // }
                    std:: cout << t->data.first << std::endl;
-                    t = t->left;
+                    t = t->right;
                 }
             }
 
