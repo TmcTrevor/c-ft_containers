@@ -2,7 +2,7 @@
 #include <map>
 #include <string>
 
-#include "tools/AVL.hpp"
+#include "tools/RBT.hpp"
 #include "tools/pair.hpp"
 // int main()
 // {
@@ -57,21 +57,34 @@ int main()
 {
     
     // ft::make_pair(10)
-    ft::Node<ft::pair<std::string, int> >::Nodeptr c;
-    std::allocator<ft::pair<std::string, int> >::rebind<ft::Node<ft::pair<std::string, int> > >::other  alloc_type;
-    c = alloc_type.allocate(1);
-    c->data.first = "hello";
-    c->data.second = 10;
-    ft::Node<ft::pair<std::string, int> >::Nodeptr q;
-    q = alloc_type.allocate(1);
-    q->data.first = "hell";
-    q->data.second = -1;
-    ft::AVL<ft::pair<std::string, int>, std::less<std::string> > a;
-    a.root = a.insertNode(a.root, c);
-   a.root =  a.insertNode(a.root, q);
+     //ft::Node<ft::pair<int, int> >::Nodeptr c;
+    ft::pair<int, int> c;
+    std::allocator<ft::pair<int, int> >::rebind<ft::Node<ft::pair<int, int> > >::other  alloc_type;
+    //c = alloc_type.allocate(1);
+    c.first = 10;
+    c.second = 10;
+    // ft::Node<ft::pair<int, int> >::Nodeptr q;
+    // q = alloc_type.allocate(1);
+    // q->data.first = 7;
+    // q->data.second = -1;
+    ft::RBT<ft::pair<int, int>, std::less<int> > a;
+      a.insetINRbt(c);
+       ft::pair<int, int> q;
+     q.first = 7;
+    q.second = 10;
+//     a.root = a.insertNode(a.root, c);
+//    a.root =  a.insertNode(a.root, q);
+
+      a.insetINRbt(q);
+     ft::pair<int, int> e;
+     e.first = 11;
+    e.second = 10;
+     a.insetINRbt(e);
+   // std::cout << a.root->color << std::endl;
+   a.print2DUtil(a.root, 0);
    //a.root =  a.insertNode(a.root, q);
     //std::cout << a.root->data.second << std::endl;
-     a.print_node(a.root);
+    // a.print_node(a.root);
 }
 
 

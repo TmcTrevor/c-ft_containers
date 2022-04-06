@@ -14,7 +14,8 @@ namespace ft {
 
 		first_type first;
 		second_type second;
-		pair() : first(first_type(first)), second(second_type(second))
+
+		pair() : first(first_type()), second(second_type())
 		{
 			// first = 0;
 			// second = 0;
