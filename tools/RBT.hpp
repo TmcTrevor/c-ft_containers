@@ -5,6 +5,17 @@
 #define BLACK 0
 #define RED   1
 #define COUNT 10
+
+# define 	Getline 	std::getline
+# define 	GREEN 		"\e[1;32m"
+# define 	Red 		"\e[1;31m"
+# define 	WHITE 		"\e[1;37m"
+# define 	YELLOW 	"\e[1;33m"
+# define 	BLUE 		"\e[1;34m"
+# define    Black   "\e[0;30m"
+# define 	PURPLE 	"\033[1;35m"
+# define 	DEFAULT	"\e[0;37m"
+
 namespace ft {
     template <typename T, class Alloc = std::allocator<T> >
     struct Node {
@@ -101,26 +112,36 @@ namespace ft {
         void    leftRotate(nodeptr x)
         {
             nodeptr y = x->right;
+            // std::cout << y->data.first << std::endl;
+            // std::cout << y->left->data.first << std::endl;
+
             x->right = y->left;
-            if (x == NULL) return;
-            if (y && y->left)
+            if (y->left != NULL)
                 y->left->parent = x;
             y->parent = x->parent;
+            nodeptr tmp = x;
+           //std::cout << tmp->data.first << std::endl;
             if (x->parent == NULL)
+            {
                 this->root = y;
+                //  std::cout <<" root 1 : " << root->data.first << std::endl;
+                // x = tmp;
+                //  std::cout <<" root 2 : " << root->data.first << std::endl;
+            }
             else if (x->parent->left == x)
                 x->parent->left = y;
             else
                 x->parent->right = y;
+            //std::cout << y->left->data.first << std::endl;
             y->left = x;
+            // std::cout << y->left->data.first << std::endl;
             x->parent = y;
-         //  x->right = y
         }
         
         void    rightRotate(nodeptr y)
         {
             nodeptr x = y->left;
-            x->right = y->left;
+            //x->right = y->left;
             if (y == NULL) return;
             if (x && x->right)
                 x->right->parent = y;
@@ -149,25 +170,28 @@ namespace ft {
             {
                 first oldfirst  = x->data.first;
                 first newfirst = new_node->data.first;
+                //std::cout << "hello " << oldfirst << " " << x->right->data.first  << std::endl;
                 while (x != NULL)
                 {
                     y = x;
                     oldfirst = x->data.first;
+                    //std::cout << "hello " << std::endl;
                     if (comp_(oldfirst, newfirst))
                     {
                         // if (newfirst == 11)
-                        //     std::cout << "hello " << oldfirst << " " << x->right->data.first  << std::endl;
+                       // std::cout << "hello " << oldfirst << " " << x->right->data.first  << std::endl;
                         x = x->right;
                     }
                    else if (comp_(newfirst, oldfirst))
                     {
+                        //std::cout << "hello " << oldfirst << " " << x->right->data.first  << std::endl;
                         // if (newfirst == 11)
                             // std::cout << "hello41561" << std::endl;
                         x = x->left;
                     }
                 }
                 new_node->parent = y;
-                // if (y == NULL)
+                //  if (y == NULL)
                 //     this->root = new_node;
                // std::cout << oldfirst << "  " << newfirst << std::endl;
                 if (comp_(newfirst, y->data.first))
@@ -186,8 +210,8 @@ namespace ft {
            alloc.construct(newNode, Node<value_type>(val.first, val.second));
 
             root = insertNode(root, newNode);
-
-           fixBRT(newNode);
+            //leftRotate(root);
+           //fixBRT(newNode);
         }
 
 
@@ -215,6 +239,10 @@ namespace ft {
         }
         bool isRed(nodeptr node)
         {
+            if (node == NULL)
+                return (false);
+            // std::cout << node->color << std::endl;
+            // std::cout << "fuck" << std::endl;
             if (node->color == RED)
                 return (true);
             return false;
@@ -255,6 +283,7 @@ namespace ft {
                     if (isBlack(s))
                     {
                         restructure(y, z);
+                    //std::cout << "hello" << std::endl;
                         makeItBlack(y);
                         makeItRED(x);
                         makeItRED(z);
@@ -289,11 +318,82 @@ namespace ft {
     std::cout<<std::endl;
     for (int i = COUNT; i < space; i++)
         std::cout<<" ";
-    std::cout<<root->data.first<<"\n";
+    if (root->color == BLACK)
+        std::cout<< Black <<root->data.first<< DEFAULT << "\n";
+    else
+        std::cout<< Red <<root->data.first<< DEFAULT << "\n";
+
  
     // Process left child
     print2DUtil(root->left, space);
 }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                struct Trunk
+                {
+                    Trunk *prev;
+                    std::string str;
+                
+                    Trunk(Trunk *prev, std::string str)
+                    {
+                        this->prev = prev;
+                        this->str = str;
+                    }
+                };
+                
+                // Helper function to print branches of the binary tree
+                void showTrunks(Trunk *p)
+                {
+                    if (p == nullptr) {
+                        return;
+                    }
+                
+                    showTrunks(p->prev);
+                    std::cout << p->str;
+                }
+                
+                void printTree(nodeptr root, Trunk *prev, bool isLeft)
+                {
+                    if (root == nullptr) {
+                        return;
+                    }
+                
+                    std::string prev_str = "    ";
+                    Trunk *trunk = new Trunk(prev, prev_str);
+                
+                    printTree(root->right, trunk, true);
+                
+                    if (!prev) {
+                        trunk->str = "———";
+                    }
+                    else if (isLeft)
+                    {
+                        trunk->str = ".———";
+                        prev_str = "   |";
+                    }
+                    else {
+                        trunk->str = "`———";
+                        prev->str = prev_str;
+                    }
+                
+                    showTrunks(trunk);
+                    if (root->color == BLACK)
+                        std::cout<< Black <<root->data.first<< DEFAULT << "\n";
+                     else
+                        std::cout<< Red <<root->data.first<< DEFAULT << "\n";
+                
+                    if (prev) {
+                        prev->str = prev_str;
+                    }
+                    trunk->str = "   |";
+                
+                    printTree(root->left, trunk, false);
+                }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     };
 
