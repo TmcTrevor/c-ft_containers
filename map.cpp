@@ -81,8 +81,8 @@ int main()
      e.first = 50;
     e.second = 10;
     a.insetINRbt(e);
-  a.printTree(a.root, NULL, false);
-    a.leftRotate(a.root);
+  //a.printTree(a.root, NULL, false);
+  //a.leftRotate(a.root);
 
     //   e.first = 7;
     // a.insetINRbt(e);
@@ -96,13 +96,18 @@ int main()
     //   e.first = 80;
     // a.insetINRbt(e);
 
-   // std::cout << a.root->color << std::endl;
-  //  std::cout << a.root->data.first << std::endl;
-  //  std::cout << a.root->left->data.first << std::endl;
-  //  std::cout << a.root->left->left->data.first << std::endl;
+    // std::cout << a.root->right->left << std::endl;
+//    std::cout << a.root->color << std::endl;
+//    std::cout << a.root->data.first << std::endl;
+//    std::cout << a.root->left->color << std::endl;
+//    std::cout << a.root->left->data.first << std::endl;
+//    std::cout << a.root->right->color << std::endl;
+//    std::cout << a.root->right->data.first << std::endl;
+//    std::cout << a.root->right->right->data.first << std::endl;
+//    std::cout << a.root->left->left->data.first << std::endl;
   std::cout <<  "------------------------------" << std::endl;
   a.printTree(a.root, NULL, false);
-  // a.print2DUtil(a.root, 0);
+//    a.print2DUtil(a.root, 0);
    //a.root =  a.insertNode(a.root, q);
     //std::cout << a.root->data.second << std::endl;
     // a.print_node(a.root);

@@ -52,6 +52,8 @@ namespace ft {
         {
             // this->data = alloc.allocate(1);
             // alloc.construct(this->data, c.data);
+            data.first = c->data.first;
+            data.second = c->data.second;
             left = c->left;
             right = c->right;
             parent = c->parent;
@@ -61,6 +63,9 @@ namespace ft {
         {
             // this->data = alloc->allocate(1);
             // alloc->construct(this->data, c->data);
+           // std::cout << "operator" << std::endl;
+            data.first = c->data.first;
+            data.second = c->data.second;
             left = c->left;
             right = c->right;
             parent = c->parent;
@@ -112,48 +117,41 @@ namespace ft {
         void    leftRotate(nodeptr x)
         {
             nodeptr y = x->right;
-            // std::cout << y->data.first << std::endl;
-            // std::cout << y->left->data.first << std::endl;
 
-            x->right = y->left;
+            //if (x->right)
+                x->right = y->left;
             if (y->left != NULL)
                 y->left->parent = x;
             y->parent = x->parent;
-            nodeptr tmp = x;
-           //std::cout << tmp->data.first << std::endl;
             if (x->parent == NULL)
-            {
                 this->root = y;
-                //  std::cout <<" root 1 : " << root->data.first << std::endl;
-                // x = tmp;
-                //  std::cout <<" root 2 : " << root->data.first << std::endl;
-            }
             else if (x->parent->left == x)
                 x->parent->left = y;
             else
                 x->parent->right = y;
-            //std::cout << y->left->data.first << std::endl;
             y->left = x;
-            // std::cout << y->left->data.first << std::endl;
             x->parent = y;
         }
         
         void    rightRotate(nodeptr y)
         {
             nodeptr x = y->left;
-            //x->right = y->left;
-            if (y == NULL) return;
-            if (x && x->right)
-                x->right->parent = y;
-            x->parent = y->parent;
-            if (y->parent == NULL)
-                this->root = x;
-            else if (y->parent->left == x)
-                y->parent->left = x;
-            else
-                y->parent->right = x;
-            x->right = y;
-            y->parent = x;
+
+           // if (x)
+            //{
+                x->right = y->left;
+                if (x && x->right)
+                    x->right->parent = y;
+                x->parent = y->parent;
+                if (y->parent == NULL)
+                    this->root = x;
+                else if (y->parent->left == x)
+                    y->parent->left = x;
+                else
+                    y->parent->right = x;
+                x->right = y;
+                y->parent = x;
+            //}
         }
 
         nodeptr insertNode(nodeptr t, nodeptr new_node)
@@ -211,7 +209,7 @@ namespace ft {
 
             root = insertNode(root, newNode);
             //leftRotate(root);
-           //fixBRT(newNode);
+           fixBRT(newNode);
         }
 
 
@@ -269,37 +267,114 @@ namespace ft {
 
 
 
-        void fixBRT(nodeptr x)
+        // void fixBRT(nodeptr x)
+        // {
+        //     if (isRoot(x))
+        //         makeItBlack(x);
+        //     else
+        //     {
+        //         nodeptr y = x->parent;
+        //         nodeptr z = y->parent;
+        //         if (isRed(y))
+        //         {
+        //             nodeptr s = sibling(y);
+        //             if (isBlack(s))
+        //             {
+        //                 restructure(y, z);
+        //             //std::cout << "hello" << std::endl;
+        //                 makeItBlack(y);
+        //                 makeItRED(x);
+        //                 makeItRED(z);
+        //             }
+        //             else
+        //             {
+        //                 makeItBlack(y);
+        //                 makeItBlack(s);
+        //                 makeItRED(z);
+        //                 fixBRT(z);
+        //             }
+        //         }
+
+        //     }
+
+        // }
+
+        void fixBRT(nodeptr newNode)
         {
-            if (isRoot(x))
-                makeItBlack(x);
-            else
-            {
-                nodeptr y = x->parent;
-                nodeptr z = y->parent;
-                if (isRed(y))
-                {
-                    nodeptr s = sibling(y);
-                    if (isBlack(s))
-                    {
-                        restructure(y, z);
-                    //std::cout << "hello" << std::endl;
-                        makeItBlack(y);
-                        makeItRED(x);
-                        makeItRED(z);
-                    }
-                    else
-                    {
-                        makeItBlack(y);
-                        makeItBlack(s);
-                        makeItRED(z);
-                        fixBRT(z);
-                    }
-                }
+           
+				nodeptr parent_newNode = NULL;
+				nodeptr grand_parent_newNode = NULL;
 
-            }
+				while ((newNode != root) && (newNode->color != BLACK) && (newNode->parent->color == RED))
+				{
+					parent_newNode = newNode->parent;
+					grand_parent_newNode = newNode->parent->parent;
 
+					/*  Case : A ---> Parent of newNode is left child of Grand-parent of newNode */
+					if (parent_newNode == grand_parent_newNode->left)
+					{
+						nodeptr uncle_newNode = grand_parent_newNode->right;
+						/* Case : 1  The uncle of newNode is also red Only Recoloring required */
+						if (uncle_newNode != NULL && uncle_newNode->color == RED)
+						{
+							grand_parent_newNode->color = RED;
+							parent_newNode->color = BLACK;
+							uncle_newNode->color = BLACK;
+							newNode = grand_parent_newNode;
+						}
+						else
+						{
+							/* Case : 2  newNode is right child of its parent  Left-rotation required */
+							if (newNode == parent_newNode->right)
+							{
+								leftRotate(parent_newNode);
+								newNode = parent_newNode;
+								parent_newNode = newNode->parent;
+							}
+							/* Case : 3  newNode is left child of its parent Right-rotation required */
+							rightRotate(grand_parent_newNode);
+							std::swap(parent_newNode->color, grand_parent_newNode->color);
+							newNode = parent_newNode;
+						}
+					}
+
+					/* Case : B  Parent of newNode is right child of Grand-parent of newNode */
+					else
+					{
+						nodeptr uncle_newNode = grand_parent_newNode->left;
+						
+						
+						/*  Case : 1 The uncle of newNode is also red Only Recoloring required */
+						if ((uncle_newNode != NULL) && (uncle_newNode->color == RED))
+						{
+							grand_parent_newNode->color = RED;
+							parent_newNode->color = BLACK;
+							uncle_newNode->color = BLACK;
+							newNode = grand_parent_newNode;
+						}
+						else
+						{
+							/* Case : 2 newNode is left child of its parent Right-rotation required */
+							if (newNode == parent_newNode->left)
+							{
+								rightRotate(parent_newNode);
+								newNode = parent_newNode;
+								parent_newNode = newNode->parent;
+							}
+			
+							/* Case : 3 newNode is right child of its parent Left-rotation required */
+							leftRotate(grand_parent_newNode);
+							std::swap(parent_newNode->color, grand_parent_newNode->color);
+							newNode = parent_newNode;
+						}
+					}
+				}
+				root->color = BLACK;
         }
+
+    
+
+
 
         void print2DUtil(nodeptr root, int space)
 {
