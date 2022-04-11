@@ -80,7 +80,7 @@ int main()
      ft::pair<int, int> e;
      e.first = 19;
     e.second = 10;
-    a.insetINRbt(e);
+    //a.insetINRbt(e);
 
   //a.printTree(a.root, NULL, false);
  // a.leftRotate(a.root->left);
@@ -94,10 +94,20 @@ int main()
     a.insetINRbt(e);
     e.first = 27;
     a.insetINRbt(e);
-    //   e.first = 2;
-    // a.insetINRbt(e);
-    //   e.first = 17;
-    // a.insetINRbt(e);
+     e.first = 201;
+    a.insetINRbt(e);
+     e.first = 250;
+    a.insetINRbt(e);
+     e.first = 298;
+    a.insetINRbt(e);
+     e.first = 2777;
+    a.insetINRbt(e);
+      e.first = 2135;
+    a.insetINRbt(e);
+      e.first = 17;
+    a.insetINRbt(e);
+     e.first = 2;
+    a.insetINRbt(e);
 
 
     // std::cout << a.root->right->left << std::endl;

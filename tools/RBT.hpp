@@ -119,7 +119,7 @@ namespace ft {
             nodeptr y = x->right;
 
             //if (x->right)
-                x->right = y->left;
+            x->right = y->left;
             if (y->left != NULL)
                 y->left->parent = x;
             y->parent = x->parent;
@@ -284,47 +284,18 @@ namespace ft {
                     nodeptr s = sibling(y);
                     if (y == z->left)
                     { 
-                        // if (isBlack(s))
-                        // {
-                        //     restructure(y, z); // on y
-                        //     makeItBlack(x);
-                        //     makeItRED(z);
-                        //     makeItRED(y);
-                        // }
-                        // else
-                        // {
-                        //     makeItBlack(y);
-                        //     makeItBlack(s);
-                        //     makeItRED(z);
-                        //     fixBRT(z);
-                        // }
-
                         if (isBlack(s))
                         {
                             if (x == y->right)
                             {
-                                 // if (x->data.first == 1)
-                                    //std::cout << "dasdasdasdasd" << std::endl;
+                                leftRotate(y);
                                 x = y;
-                                leftRotate(x);
+                                y = x->parent;
                             }
                             makeItBlack(y);
-                            //makeItRED(y);
                             makeItRED(z);
-                            // if (x->data.first == 17)
-                            // {
-                            // std::cout << z->data.first << std::endl;
-                            // std::cout << y->data.first << std::endl;
-                            // std::cout << x->data.first << std::endl;
-                            // }
                             rightRotate(z);
-                            // if (x->data.first == 17)
-                            // {
-                            // std::cout << "--------------------------------" << std::endl;
-                            // std::cout << z->data.first << std::endl;
-                            // std::cout << y->data.first << std::endl;
-                            // std::cout << x->data.first << std::endl;
-                            // }
+                            x = y;
                         }
                         else
                         {
@@ -332,6 +303,7 @@ namespace ft {
                             makeItBlack(y);
                             makeItRED(z);
                             x = z;
+                            fixBRT(z);
                         }
                     }
                     else
@@ -342,20 +314,20 @@ namespace ft {
                             makeItBlack(y);
                             makeItRED(z);
                             x = z;
+                            fixBRT(z);
                         }
                         else
                         {
-                            // std::cout << "fuck u" << std::endl;
                             if (x == y->left)
                             {
-                                // std::cout << "fuck u" << std::endl;
+                                rightRotate(y);
                                 x = y;
-                                rightRotate(x);
+                                y = x->parent;
                             }
                             makeItBlack(y);
-                           // makeItRED(y);
                             makeItRED(z);
                             leftRotate(z);
+                            x = y;
                         }
                     }
                 }
