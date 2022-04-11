@@ -61,7 +61,7 @@ int main()
     ft::pair<int, int> c;
     std::allocator<ft::pair<int, int> >::rebind<ft::Node<ft::pair<int, int> > >::other  alloc_type;
     //c = alloc_type.allocate(1);
-    c.first = 20;
+    c.first = 22;
     c.second = 10;
     // ft::Node<ft::pair<int, int> >::Nodeptr q;
     // q = alloc_type.allocate(1);
@@ -85,33 +85,36 @@ int main()
   //a.printTree(a.root, NULL, false);
  // a.leftRotate(a.root->left);
 
-      e.first = 18;
-     a.insetINRbt(e);
-    //   e.first = 10;
+    //   e.first = 26;
+    //  a.insetINRbt(e);
+
+      e.first = 16;
+    a.insetINRbt(e);
+      e.first = 26;
+    a.insetINRbt(e);
+    e.first = 27;
+    a.insetINRbt(e);
+    //   e.first = 2;
     // a.insetINRbt(e);
-    //   e.first = 50;
-    // a.insetINRbt(e);
-    //   e.first = 29;
+    //   e.first = 17;
     // a.insetINRbt(e);
 
-    //   e.first = 80;
-    // a.insetINRbt(e);
 
     // std::cout << a.root->right->left << std::endl;
-     std::cout << a.root->color << std::endl;
-     std::cout << a.root->data.first << std::endl;
-      std::cout << a.root->left->color << std::endl;
-     std::cout << a.root->left->data.first << std::endl;
-    std::cout << a.root->right->color << std::endl;
-    std::cout << a.root->right->data.first << std::endl;
-    std::cout << a.root->left->left->color << std::endl;
-    std::cout << a.root->left->left->data.first << std::endl;
+    //  std::cout << a.root->color << std::endl;
+    //  std::cout << a.root->data.first << std::endl;
+    //   std::cout << a.root->left->color << std::endl;
+    //  std::cout << a.root->left->data.first << std::endl;
+    // std::cout << a.root->right->color << std::endl;
+    // std::cout << a.root->right->data.first << std::endl;
+    // std::cout << a.root->left->left->color << std::endl;
+    // std::cout << a.root->left->left->data.first << std::endl;
   //  std::cout << a.root->left->left->color << std::endl;
   //  std::cout << a.root->left->left->data.first << std::endl;
   //  std::cout << a.root->right->right->data.first << std::endl;
 //    std::cout << a.root->left->left->data.first << std::endl;
   //std::cout <<  "------------------------------" << std::endl;
-  //a.printTree(a.root, NULL, false);
+  a.printTree(a.root, NULL, false);
 //    a.print2DUtil(a.root, 0);
    //a.root =  a.insertNode(a.root, q);
     //std::cout << a.root->data.second << std::endl;
