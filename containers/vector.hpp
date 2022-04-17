@@ -92,6 +92,7 @@ class vector
             i++;
         }
     }
+    
     template <class InputIterator>
     vector (InputIterator first, typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator >::type last,
                  const allocator_type& alloc = allocator_type()) 

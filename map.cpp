@@ -109,6 +109,8 @@ int main()
      e.first = 2;
     a.insetINRbt(e);
 
+   a.deleteNode(a.root, 27);
+
 
     // std::cout << a.root->right->left << std::endl;
     //  std::cout << a.root->color << std::endl;
