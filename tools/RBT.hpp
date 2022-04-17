@@ -346,21 +346,42 @@ namespace ft {
 		{
 			if (x == NULL)
 				return NULL;
-			if (comp_(val, x->data.first))
+			if (comp_(val, x->data.first) && x->left)
 				return search(x->left, val);
-			else if (comp_(x->data.first, val))
+			else if (comp_(x->data.first, val) && x->right)
 				return search(x->right, val);
 			else
 				return x;
 		}
+		nodeptr search(first val)
+		{
+				nodeptr tmp = root;
+				while (1)
+				{
+					if (tmp)
+						std::cout << tmp->data.first << " " << tmp->data.second << std::endl;
+					if (tmp == NULL)
+						return NULL;
+					if (val == tmp->data.first)
+						return tmp;
+					if (comp_(val, tmp->data.first))
+						tmp = tmp->left;
+					else
+						tmp = tmp->right;
+				}
+				return tmp;
+		}
 
 		nodeptr find_min(nodeptr x)
 		{
-			
+
 			if (x == NULL)
 				return NULL;
 			while (x->left != NULL)
+			{
+				std::cout << "x ==== " << x->data.first << std::endl;
 				x = x->left;
+			}
 			return x;
 		}
 
@@ -701,6 +722,7 @@ namespace ft {
 		// 	}
 		nodeptr nodeToReplace(nodeptr x)
 		{
+			
 			if (x->left && x->right)
 				return find_min(x->right);
 			if (!x->right && !x->left)
@@ -710,65 +732,142 @@ namespace ft {
 			else
 				return (x->right);
 		}
-		void deleteNode(nodeptr, first key)
+
+		void deleteNode(nodeptr z)
+		{
+			nodeptr x, y;
+
+			if (z == NULL)
+				return ;
+			y = nodeToReplace(z);
+			bool doubleBlack = (isBlack(y) && isBlack(z));
+			std::cout << "y = " << y->data.first << " db = " << doubleBlack << std::endl;
+			if (!y)
+			{
+				if (z == this->root)
+					this->root = NULL;
+				else
+				{
+					if (doubleBlack)
+						fixDoubleBlack(z);
+					else
+					{
+						x = sibling(z);
+						if (x)
+							makeItRED(x);
+					}
+					if (isleft(z))
+						z->parent->left = NULL;
+					else
+						z->parent->right = NULL;
+				}
+				alloc.destroy(z);
+				alloc.deallocate(z, 1);
+				return ;
+				
+			}
+			if (!z->left || !z->right)
+			{
+				if (z == this->root)
+				{
+					std::swap(z->data, y->data);
+					z->left = NULL;
+					z->right = NULL;
+					alloc.destroy(y);
+					alloc.deallocate(y, 1);
+				}
+				else
+				{
+					if (isleft(y))
+						z->parent->left = y;
+					else
+						z->parent->right = y;
+					nodeptr w  = z->parent;
+					alloc.destroy(z);
+					alloc.deallocate(z, 1);
+					y->parent = w;
+					if (doubleBlack)
+						fixDoubleBlack(y);
+					else
+						makeItBlack(y);
+				}
+				return ;
+			}
+			std::swap(y->data, z->data);
+			std::cout << y->data.first << std::endl;
+			deleteNode(y);
+		}
+
+		void deleteNode(value_type val)
 		{
 			nodeptr z = NULL;
 			nodeptr x, y;
+			z = search(val.first);
 
-			z = search(node, key);
 			if (z == NULL)
 				return ;
-			
-			y = findmin(z->right);
+			deleteNode(z);
 		}	
 
 		void deleteNode(nodeptr node, first key)
 		{
 			nodeptr z = NULL;
 			nodeptr x, y;
+			//std::cout << key << std::endl;
+			z = search(key);
 
-			z = search(node, key);
 			if (z == NULL)
-				return;
-			y = z;
-			//std::cout << z->data.first;
-			int y_color = z->color; // black
-			if (!z->left)
-			{
-				x = z->right;
-				// z = x;
-				rbTransplant(z, z->right);
-			}
-			else if (!z->right)
-			{
-				x = z->left;
-				//z = x;
-				rbTransplant(z, z->left);
-			}
-			else
-			{
-				y = find_min(z->right);
-				y_color = y->color; //  black
-				x = y->right;
-				if (y->parent == z)
-					x->parent = y;
-				else
-				{
-					rbTransplant(y, y->right);
-					y->right = z->right;
-					y->right->parent = y;
-				}
-				rbTransplant(z, y);
-     			y->left = z->left;
-     			y->left->parent = y;
-     			y->color = z->color;
-			}
-			 delete z;
-			if (y_color == BLACK) {
-				//std::cout << x->data.first << std::endl;
-				fixDoubleBlack(x);
-			}
-		}
+				return ;
+			deleteNode(z);
+		}	
+
+		// void deleteNode(nodeptr node, first key)
+		// {
+		// 	nodeptr z = NULL;
+		// 	nodeptr x, y;
+
+		// 	z = search(node, key);
+		// 	if (z == NULL)
+		// 		return;
+		// 	y = z;
+		// 	//std::cout << z->data.first;
+		// 	int y_color = z->color; // black
+		// 	if (!z->left)
+		// 	{
+		// 		x = z->right;
+		// 		// z = x;
+		// 		rbTransplant(z, z->right);
+		// 	}
+		// 	else if (!z->right)
+		// 	{
+		// 		x = z->left;
+		// 		//z = x;
+		// 		rbTransplant(z, z->left);
+		// 	}
+		// 	else
+		// 	{
+		// 		y = find_min(z->right);
+		// 		y_color = y->color; //  black
+		// 		x = y->right;
+		// 		if (y->parent == z)
+		// 			x->parent = y;
+		// 		else
+		// 		{
+		// 			rbTransplant(y, y->right);
+		// 			y->right = z->right;
+		// 			y->right->parent = y;
+		// 		}
+		// 		rbTransplant(z, y);
+     	// 		y->left = z->left;
+     	// 		y->left->parent = y;
+     	// 		y->color = z->color;
+		// 	}
+		// 	 delete z;
+		// 	if (y_color == BLACK) {
+		// 		//std::cout << x->data.first << std::endl;
+		// 		fixDoubleBlack(x);
+		// 	}
+		// }
 
 
 		void print2DUtil(nodeptr root, int space)

@@ -108,8 +108,13 @@ int main()
     a.insetINRbt(e);
      e.first = 2;
     a.insetINRbt(e);
+    e.first = 298;
+    //ft::Node<ft::pair<int, int> >::Nodeptr q;
+   // q = a.search(298);
+   
+    a.deleteNode(e);
 
-   a.deleteNode(a.root, 27);
+    //a.search(2135);
 
 
     // std::cout << a.root->right->left << std::endl;
