@@ -374,14 +374,11 @@ namespace ft {
 
 		nodeptr find_min(nodeptr x)
 		{
-
+			//std::cout << "find_min" << std::endl;
 			if (x == NULL)
 				return NULL;
 			while (x->left != NULL)
-			{
-				std::cout << "x ==== " << x->data.first << std::endl;
 				x = x->left;
-			}
 			return x;
 		}
 
@@ -579,7 +576,6 @@ namespace ft {
 			if (x == this->root)
 				return ;
 			nodeptr w = sibling(x);
-			std::cout << "fixDoubleBlack" << std::endl;
 			nodeptr y = x->parent;
 			if (w == NULL) // x have no sibling , double black is up
 				fixDoubleBlack(y);
@@ -722,9 +718,8 @@ namespace ft {
 		// 	}
 		nodeptr nodeToReplace(nodeptr x)
 		{
-			
 			if (x->left && x->right)
-				return find_min(x->right);
+				return find_min(x);
 			if (!x->right && !x->left)
 				return NULL;
 			if (x->left)
@@ -738,10 +733,10 @@ namespace ft {
 			nodeptr x, y;
 
 			if (z == NULL)
-				return ;
+				return;
 			y = nodeToReplace(z);
 			bool doubleBlack = (isBlack(y) && isBlack(z));
-			std::cout << "y = " << y->data.first << " db = " << doubleBlack << std::endl;
+			//std::cout << "y = " << y->data.first << " db = " << doubleBlack << std::endl;
 			if (!y)
 			{
 				if (z == this->root)
@@ -792,7 +787,7 @@ namespace ft {
 						makeItBlack(y);
 				}
 				return ;
-			}
+			}/// if the node to be delete is Red 
 			std::swap(y->data, z->data);
 			std::cout << y->data.first << std::endl;
 			deleteNode(y);

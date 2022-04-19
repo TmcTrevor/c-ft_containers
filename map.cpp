@@ -112,7 +112,12 @@ int main()
     //ft::Node<ft::pair<int, int> >::Nodeptr q;
    // q = a.search(298);
    
-    a.deleteNode(e);
+    //a.deleteNode(e);
+   // e.first = 201;
+   // a.deleteNode(e);
+   // e.first = 22;
+   // a.deleteNode(e);
+    
 
     //a.search(2135);
 
