@@ -119,6 +119,7 @@ namespace ft {
 			nodeptr y = x->right;
 
 			//if (x->right)
+			// std::cout << "Left Rotate before" << x->data.first << std::endl;
 			x->right = y->left;
 			if (y->left != NULL)
 				y->left->parent = x;
@@ -358,8 +359,8 @@ namespace ft {
 				nodeptr tmp = root;
 				while (1)
 				{
-					if (tmp)
-						std::cout << tmp->data.first << " " << tmp->data.second << std::endl;
+					// if (tmp)
+					// 	std::cout << tmp->data.first << " " << tmp->data.second << std::endl;
 					if (tmp == NULL)
 						return NULL;
 					if (val == tmp->data.first)
@@ -371,10 +372,12 @@ namespace ft {
 				}
 				return tmp;
 		}
-
+		
+		
 		nodeptr find_min(nodeptr x)
 		{
 			//std::cout << "find_min" << std::endl;
+			//x = x->right;
 			if (x == NULL)
 				return NULL;
 			while (x->left != NULL)
@@ -575,8 +578,8 @@ namespace ft {
 		{
 			if (x == this->root)
 				return ;
-			nodeptr w = sibling(x);
-			nodeptr y = x->parent;
+			nodeptr w = sibling(x); // 2777
+			nodeptr y = x->parent; // 298
 			if (w == NULL) // x have no sibling , double black is up
 				fixDoubleBlack(y);
 			else
@@ -605,17 +608,23 @@ namespace ft {
 							 }
 							 else
 							 {
-								 w->left->color = y->color;
-								 rightRotate(w);
+			
+								 w->left->color = w->color;
+								 w->color = y->color;
+								 //rightRotate(w);
+								
 								 leftRotate(y);
+		
 							 }
 						}
 						else
-						{
+						{ 
+							/// this part isn't 100% functionable test it tomorow
 							if (isleft(w))
 							{
-								w->right->color = y->color;
-								leftRotate(w);
+								w->left->color = w->color;
+								w->color = y->color;
+								//leftRotate(w);
 								rightRotate(y);
 							}
 							else
@@ -719,7 +728,7 @@ namespace ft {
 		nodeptr nodeToReplace(nodeptr x)
 		{
 			if (x->left && x->right)
-				return find_min(x);
+				return find_min(x->right);
 			if (!x->right && !x->left)
 				return NULL;
 			if (x->left)
@@ -735,6 +744,7 @@ namespace ft {
 			if (z == NULL)
 				return;
 			y = nodeToReplace(z);
+			//std::cout <<" dasdasd = " << y->data.first << std::endl;
 			bool doubleBlack = (isBlack(y) && isBlack(z));
 			//std::cout << "y = " << y->data.first << " db = " << doubleBlack << std::endl;
 			if (!y)
@@ -743,6 +753,7 @@ namespace ft {
 					this->root = NULL;
 				else
 				{
+				// std::cout << "asdasd" << std::endl;
 					if (doubleBlack)
 						fixDoubleBlack(z);
 					else
@@ -789,7 +800,7 @@ namespace ft {
 				return ;
 			}/// if the node to be delete is Red 
 			std::swap(y->data, z->data);
-			std::cout << y->data.first << std::endl;
+			//std::cout << y->data.first << std::endl;
 			deleteNode(y);
 		}
 
@@ -894,6 +905,21 @@ namespace ft {
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+		 void        inoderprint(nodeptr x)
+        {
+            if (x != NULL)
+            {
+                inoderprint(x->left);
+                std::cout << "(" << x->data.first << "), ";
+                // std::cout << "(" << x->left << "), ";
+                // std::cout << "(" << x->right << "), ";
+                // std::cout << "(" << x->parent << "), ";
+                inoderprint(x->right);
+            }
+        }
+
 
 				struct Trunk
 				{

@@ -85,8 +85,8 @@ int main()
   //a.printTree(a.root, NULL, false);
  // a.leftRotate(a.root->left);
 
-    //   e.first = 26;
-    //  a.insetINRbt(e);
+      //  e.first = 26;
+      // a.insetINRbt(e);
 
       e.first = 16;
     a.insetINRbt(e);
@@ -104,16 +104,20 @@ int main()
     a.insetINRbt(e);
       e.first = 2135;
     a.insetINRbt(e);
-      e.first = 17;
-    a.insetINRbt(e);
+    //   e.first = 17;
+    // a.insetINRbt(e);
      e.first = 2;
     a.insetINRbt(e);
-    e.first = 298;
+     e.first = 18;
+    a.insetINRbt(e);
+
+    
     //ft::Node<ft::pair<int, int> >::Nodeptr q;
    // q = a.search(298);
-   
-    //a.deleteNode(e);
-   // e.first = 201;
+    e.first = 201;
+    a.deleteNode(e);
+   a.inoderprint(a.root);
+    e.first = 16;
    // a.deleteNode(e);
    // e.first = 22;
    // a.deleteNode(e);
@@ -121,7 +125,7 @@ int main()
 
     //a.search(2135);
 
-
+  std::cout << std::endl <<"--------------------------------" << std::endl;
     // std::cout << a.root->right->left << std::endl;
     //  std::cout << a.root->color << std::endl;
     //  std::cout << a.root->data.first << std::endl;
