@@ -115,12 +115,20 @@ int main()
     //ft::Node<ft::pair<int, int> >::Nodeptr q;
    // q = a.search(298);
     e.first = 201;
+     a.deleteNode(e);
+      e.first = 298;
+    a.deleteNode(e);
+
+    //a.isBalanced(a.root) ? std::cout << "Balanced" << std::endl : std::cout << "NOTBalanced" << std::endl;
+    //   e.first = 2777;
+    // a.deleteNode(e);
+      e.first = 22;
     a.deleteNode(e);
    a.inoderprint(a.root);
     e.first = 16;
-   // a.deleteNode(e);
-   // e.first = 22;
-   // a.deleteNode(e);
+   a.deleteNode(e);
+  //  e.first = 22;
+  //  a.deleteNode(e);
     
 
     //a.search(2135);

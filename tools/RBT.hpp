@@ -384,6 +384,16 @@ namespace ft {
 				x = x->left;
 			return x;
 		}
+		
+		nodeptr find_max(nodeptr x)
+		{
+			if (x == NULL)
+				return NULL;
+			while (x->right != NULL)
+				x = x->right;
+			return x;
+			
+		}
 
 		void rbTransplant(nodeptr u, nodeptr v) 
 		{
@@ -480,92 +490,7 @@ namespace ft {
 		// 	}
 		// }
 
-		// void fixDoubleBlack(RedBlack *targetNode)
-		// 	{
-		// 		if (targetNode == root)
-		// 		// Reached root
-		// 			return;
-			
-		// 		RedBlack *sib = sibling(targetNode);
-		// 		RedBlack *parent = targetNode->parent;
-		// 		if (sib == NULL)
-		// 		{
-		// 			// No sibiling, double black pushed up
-		// 			fixDoubleBlack(parent);
-		// 		}
-		// 		else
-		// 		{
-		// 			if (sib->color == RED)
-		// 			{
-		// 				// sib red
-		// 				parent->color = RED;
-		// 				sib->color = BLACK;
-		// 				if (isOnLeft(sib))
-		// 				{
-		// 					// left case
-		// 					rotateRight(root, parent);
-		// 				}
-		// 				else
-		// 				{
-		// 					// right case
-		// 					rotateLeft(root, parent);
-		// 				}
-		// 				fixDoubleBlack(targetNode);
-		// 			}
-		// 			else
-		// 			{
-		// 				// Sibling black
-		// 				if (hasRedChild(sib))
-		// 				{
-		// 					// at least 1 red children
-		// 					if (sib->left != NULL && sib->left->color == RED)
-		// 					{
-		// 						if (isOnLeft(sib))
-		// 						{
-		// 							// left left
-		// 							sib->left->color = sib->color;
-		// 							sib->color = parent->color;
-		// 							rotateRight(root, parent);
-		// 						}
-		// 						else
-		// 						{
-		// 							// right left
-		// 							sib->left->color = parent->color;
-		// 							rotateRight(root, sib);
-		// 							rotateLeft(root, parent);
-		// 						}
-		// 					}
-		// 					else
-		// 					{
-		// 						if (isOnLeft(sib))
-		// 						{
-		// 							// left right
-		// 							sib->right->color = parent->color;
-		// 							rotateLeft(root, sib);
-		// 							rotateRight(root, parent);
-		// 						}
-		// 						else
-		// 						{
-		// 							// right right
-		// 							sib->right->color = sib->color;
-		// 							sib->color = parent->color;
-		// 							rotateLeft(root, parent);
-		// 						}
-		// 					}
-		// 					parent->color = BLACK;
-		// 				}
-		// 				else
-		// 				{
-		// 					// 2 black children
-		// 					sib->color = RED;
-		// 					if (parent->color == BLACK)
-		// 						fixDoubleBlack(parent);
-		// 					else
-		// 						parent->color = BLACK;
-		// 				}
-		// 			}
-		// 		}
-		// 	}
+	
 
 		bool hasRedChild(nodeptr w)
 		{
@@ -574,12 +499,20 @@ namespace ft {
 			return false;
 		}
 
+		//////////////////////
+
+
+	///////////////////////
+
+
+	
+
 		void fixDoubleBlack(nodeptr x)
 		{
 			if (x == this->root)
 				return ;
-			nodeptr w = sibling(x); // 2777
-			nodeptr y = x->parent; // 298
+			nodeptr w = sibling(x); // 2777 // 16
+			nodeptr y = x->parent; // 2135 // 26
 			if (w == NULL) // x have no sibling , double black is up
 				fixDoubleBlack(y);
 			else
@@ -602,6 +535,9 @@ namespace ft {
 						{
 							 if (isleft(w))
 							 {
+								  //if (w->data.first == 16)
+								  	//std::cout << "adasd" << std::endl;
+									//leftRotate(w);
 								 w->left->color = w ->color;
 								 w->color = y->color;
 								 rightRotate(y);
@@ -609,9 +545,9 @@ namespace ft {
 							 else
 							 {
 			
-								 w->left->color = w->color;
-								 w->color = y->color;
-								 //rightRotate(w);
+								 w->left->color = y->color;
+								 //w->color = y->color;
+								 rightRotate(w);
 								
 								 leftRotate(y);
 		
@@ -622,15 +558,15 @@ namespace ft {
 							/// this part isn't 100% functionable test it tomorow
 							if (isleft(w))
 							{
-								w->left->color = w->color;
+								w->right->color = w->color;
 								w->color = y->color;
 								//leftRotate(w);
 								rightRotate(y);
 							}
 							else
 							{
-								w->right->color = w->color;
-								w->color = y->color;
+								w->right->color = y->color;
+								//w->color = y->color;
 								leftRotate(y);
 							}
 						}
@@ -638,7 +574,7 @@ namespace ft {
 					}
 					else
 					{
-						makeItRED(x);
+						makeItRED(w);
 						if (isBlack(y))
 							fixDoubleBlack(y);
 						else
@@ -649,86 +585,12 @@ namespace ft {
 			}
 
 		}
-		// void deleteNode(RedBlack *&targetNode)
-		// 	{
-		// 		RedBlack *nodeReplaceTarget = BSTreplace(targetNode); // looking here debug
-			
-		// 		// True when u and v are both black
-		// 		bool rtBlack = ((nodeReplaceTarget == NULL || nodeReplaceTarget->color == BLACK) && (targetNode->color == BLACK));
-		// 		RedBlack *parentTarget = targetNode->parent;
-			
-		// 		if (nodeReplaceTarget == NULL) 
-		// 		{
-		// 			// nodeReplaceTarget is NULL therefore targetNode is leaf
-		// 			if (targetNode == root)
-		// 			{
-		// 				// targetNode is root, making root null
-		// 				root = NULL;
-		// 			}
-		// 			else
-		// 			{
-		// 				if (rtBlack)
-		// 				{
-		// 					// u and targetNode both black
-		// 					// targetNode is leaf, fix double black at targetNode
-		// 					fixDoubleBlack(targetNode);
-		// 				}
-		// 				else
-		// 				{
-		// 					RedBlack *tmp = sibling(targetNode);
-		// 					// u or targetNode is red
-		// 					if (tmp != NULL)
-		// 						// sibling is not null, make it red"
-		// 						tmp->color = RED;
-		// 				}
-		// 				// delete targetNode from the tree
-		// 				if (isOnLeft(targetNode))
-		// 					parentTarget->left = NULL;
-		// 				else
-		// 					parentTarget->right = NULL;
-		// 			}
-		// 			_allocRebind.destroy(targetNode);
-		// 			_allocRebind.deallocate(targetNode, 1);
-		// 			return;
-		// 		}
-			
-		// 		if (targetNode->left == NULL || targetNode->right == NULL)
-		// 		{
-		// 			// targetNode has 1 child
-		// 			if (targetNode == root)
-		// 			{
-		// 				std::swap(targetNode->data, nodeReplaceTarget->data);
-		// 				targetNode->left = targetNode->right = NULL;
-		// 				_allocRebind.destroy(nodeReplaceTarget);
-		// 				_allocRebind.deallocate(nodeReplaceTarget, 1);
-		// 			}
-		// 			else
-		// 			{
-		// 				// Detach targetNode from tree and motargetNodee u up
-		// 				if (isOnLeft(targetNode))
-		// 					parentTarget->left = nodeReplaceTarget;
-		// 				else
-		// 					parentTarget->right = nodeReplaceTarget;
-		// 				_allocRebind.destroy(targetNode);
-		// 				_allocRebind.deallocate(targetNode, 1);
-		// 				nodeReplaceTarget->parent = parentTarget;
-		// 				if (rtBlack)
-		// 					// u and v both black, fix double black at u
-		// 					fixDoubleBlack(nodeReplaceTarget);
-		// 				else
-		// 					// u or v red, color u black
-		// 					nodeReplaceTarget->color = BLACK;
-		// 			}
-		// 			return;
-		// 		}
-		// 		// v has 2 children, swap values with successor and recurse
-		// 		swapValues(nodeReplaceTarget, targetNode);
-		// 		deleteNode(nodeReplaceTarget);
-		// 	}
+		
 		nodeptr nodeToReplace(nodeptr x)
 		{
 			if (x->left && x->right)
-				return find_min(x->right);
+				//return find_min(x->right);
+				return find_max(x->left);
 			if (!x->right && !x->left)
 				return NULL;
 			if (x->left)
@@ -737,13 +599,17 @@ namespace ft {
 				return (x->right);
 		}
 
+
+	
+
+
 		void deleteNode(nodeptr z)
 		{
 			nodeptr x, y;
 
 			if (z == NULL)
 				return;
-			y = nodeToReplace(z);
+			y = nodeToReplace(z); // 250 // null
 			//std::cout <<" dasdasd = " << y->data.first << std::endl;
 			bool doubleBlack = (isBlack(y) && isBlack(z));
 			//std::cout << "y = " << y->data.first << " db = " << doubleBlack << std::endl;
@@ -903,6 +769,30 @@ namespace ft {
 	print2DUtil(root->left, space);
 }
 
+
+bool isBalancedUtil(nodeptr root, int &maxh1, int &minh1)
+{
+   if (root == NULL){
+      maxh1 = minh1 = 0;
+      return true;
+   }
+   int lmxh1, lmnh1;
+   int rmxh1, rmnh1;
+   if (isBalancedUtil(root->left, lmxh1, lmnh1) == false)
+      return false;
+   if (isBalancedUtil(root->right, rmxh1, rmnh1) == false)
+      return false;
+   maxh1 = std::max(lmxh1, rmxh1) + 1;
+   minh1 = std::min(lmnh1, rmnh1) + 1;
+   if (maxh1 <= 2*minh1)
+      return true;
+   return false;
+}
+
+bool isBalanced(nodeptr root){
+   int maxh1, minh1;
+   return isBalancedUtil(root, maxh1, minh1);
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
