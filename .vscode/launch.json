@@ -5,11 +5,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "g++ - Build and debug active file",
-            "type": "cppdbg",
+            "name": "lldb-vscode",
+            "type": "lldb-vscode",
             "request": "launch",
-            "program": "/home/trevor/Desktop/cpp-ft_containers/a.out",
-            "args": [],
+            "program": "/Users/mokhames/Desktop/ft_container/a.out",
+            "args": ["15", "11"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

@@ -6,7 +6,7 @@
 namespace ft
 {
     // RANDOM_ACCESS_ITERATOR class
-    template <class T>
+    template <class T >
     class BidiIterator
     {
         public :   
@@ -18,6 +18,7 @@ namespace ft
 		    typedef typename ft::iterator_traits<T>::iterator_category iterator_category;
         private :
             iterator_type it;
+
 
         public :
         /** ************************************************************************** */
