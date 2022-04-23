@@ -4,6 +4,7 @@
 
 #include "tools/RBT.hpp"
 #include "tools/pair.hpp"
+// #include "tools/"
 // int main()
 // {
 //     std::map<std::string, int> map;
@@ -53,13 +54,14 @@
 //    a = (a & b);
 //    std::cerr << a << " " <<std::endl;
 // }
+
 int main()
 {
     
     // ft::make_pair(10)
      //ft::Node<ft::pair<int, int> >::Nodeptr c;
     ft::pair<int, int> c;
-    std::allocator<ft::pair<int, int> >::rebind<ft::Node<ft::pair<int, int> > >::other  alloc_type;
+    //std::allocator<ft::pair<int, int> >::rebind<ft::Node<ft::pair<int, int> > >::other  alloc_type;
     //c = alloc_type.allocate(1);
     c.first = 22;
     c.second = 10;
@@ -67,7 +69,7 @@ int main()
     // q = alloc_type.allocate(1);
     // q->data.first = 7;
     // q->data.second = -1;
-    ft::RBT<ft::pair<int, int>, std::less<int> > a;
+    ft::RBT<ft::pair<int, int>, ft::value_compare<int, int> > a;
       a.insetINRbt(c);
        ft::pair<int, int> q;
      q.first = 31;

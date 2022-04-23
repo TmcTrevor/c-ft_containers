@@ -2,6 +2,7 @@
 #define RBT_HPP
 
 #include <iostream>
+#include "pair.hpp"
 #define BLACK 0
 #define RED   1
 #define COUNT 10
@@ -17,6 +18,27 @@
 # define 	DEFAULT	"\e[0;37m"
 
 namespace ft {
+
+
+	template <class key,class T, class Compare= std::less<key> >
+ class value_compare
+            {   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+                typedef ft::pair<const key,T> value_type;
+                friend class map;
+               	public:
+                //protected:
+                Compare comp;
+                value_compare (void) : comp() {}  // constructed with map's comparison object
+                value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+                	typedef bool result_type;
+                	typedef value_type first_argument_type;
+                	typedef value_type second_argument_type;
+                	bool operator() (const value_type& x, const value_type& y) const
+                	{
+                	    return comp(x.first, y.first);
+                	}
+			};
+			
 	template <typename T, class Alloc = std::allocator<T> >
 	struct Node {
 		public :
@@ -52,8 +74,9 @@ namespace ft {
 		{
 			// this->data = alloc.allocate(1);
 			// alloc.construct(this->data, c.data);
-			data.first = c->data.first;
-			data.second = c->data.second;
+			data = c->data;
+			// data.first = c->data.first;
+			// data.second = c->data.second;
 			left = c->left;
 			right = c->right;
 			parent = c->parent;
@@ -64,8 +87,9 @@ namespace ft {
 			// this->data = alloc->allocate(1);
 			// alloc->construct(this->data, c->data);
 		   // std::cout << "operator" << std::endl;
-			data.first = c->data.first;
-			data.second = c->data.second;
+			// data.first = c->data.first;
+			// data.second = c->data.second;
+			data = c->data;
 			left = c->left;
 			right = c->right;
 			parent = c->parent;
@@ -83,6 +107,9 @@ namespace ft {
 		}
 			
 	};
+
+
+
 	template <typename T, class comp, class Alloc = std::allocator<T> >
 	class RBT 
 	{
@@ -103,7 +130,7 @@ namespace ft {
 				allocator_type alloc;
 				size_type size;
 	public:
-		RBT()
+		explicit RBT() :  comp_()
 		{
 			root = NULL;
 			nil = NULL;
@@ -168,19 +195,19 @@ namespace ft {
 			}
 			else
 			{
-				first oldfirst  = x->data.first;
-				first newfirst = new_node->data.first;
+				value_type oldfirst  = x->data;
+				value_type newfirst = new_node->data;
 				while (x != NULL)
 				{
 					y = x;
-					oldfirst = x->data.first;
+					oldfirst = x->data;
 					if (comp_(oldfirst, newfirst))
 						x = x->right;
 				   else if (comp_(newfirst, oldfirst))
 						x = x->left;
 				}
 				new_node->parent = y;
-				if (comp_(newfirst, y->data.first))
+				if (comp_(newfirst, y->data))
 					y->left = new_node;
 				else
 					y->right = new_node;
@@ -327,19 +354,19 @@ namespace ft {
 		}
 
 
-		nodeptr search(nodeptr x, first val)
+		nodeptr search(nodeptr x, value_type val)
 		{
 			if (x == NULL)
 				return NULL;
-			if (comp_(val, x->data.first) && x->left)
+			if (comp_(val, x->data) && x->left)
 				return search(x->left, val);
-			else if (comp_(x->data.first, val) && x->right)
+			else if (comp_(x->data, val) && x->right)
 				return search(x->right, val);
 			else
 				return x;
 		}
 
-		nodeptr search(first val)
+		nodeptr search(value_type val)
 		{
 				nodeptr tmp = root;
 				while (1)
@@ -348,9 +375,9 @@ namespace ft {
 					// 	std::cout << tmp->data.first << " " << tmp->data.second << std::endl;
 					if (tmp == NULL)
 						return NULL;
-					if (val == tmp->data.first)
+					if (val == tmp->data)
 						return tmp;
-					if (comp_(val, tmp->data.first))
+					if (comp_(val, tmp->data))
 						tmp = tmp->left;
 					else
 						tmp = tmp->right;
@@ -659,14 +686,14 @@ namespace ft {
 		{
 			nodeptr z = NULL;
 			nodeptr x, y;
-			z = search(val.first);
+			z = search(val);
 
 			if (z == NULL)
 				return ;
 			deleteNode(z);
 		}	
 
-		void deleteNode(nodeptr node, first key)
+		void deleteNode(nodeptr node, value_type key)
 		{
 			nodeptr z = NULL;
 			nodeptr x, y;
@@ -745,9 +772,9 @@ namespace ft {
 	for (int i = COUNT; i < space; i++)
 		std::cout<<" ";
 	if (root->color == BLACK)
-		std::cout<< Black <<root->data.first<< DEFAULT << "\n";
+		std::cout<< Black << root->data.first<< DEFAULT << "\n";
 	else
-		std::cout<< Red <<root->data.first<< DEFAULT << "\n";
+		std::cout<< Red << root->data.first<< DEFAULT << "\n";
 
  
 	// Process left child
