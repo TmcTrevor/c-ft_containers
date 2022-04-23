@@ -23,8 +23,8 @@ namespace ft {
 		typedef Node* Nodeptr;
 		typedef const Node* const_Nodeptr;
 		typedef size_t size_type;
-		typedef typename T::first_type first;
-		typedef typename T::second_type second;
+		// typedef typename T::first_type first;
+		// typedef typename T::second_type second;
 		
 		T       data;
 		Nodeptr parent;
@@ -42,11 +42,11 @@ namespace ft {
 			//alloc.construct(this->data, T(data.first, data.second));
 		}
 
-		Node(first &f, second &s) :  data(f,s), parent(NULL), left(NULL), right(NULL), height(1), color(RED), blackheight(2), redheight(0) 
-		{
-			// this->data = alloc.allocate(1);
-			// alloc.construct(this->data, T(f, s));
-		}
+		// Node(first &f, second &s) :  data(f,s), parent(NULL), left(NULL), right(NULL), height(1), color(RED), blackheight(2), redheight(0) 
+		// {
+		// 	// this->data = alloc.allocate(1);
+		// 	// alloc.construct(this->data, T(f, s));
+		// }
 
 		Node(const_Nodeptr &c)
 		{
@@ -170,30 +170,16 @@ namespace ft {
 			{
 				first oldfirst  = x->data.first;
 				first newfirst = new_node->data.first;
-				//std::cout << "hello " << oldfirst << " " << x->right->data.first  << std::endl;
 				while (x != NULL)
 				{
 					y = x;
 					oldfirst = x->data.first;
-					//std::cout << "hello " << std::endl;
 					if (comp_(oldfirst, newfirst))
-					{
-						// if (newfirst == 11)
-					   // std::cout << "hello " << oldfirst << " " << x->right->data.first  << std::endl;
 						x = x->right;
-					}
 				   else if (comp_(newfirst, oldfirst))
-					{
-						//std::cout << "hello " << oldfirst << " " << x->right->data.first  << std::endl;
-						// if (newfirst == 11)
-							// std::cout << "hello41561" << std::endl;
 						x = x->left;
-					}
 				}
 				new_node->parent = y;
-				//  if (y == NULL)
-				//     this->root = new_node;
-			   // std::cout << oldfirst << "  " << newfirst << std::endl;
 				if (comp_(newfirst, y->data.first))
 					y->left = new_node;
 				else
@@ -207,11 +193,9 @@ namespace ft {
 		void insetINRbt(value_type val)
 		{
 			nodeptr newNode = alloc.allocate(1);
-		   alloc.construct(newNode, Node<value_type>(val.first, val.second));
-
+			alloc.construct(newNode, Node<value_type>(val));
 			root = insertNode(root, newNode);
-			//leftRotate(root);
-		   fixBRT(newNode);
+			fixBRT(newNode);
 		}
 
 
@@ -354,6 +338,7 @@ namespace ft {
 			else
 				return x;
 		}
+
 		nodeptr search(first val)
 		{
 				nodeptr tmp = root;
