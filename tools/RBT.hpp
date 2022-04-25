@@ -20,26 +20,26 @@
 namespace ft {
 
 
-	template <class key,class T, class Compare= std::less<key> >
- class value_compare
-            {   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
-                typedef ft::pair<const key,T> value_type;
-                friend class map;
-               	public:
-                //protected:
-                Compare comp;
-                value_compare (void) : comp() {}  // constructed with map's comparison object
-                value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
-                	typedef bool result_type;
-                	typedef value_type first_argument_type;
-                	typedef value_type second_argument_type;
-                	bool operator() (const value_type& x, const value_type& y) const
-                	{
-                	    return comp(x.first, y.first);
-                	}
-			};
+// 	template <class key,class T, class Compare= std::less<key> >
+//  class value_compare
+//             {   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+//                 typedef ft::pair<const key,T> value_type;
+//                 friend class map;
+//                	public:
+//                 //protected:
+//                 Compare comp;
+//                 value_compare (void) : comp() {}  // constructed with map's comparison object
+//                 value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+//                 	typedef bool result_type;
+//                 	typedef value_type first_argument_type;
+//                 	typedef value_type second_argument_type;
+//                 	bool operator() (const value_type& x, const value_type& y) const
+//                 	{
+//                 	    return comp(x.first, y.first);
+//                 	}
+// 			};
 			
-	template <typename T, class Alloc = std::allocator<T> >
+	template <typename T >
 	struct Node {
 		public :
 		typedef Node* Nodeptr;
@@ -52,7 +52,7 @@ namespace ft {
 		Nodeptr parent;
 		Nodeptr left;
 		Nodeptr right;
-		Alloc alloc;
+		//Alloc alloc;
 		size_type height;
 		size_type blackheight;
 		size_type redheight;
@@ -70,11 +70,12 @@ namespace ft {
 		// 	// alloc.construct(this->data, T(f, s));
 		// }
 
-		Node(const_Nodeptr &c)
+		Node(const_Nodeptr &c) : data(c->data)
 		{
 			// this->data = alloc.allocate(1);
 			// alloc.construct(this->data, c.data);
-			data = c->data;
+			std::cout << "data: " << c->data << std::endl;
+			// ÷
 			// data.first = c->data.first;
 			// data.second = c->data.second;
 			left = c->left;
@@ -107,8 +108,14 @@ namespace ft {
 		}
 			
 	};
-
-
+	// template <class T>
+	// std::ostream & operator<<(std::ostream &os, const Node<T> &c)
+	// {
+	// 	std::cout << "dasdasd" << std::endl;
+	// 	os << c->data.first;
+	// 	os << c->data.second;
+	// 	return os;
+	// }
 
 	template <typename T, class comp, class Alloc = std::allocator<T> >
 	class RBT 
@@ -130,7 +137,7 @@ namespace ft {
 				allocator_type alloc;
 				size_type size;
 	public:
-		explicit RBT() :  comp_()
+		RBT()
 		{
 			root = NULL;
 			nil = NULL;
@@ -138,7 +145,7 @@ namespace ft {
 
 		~RBT()
 		{
-			
+			clear_all(this->root);
 		}
 
 		void    leftRotate(nodeptr x)
@@ -386,7 +393,7 @@ namespace ft {
 		}
 		
 		
-		nodeptr find_min(nodeptr x)
+		static nodeptr find_min(nodeptr x)
 		{
 			//std::cout << "find_min" << std::endl;
 			//x = x->right;
@@ -397,7 +404,7 @@ namespace ft {
 			return x;
 		}
 		
-		nodeptr find_max(nodeptr x)
+		static nodeptr find_max(nodeptr x)
 		{
 			if (x == NULL)
 				return NULL;
@@ -705,6 +712,16 @@ namespace ft {
 			deleteNode(z);
 		}	
 
+
+		nodeptr begin()
+		{
+			nodeptr z = find_min(root);
+			if (z != NULL)
+				std::cout << z->data.first << std::endl;
+			return z;
+		}
+
+
 		// void deleteNode(nodeptr node, first key)
 		// {
 		// 	nodeptr z = NULL;
@@ -806,10 +823,22 @@ bool isBalanced(nodeptr root){
    return isBalancedUtil(root, maxh1, minh1);
 }
 
+
+
+			void	clear_all(nodeptr src)
+			{
+				if (src == NULL)
+					return ;
+				clear_all(src->left);
+				clear_all(src->right);
+				//_alloc.deallocate(src->data, 1);
+				alloc.destroy(src);
+				alloc.deallocate(src, 1);
+			}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-		 void        inoderprint(nodeptr x)
+		 static void        inoderprint(nodeptr x)
         {
             if (x != NULL)
             {

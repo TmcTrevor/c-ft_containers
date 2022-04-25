@@ -1,9 +1,10 @@
 #include <iostream>
-#include <map>
+//#include <map>
 #include <string>
-
-#include "tools/RBT.hpp"
-#include "tools/pair.hpp"
+#include <map>
+// #include "tools/RBT.hpp"
+// #include "tools/pair.hpp"
+#include "containers/map.hpp"
 // #include "tools/"
 // int main()
 // {
@@ -57,104 +58,124 @@
 
 int main()
 {
-    
+    // std::map<int, int> map1;
+    // map1.insert(std::make_pair(10,15));
+    // map1.insert(std::make_pair(101,15));
+    // map1.insert(std::make_pair(106,15));
+    // map1.insert(std::make_pair(11,15));
+    // std::map<int, int>::iterator mit = map1.begin(); ;
+    // std::cout << (*mit).first << std::endl;
+
+    ft::map<int, int> pq;
+    ft::pair<int, int> a;
+    a.first = 10;
+    a.second = 15;
+    // pq._rbt.insetINRbt(ft::make_pair(10, 1));
+    pq._rbt.insetINRbt(ft::make_pair(10, 15));
+    pq._rbt.insetINRbt(ft::make_pair(30, 15));
+    pq._rbt.insetINRbt(ft::make_pair(15, 15));
+    pq._rbt.insetINRbt(ft::make_pair(29, 15));
+    pq._rbt.insetINRbt(ft::make_pair(34, 15));
+    ft::map<int, int>::iterator it = pq.begin();
+    std::cout << "--------------------------------" << std::endl;
+    std::cout << (*it).first << std::endl;
     // ft::make_pair(10)
      //ft::Node<ft::pair<int, int> >::Nodeptr c;
-    ft::pair<int, int> c;
-    //std::allocator<ft::pair<int, int> >::rebind<ft::Node<ft::pair<int, int> > >::other  alloc_type;
-    //c = alloc_type.allocate(1);
-    c.first = 22;
-    c.second = 10;
-    // ft::Node<ft::pair<int, int> >::Nodeptr q;
-    // q = alloc_type.allocate(1);
-    // q->data.first = 7;
-    // q->data.second = -1;
-    ft::RBT<ft::pair<int, int>, ft::value_compare<int, int> > a;
-      a.insetINRbt(c);
-       ft::pair<int, int> q;
-     q.first = 31;
-    q.second = 10;
-//     a.root = a.insertNode(a.root, c);
-//    a.root =  a.insertNode(a.root, q);
+//     ft::pair<int, int> c;
+//     //std::allocator<ft::pair<int, int> >::rebind<ft::Node<ft::pair<int, int> > >::other  alloc_type;
+//     //c = alloc_type.allocate(1);
+//     c.first = 22;
+//     c.second = 10;
+//     // ft::Node<ft::pair<int, int> >::Nodeptr q;
+//     // q = alloc_type.allocate(1);
+//     // q->data.first = 7;
+//     // q->data.second = -1;
+//     ft::RBT<ft::pair<int, int>, ft::value_compare<int, int> > a;
+//       a.insetINRbt(c);
+//        ft::pair<int, int> q;
+//      q.first = 31;
+//     q.second = 10;
+// //     a.root = a.insertNode(a.root, c);
+// //    a.root =  a.insertNode(a.root, q);
 
-      a.insetINRbt(q);
+//       a.insetINRbt(q);
 
-     ft::pair<int, int> e;
-     e.first = 19;
-    e.second = 10;
-    //a.insetINRbt(e);
+//      ft::pair<int, int> e;
+//      e.first = 19;
+//     e.second = 10;
+//     //a.insetINRbt(e);
 
-  //a.printTree(a.root, NULL, false);
- // a.leftRotate(a.root->left);
+//   //a.printTree(a.root, NULL, false);
+//  // a.leftRotate(a.root->left);
 
-      //  e.first = 26;
-      // a.insetINRbt(e);
+//       //  e.first = 26;
+//       // a.insetINRbt(e);
 
-      e.first = 16;
-    a.insetINRbt(e);
-      e.first = 26;
-    a.insetINRbt(e);
-    e.first = 27;
-    a.insetINRbt(e);
-     e.first = 201;
-    a.insetINRbt(e);
-     e.first = 250;
-    a.insetINRbt(e);
-     e.first = 298;
-    a.insetINRbt(e);
-     e.first = 2777;
-    a.insetINRbt(e);
-      e.first = 2135;
-    a.insetINRbt(e);
-    //   e.first = 17;
-    // a.insetINRbt(e);
-     e.first = 2;
-    a.insetINRbt(e);
-     e.first = 18;
-    a.insetINRbt(e);
+//       e.first = 16;
+//     a.insetINRbt(e);
+//       e.first = 26;
+//     a.insetINRbt(e);
+//     e.first = 27;
+//     a.insetINRbt(e);
+//      e.first = 201;
+//     a.insetINRbt(e);
+//      e.first = 250;
+//     a.insetINRbt(e);
+//      e.first = 298;
+//     a.insetINRbt(e);
+//      e.first = 2777;
+//     a.insetINRbt(e);
+//       e.first = 2135;
+//     a.insetINRbt(e);
+//     //   e.first = 17;
+//     // a.insetINRbt(e);
+//      e.first = 2;
+//     a.insetINRbt(e);
+//      e.first = 18;
+//     a.insetINRbt(e);
 
     
-    //ft::Node<ft::pair<int, int> >::Nodeptr q;
-   // q = a.search(298);
-    e.first = 201;
-     a.deleteNode(e);
-      e.first = 298;
-    a.deleteNode(e);
+//     //ft::Node<ft::pair<int, int> >::Nodeptr q;
+//    // q = a.search(298);
+//     e.first = 201;
+//      a.deleteNode(e);
+//       e.first = 298;
+//     a.deleteNode(e);
 
-    //a.isBalanced(a.root) ? std::cout << "Balanced" << std::endl : std::cout << "NOTBalanced" << std::endl;
-    //   e.first = 2777;
-    // a.deleteNode(e);
-      e.first = 22;
-    a.deleteNode(e);
-   a.inoderprint(a.root);
-    e.first = 16;
-   a.deleteNode(e);
-  //  e.first = 22;
-  //  a.deleteNode(e);
+//     //a.isBalanced(a.root) ? std::cout << "Balanced" << std::endl : std::cout << "NOTBalanced" << std::endl;
+//     //   e.first = 2777;
+//     // a.deleteNode(e);
+//       e.first = 22;
+//     a.deleteNode(e);
+//    a.inoderprint(a.root);
+//     e.first = 16;
+//    a.deleteNode(e);
+//   //  e.first = 22;
+//   //  a.deleteNode(e);
     
 
-    //a.search(2135);
+//     //a.search(2135);
 
-  std::cout << std::endl <<"--------------------------------" << std::endl;
-    // std::cout << a.root->right->left << std::endl;
-    //  std::cout << a.root->color << std::endl;
-    //  std::cout << a.root->data.first << std::endl;
-    //   std::cout << a.root->left->color << std::endl;
-    //  std::cout << a.root->left->data.first << std::endl;
-    // std::cout << a.root->right->color << std::endl;
-    // std::cout << a.root->right->data.first << std::endl;
-    // std::cout << a.root->left->left->color << std::endl;
-    // std::cout << a.root->left->left->data.first << std::endl;
-  //  std::cout << a.root->left->left->color << std::endl;
-  //  std::cout << a.root->left->left->data.first << std::endl;
-  //  std::cout << a.root->right->right->data.first << std::endl;
-//    std::cout << a.root->left->left->data.first << std::endl;
-  //std::cout <<  "------------------------------" << std::endl;
-  a.printTree(a.root, NULL, false);
-//    a.print2DUtil(a.root, 0);
-   //a.root =  a.insertNode(a.root, q);
-    //std::cout << a.root->data.second << std::endl;
-    // a.print_node(a.root);
+//   std::cout << std::endl <<"--------------------------------" << std::endl;
+//     // std::cout << a.root->right->left << std::endl;
+//     //  std::cout << a.root->color << std::endl;
+//     //  std::cout << a.root->data.first << std::endl;
+//     //   std::cout << a.root->left->color << std::endl;
+//     //  std::cout << a.root->left->data.first << std::endl;
+//     // std::cout << a.root->right->color << std::endl;
+//     // std::cout << a.root->right->data.first << std::endl;
+//     // std::cout << a.root->left->left->color << std::endl;
+//     // std::cout << a.root->left->left->data.first << std::endl;
+//   //  std::cout << a.root->left->left->color << std::endl;
+//   //  std::cout << a.root->left->left->data.first << std::endl;
+//   //  std::cout << a.root->right->right->data.first << std::endl;
+// //    std::cout << a.root->left->left->data.first << std::endl;
+//   //std::cout <<  "------------------------------" << std::endl;
+   pq._rbt.printTree(pq._rbt.root, NULL, false);
+// //    a.print2DUtil(a.root, 0);
+//    //a.root =  a.insertNode(a.root, q);
+//     //std::cout << a.root->data.second << std::endl;
+//     // a.print_node(a.root);
 }
 
 

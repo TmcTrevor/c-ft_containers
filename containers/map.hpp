@@ -27,22 +27,14 @@ namespace ft {
             typedef typename allocator_type::pointer pointer;
             typedef typename allocator_type::const_pointer const_pointer;
 
-            typedef ft::RBT<value_type, key_compare, allocator_type> RBT;
-            typedef ft::BidiIterator<pointer> iterator;
-            typedef ft::BidiIterator<const_pointer> const_iterator;
-            typedef ft::reverse_iterator<iterator> reverse_iterator;
-            typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
-            typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
-            typedef std::size_t     size_type;
-
-
-            //template <class Key, class T, class Compare, class Alloc>
             class value_compare
             {   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
-                friend class map;
+                //friend class map;
                 protected:
-                Compare comp;
-                value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+                key_compare comp;
+                public :
+                value_compare() : comp() {}
+                value_compare (key_compare c) : comp(c) {}  // constructed with map's comparison object
                	public:
                 	typedef bool result_type;
                 	typedef value_type first_argument_type;
@@ -51,10 +43,20 @@ namespace ft {
                 	{
                 	    return comp(x.first, y.first);
                 	}
-			}
+			};
+            typedef ft::RBT<value_type, value_compare, allocator_type> RBT;
+            typedef ft::BidiIterator<value_type, value_compare, Alloc > iterator;
+            //typedef ft::BidiIterator<const_pointer> const_iterator;
+            typedef ft::reverse_iterator<iterator> reverse_iterator;
+            //typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
+            typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
+            typedef std::size_t     size_type;
 
-        private :
-            RBT rbt;
+
+            //template <class Key, class T, class Compare, class Alloc>
+
+       // private :
+            RBT _rbt;
             key_compare _cmp;
 			allocator_type _alloc;
 			size_type size;
@@ -77,6 +79,14 @@ namespace ft {
         map (const map& x)
         {
 
+        }
+
+        iterator begin()
+        {
+            //std::cout << _rbt.begin()->data.first << std::endl;
+            iterator it(_rbt.begin());
+           // std::cout << it << std::endl;
+            return it;
         }
     
     };

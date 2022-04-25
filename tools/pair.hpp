@@ -7,7 +7,7 @@ namespace ft {
     template <class T1, class T2> 
 	struct pair
 	{
-		public: 
+		public : 
 		typedef T1 first_type;
 		typedef T1 second_type;
 
@@ -35,8 +35,8 @@ namespace ft {
 
 		pair& operator= (const pair& pr)
 		{
-			first = pr.first;
-			second = pr.second;
+			 //first = pr.first;
+			 //second = pr.second;
 			return *this;
 		}
 
@@ -101,6 +101,12 @@ namespace ft {
   	{
   	  return ( pair<T1,T2>(x,y) );
   	}
+	template<class T1, class T2>
+	std::ostream &operator<<(std::ostream &os, const pair<T1, T2> lhs)
+	{
+		os << lhs.first << " " << lhs.second;
+		return os;
+	}
 
 }
 #endif 
