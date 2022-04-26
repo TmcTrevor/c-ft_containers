@@ -82,6 +82,11 @@ namespace ft {
 
         }
 
+    /** ************************************************************************** */
+	 /**                               ITERATORS                                    */
+	 /** ************************************************************************** */
+
+        
         iterator begin()
         {
             //std::cout << _rbt.begin()->data.first << std::endl;
@@ -89,6 +94,16 @@ namespace ft {
            // std::cout << it << std::endl;
             return it;
         }
+
+
+        iterator end()
+        {
+            iterator it(_rbt.end());
+            if (it.base() == NULL)
+                std::cout << "hello " << std::endl;
+            return it;
+        }
+
         void erase(key_type)
         {
             

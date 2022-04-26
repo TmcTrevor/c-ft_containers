@@ -52,13 +52,14 @@ namespace ft {
 		Nodeptr parent;
 		Nodeptr left;
 		Nodeptr right;
+		Nodeptr root;
 		//Alloc alloc;
 		size_type height;
 		size_type blackheight;
 		size_type redheight;
 		int color;
 
-		Node(T data) : data(data), parent(NULL), left(NULL), right(NULL), height(1), color(RED), blackheight(2), redheight(0)
+		Node(T data) : data(data), parent(NULL), left(NULL), right(NULL), root(NULL),height(1), color(RED), blackheight(2), redheight(0)
 		{
 			//this->data = alloc.allocate(1);
 			//alloc.construct(this->data, T(data.first, data.second));
@@ -74,10 +75,11 @@ namespace ft {
 		{
 			// this->data = alloc.allocate(1);
 			// alloc.construct(this->data, c.data);
-			std::cout << "data: " << c->data << std::endl;
+			// std::cout << "data: " << c->data << std::endl;
 			// ÷
 			// data.first = c->data.first;
 			// data.second = c->data.second;
+			root = c->root;
 			left = c->left;
 			right = c->right;
 			parent = c->parent;
@@ -106,6 +108,16 @@ namespace ft {
 			//     alloc.deallocate(data, 1);
 			// }
 		}
+
+		static Nodeptr find_root(Nodeptr x)
+		{
+			if (x == NULL)
+				return NULL;
+			while (x->parent != NULL)
+				x = x->parent;
+			return x;
+		}
+
 			
 	};
 	// template <class T>
@@ -373,7 +385,7 @@ namespace ft {
 				return x;
 		}
 
-		nodeptr search(value_type::first val)
+		nodeptr search(value_type val)
 		{
 				nodeptr tmp = root;
 				while (1)
@@ -444,6 +456,7 @@ namespace ft {
 			return y;
 		}
 
+		
 		void rbTransplant(nodeptr u, nodeptr v) 
 		{
 			if (u->parent == nullptr) 
@@ -720,10 +733,10 @@ namespace ft {
 		}
 
 
-		void deleteNode(value_type::first val)
-		{
-			nodeptr z = search()
-		}
+		// void deleteNode(value_type val)
+		// {
+		// 	nodeptr z = search()
+		// }
 
 		void deleteNode(value_type val)
 		{
@@ -752,11 +765,13 @@ namespace ft {
 		nodeptr begin()
 		{
 			nodeptr z = find_min(root);
-			if (z != NULL)
-				std::cout << z->data.first << std::endl;
 			return z;
 		}
 
+		nodeptr end()
+		{
+			return NULL;
+		}
 
 		// void deleteNode(nodeptr node, first key)
 		// {
@@ -872,7 +887,15 @@ bool isBalanced(nodeptr root){
 				alloc.deallocate(src, 1);
 			}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+		void	update_root(nodeptr x)
+		{
+				if (root == NULL)
+					return ;
+				update_root(x->left);
+				x->root = root;
+				update(x->right);
+				
+		}
 
 		 static void        inoderprint(nodeptr x)
         {

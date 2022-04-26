@@ -29,6 +29,7 @@ namespace ft
              typedef std::ptrdiff_t difference_type;
 		   //  typedef typename ft::iterator_traits<T>::difference_type	difference_type;
 		// typedef typename ft::iterator_traits<T>::iterator_category iterator_category;
+        typedef typename ft::Node<iterator_type>  Node;
              typedef typename ft::Node<iterator_type>::Nodeptr    nodeptr;
              typedef ft::RBT<T, value_compare, Alloc> RBT;
             typedef std::bidirectional_iterator_tag iterator_category;
@@ -36,9 +37,9 @@ namespace ft
         private :
            // typedef ft::RBT<value_type, ft::value_compare, Alloc>::
             nodeptr root;
-            nodeptr max;
+            // nodeptr max;
             nodeptr it;
-            nodeptr prev;
+            // nodeptr prev;
             // nodeptr nil;
 
 
@@ -48,10 +49,10 @@ namespace ft
 		/** ************************************************************************** */
             
           
-                BidiIterator() {it = NULL; root = NULL; max = NULL;}
-                BidiIterator(nodeptr a) : it(a) { }
+                BidiIterator() {it = NULL; root = NULL;}
+                BidiIterator(nodeptr a) { if (a) it = a; else it = NULL; root = Node::find_root(a);}
                 template <typename it1>
-                BidiIterator(const BidiIterator<it1, value_compare, Alloc>& a) : it(a.base()) {} 
+                BidiIterator(const BidiIterator<it1, value_compare, Alloc>& a) : it(a.base()) {this->root = a.root;} 
                 ~BidiIterator(){}
            ////////////////////////////////////////////////////
 
@@ -64,7 +65,7 @@ namespace ft
 
 
 
-            iterator_type base() const { return it; }
+            nodeptr base() const { return it; }
 
         /** ************************************************************************** */
 		/**                                COMPARAISON OPERATORS PROTOTYPES            */
@@ -75,11 +76,14 @@ namespace ft
             return *this;
         }
 
-        // template <typename it1, typename it2>
-        // friend bool operator==(const BidiIterator<it1> &, const BidiIterator <it2> &);
+      
+        template <class it1, typename it2, class value_compare1, class Alloc1 >
+        friend bool operator==(const BidiIterator<it1, value_compare1, Alloc1> &a, const BidiIterator <it2, value_compare, Alloc> &b);
+      
 
-        // template <typename it1, typename it2>
-        // friend bool operator!=(const BidiIterator<it1> &, const BidiIterator <it2> &);
+          template <class it1, typename it2, class value_compare1, class Alloc1 >
+        friend bool operator!=(const BidiIterator<it1, value_compare1, Alloc1>&a, const BidiIterator <it2, value_compare1, Alloc1> &b);
+        
 
         // template <typename it1, typename it2>
         // friend bool operator>=(const BidiIterator<it1> &, const BidiIterator <it2> &);
@@ -119,7 +123,11 @@ namespace ft
 
         BidiIterator &operator--()
         {
-            --it;
+            std::cout << root->data.first << std::endl;
+            if (it == NULL)
+                it = RBT::find_max(root);
+            else
+                it = RBT::predecessor(it);
             return *this;
         }
         BidiIterator operator++(int)
@@ -135,41 +143,41 @@ namespace ft
             --it;
             return copie;
         }
-        pointer search()
-        {
+        // pointer search()
+        // {
             
-        }
+        // }
         /** ************************************************************************** */
 		/**                                ARETHMETIC OPERATORS                        */
 		/** ************************************************************************** */
 
 
-        BidiIterator operator+(difference_type n)
-        {
-            return (this->it + n);
-        }
+        // BidiIterator operator+(difference_type n)
+        // {
+        //     return (this->it + n);
+        // }
         
-        BidiIterator operator-(difference_type n)
-        {
-            return (this->it - n);
-        }
+        // BidiIterator operator-(difference_type n)
+        // {
+        //     return (this->it - n);
+        // }
 
-        BidiIterator &operator+=(difference_type n)
-        {
-            it += n;
-            return (*this);
-        }
+        // BidiIterator &operator+=(difference_type n)
+        // {
+        //     it += n;
+        //     return (*this);
+        // }
 
-        BidiIterator &operator-=(difference_type n)
-        {
-            it -= n;
-            return (*this);
-        }
+        // BidiIterator &operator-=(difference_type n)
+        // {
+        //     it -= n;
+        //     return (*this);
+        // }
 
-        reference operator[](difference_type n)
-        {
-            return (it[n]);
-        }
+        // reference operator[](difference_type n)
+        // {
+        //     return (it[n]);
+        // }
         // template<class it1, class it2>
         // friend typename BidiIterator<it1>::difference_type operator-(const BidiIterator<it1> &cp1, const BidiIterator<it2> &cp2);
 		// template<class it1>
@@ -181,17 +189,19 @@ namespace ft
 	/**                                COMPARAISON OPERATORS DEFINITION            */
 	/** ************************************************************************** */
     
-    // template <typename it1, typename it2>
-    // bool operator==(const BidiIterator<it1> &s, const BidiIterator <it2> &s1)
-    // {
-    //     return (s.it == s1.it);
-    // }
 
-    // template <typename it1, typename it2>
-    // bool operator!=(const BidiIterator<it1> &s, const BidiIterator <it2> &s1)
-    // {
-    //     return (s.it != s1.it);
-    // }
+    
+      template <class it1, typename it2, class value_compare1, class Alloc1 >
+    bool operator==(const BidiIterator<it1, value_compare1, Alloc1> &a, const BidiIterator <it2, value_compare1, Alloc1> &b)
+    {
+        return (a.it == b.it);
+    }
+
+      template <class it1, typename it2, class value_compare1, class Alloc1 >
+    bool operator!=(const BidiIterator<it1, value_compare1, Alloc1> &a, const BidiIterator <it2, value_compare1, Alloc1> &b)
+    {
+        return (a.it != b.it);
+    }
 
     // template <typename it1, typename it2>
     // bool operator>=(const BidiIterator<it1> &s, const BidiIterator <it2> &s1)

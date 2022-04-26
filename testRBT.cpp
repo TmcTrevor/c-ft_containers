@@ -75,16 +75,20 @@ int main()
     a.second = 15;
     // pq._rbt.insetINRbt(ft::make_pair(10, 1));
     pq._rbt.insetINRbt(ft::make_pair(10, 15));
-    // pq._rbt.insetINRbt(ft::make_pair(30, 15));
-    // pq._rbt.insetINRbt(ft::make_pair(15, 15));
-    // pq._rbt.insetINRbt(ft::make_pair(29, 15));
-    // pq._rbt.insetINRbt(ft::make_pair(34, 15));
-    ft::map<int, int>::iterator it = pq.begin();
-    std::cout << "--------------------------------" << std::endl;
-    ++it;
-    //++it;
-    std::cout << (*it).first << std::endl;
-    std::cout << (*it).first << std::endl;
+    pq._rbt.insetINRbt(ft::make_pair(30, 15));
+    pq._rbt.insetINRbt(ft::make_pair(15, 15));
+    pq._rbt.insetINRbt(ft::make_pair(29, 15));
+    pq._rbt.insetINRbt(ft::make_pair(34, 15));
+    
+    // ft::map<int, int>::iterator it = pq.begin();
+    // ft::map<int, int>::iterator it1 = pq.end();
+    // std::cout << "--------------------------------" << std::endl;
+    // --it1;
+    // for (it = pq.end(); it != pq.begin(); --it)
+    // {
+      //  std::cout << (*it1).first << std::endl;
+    // }
+    //std::cout << (*it).first << std::endl;
    
     // ft::make_pair(10)
      //ft::Node<ft::pair<int, int> >::Nodeptr c;
@@ -178,7 +182,7 @@ int main()
 //   //  std::cout << a.root->right->right->data.first << std::endl;
 // //    std::cout << a.root->left->left->data.first << std::endl;
 //   //std::cout <<  "------------------------------" << std::endl;
-  // pq._rbt.printTree(pq._rbt.root, NULL, false);
+   pq._rbt.printTree(pq._rbt.root, NULL, false);
 // //    a.print2DUtil(a.root, 0);
 //    //a.root =  a.insertNode(a.root, q);
 //     //std::cout << a.root->data.second << std::endl;
