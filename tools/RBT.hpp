@@ -171,7 +171,10 @@ namespace ft {
 				y->left->parent = x;
 			y->parent = x->parent;
 			if (x->parent == NULL)
+			{
 				this->root = y;
+				update_root(root);
+			}
 			else if (x->parent->left == x)
 				x->parent->left = y;
 			else
@@ -192,7 +195,10 @@ namespace ft {
 					x->right->parent = y;
 				x->parent = y->parent;
 				if (y->parent == NULL)
+				{
 					this->root = x;
+					update_root(root);
+				}
 				else if (y->parent->left == x)
 					y->parent->left = x;
 				else
@@ -210,6 +216,8 @@ namespace ft {
 			{
 				new_node->color =  BLACK;
 				this->root = new_node;
+				new_node->root = new_node;
+				//update_root(root);
 				return  new_node;
 			}
 			else
@@ -241,6 +249,7 @@ namespace ft {
 			nodeptr newNode = alloc.allocate(1);
 			alloc.construct(newNode, Node<value_type>(val));
 			root = insertNode(root, newNode);
+			//update_root(root);
 			fixBRT(newNode);
 		}
 
@@ -460,7 +469,10 @@ namespace ft {
 		void rbTransplant(nodeptr u, nodeptr v) 
 		{
 			if (u->parent == nullptr) 
+			{
 				this->root = v;
+				update_root(root);
+			}
 			else if (u == u->parent->left)
 			{
 				u->parent->left = v;
@@ -893,7 +905,7 @@ bool isBalanced(nodeptr root){
 					return ;
 				update_root(x->left);
 				x->root = root;
-				update(x->right);
+				update_root(x->right);
 				
 		}
 
@@ -903,7 +915,7 @@ bool isBalanced(nodeptr root){
             {
                 inoderprint(x->left);
                 std::cout << "(" << x->data.first << "), ";
-                // std::cout << "(" << x->left << "), ";
+                 std::cout << " its root = " << x->root->data.first << "), " << std::endl;
                 // std::cout << "(" << x->right << "), ";
                 // std::cout << "(" << x->parent << "), ";
                 inoderprint(x->right);

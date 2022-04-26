@@ -73,13 +73,14 @@ int main()
     ft::pair<int, int> a;
     a.first = 10;
     a.second = 15;
-    // pq._rbt.insetINRbt(ft::make_pair(10, 1));
+    //pq._rbt.insetINRbt(ft::make_pair(10, 1));
     pq._rbt.insetINRbt(ft::make_pair(10, 15));
-    pq._rbt.insetINRbt(ft::make_pair(30, 15));
-    pq._rbt.insetINRbt(ft::make_pair(15, 15));
-    pq._rbt.insetINRbt(ft::make_pair(29, 15));
-    pq._rbt.insetINRbt(ft::make_pair(34, 15));
     
+   pq._rbt.insetINRbt(ft::make_pair(30, 15));
+    // pq._rbt.insetINRbt(ft::make_pair(15, 15));
+    // pq._rbt.insetINRbt(ft::make_pair(29, 15));
+    // pq._rbt.insetINRbt(ft::make_pair(34, 15));
+    pq._rbt.inoderprint(pq._rbt.root);
     // ft::map<int, int>::iterator it = pq.begin();
     // ft::map<int, int>::iterator it1 = pq.end();
     // std::cout << "--------------------------------" << std::endl;
