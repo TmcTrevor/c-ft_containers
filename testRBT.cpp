@@ -77,7 +77,7 @@ int main()
     pq._rbt.insetINRbt(ft::make_pair(10, 15));
     
    pq._rbt.insetINRbt(ft::make_pair(30, 15));
-    // pq._rbt.insetINRbt(ft::make_pair(15, 15));
+    pq._rbt.insetINRbt(ft::make_pair(15, 15));
     // pq._rbt.insetINRbt(ft::make_pair(29, 15));
     // pq._rbt.insetINRbt(ft::make_pair(34, 15));
     pq._rbt.inoderprint(pq._rbt.root);

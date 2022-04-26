@@ -111,11 +111,7 @@ namespace ft {
 
 		static Nodeptr find_root(Nodeptr x)
 		{
-			if (x == NULL)
-				return NULL;
-			while (x->parent != NULL)
-				x = x->parent;
-			return x;
+			return x->root;
 		}
 
 			
@@ -163,7 +159,7 @@ namespace ft {
 		void    leftRotate(nodeptr x)
 		{
 			nodeptr y = x->right;
-
+			int flag = 0;
 			//if (x->right)
 			// std::cout << "Left Rotate before" << x->data.first << std::endl;
 			x->right = y->left;
@@ -173,7 +169,7 @@ namespace ft {
 			if (x->parent == NULL)
 			{
 				this->root = y;
-				update_root(root);
+				flag = 1;
 			}
 			else if (x->parent->left == x)
 				x->parent->left = y;
@@ -181,12 +177,14 @@ namespace ft {
 				x->parent->right = y;
 			y->left = x;
 			x->parent = y;
+			if (flag)
+				update_root(root);
 		}
 		
 		void    rightRotate(nodeptr y)
 		{
 			nodeptr x = y->left;
-
+			int flag = 0;
 			//if (x)
 			//{
 				 //x->right = y->left;
@@ -197,7 +195,8 @@ namespace ft {
 				if (y->parent == NULL)
 				{
 					this->root = x;
-					update_root(root);
+					flag = 1;
+					//update_root(root);
 				}
 				else if (y->parent->left == x)
 					y->parent->left = x;
@@ -205,6 +204,8 @@ namespace ft {
 					y->parent->right = x;
 				x->right = y;
 				y->parent = x;
+				if (flag)
+				update_root(root);
 			//}
 		}
 
@@ -241,6 +242,7 @@ namespace ft {
 
 				new_node->color = RED;
 			}
+			new_node->root = t;
 			return t;
 		}
 
@@ -250,6 +252,7 @@ namespace ft {
 			alloc.construct(newNode, Node<value_type>(val));
 			root = insertNode(root, newNode);
 			//update_root(root);
+			
 			fixBRT(newNode);
 		}
 
@@ -372,6 +375,7 @@ namespace ft {
 							}
 							makeItBlack(y);
 							makeItRED(z);
+							std::cout << "hello" << std::endl;
 							leftRotate(z);
 							x = y;
 						}
@@ -901,12 +905,14 @@ bool isBalanced(nodeptr root){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		void	update_root(nodeptr x)
 		{
-				if (root == NULL)
-					return ;
+			//if (x && x->left)
+			//	std::cout << "update_root : " << x->left->data.first << std::endl;
+			if (x != NULL )
+			{
 				update_root(x->left);
 				x->root = root;
 				update_root(x->right);
-				
+			}	
 		}
 
 		 static void        inoderprint(nodeptr x)
@@ -915,7 +921,9 @@ bool isBalanced(nodeptr root){
             {
                 inoderprint(x->left);
                 std::cout << "(" << x->data.first << "), ";
-                 std::cout << " its root = " << x->root->data.first << "), " << std::endl;
+				if (x->root)
+                std::cout << " its root = " << x->root->data.first << "), ";
+				std::cout << std::endl;
                 // std::cout << "(" << x->right << "), ";
                 // std::cout << "(" << x->parent << "), ";
                 inoderprint(x->right);
