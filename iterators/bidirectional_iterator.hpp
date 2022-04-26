@@ -38,6 +38,7 @@ namespace ft
             nodeptr root;
             nodeptr max;
             nodeptr it;
+            nodeptr prev;
             // nodeptr nil;
 
 
@@ -106,11 +107,16 @@ namespace ft
         {
             return it->data;
         }
+
         BidiIterator &operator++()
         {
-            it = RBT::find_min(it->right);
+            if (it == RBT::find_max(root))
+                it = NULL;
+            else
+                it = RBT::successor(it);
             return *this;
         }
+
         BidiIterator &operator--()
         {
             --it;
@@ -118,6 +124,7 @@ namespace ft
         }
         BidiIterator operator++(int)
         {
+
             BidiIterator copie(*this);
             ++it;
             return copie;
@@ -128,7 +135,10 @@ namespace ft
             --it;
             return copie;
         }
-
+        pointer search()
+        {
+            
+        }
         /** ************************************************************************** */
 		/**                                ARETHMETIC OPERATORS                        */
 		/** ************************************************************************** */

@@ -373,7 +373,7 @@ namespace ft {
 				return x;
 		}
 
-		nodeptr search(value_type val)
+		nodeptr search(value_type::first val)
 		{
 				nodeptr tmp = root;
 				while (1)
@@ -412,6 +412,36 @@ namespace ft {
 				x = x->right;
 			return x;
 			
+		}
+
+		static nodeptr predecessor(nodeptr x)
+		{
+			nodeptr y;
+
+			if (x->left != NULL)
+				return (find_max(x->left));
+			y = x->parent;
+			while (y && x == y->left)
+			{
+				x = y;
+				y = y->parent;
+			}
+			return y;
+		}
+
+		static nodeptr successor(nodeptr x)
+		{
+			nodeptr y;
+			
+			if (x->right != NULL)
+				return (find_min(x->right));
+			y = x->parent;
+			while (y && x == y->right)
+			{
+				x = y;
+				y = y->parent;
+			}
+			return y;
 		}
 
 		void rbTransplant(nodeptr u, nodeptr v) 
@@ -687,6 +717,12 @@ namespace ft {
 			std::swap(y->data, z->data);
 			//std::cout << y->data.first << std::endl;
 			deleteNode(y);
+		}
+
+
+		void deleteNode(value_type::first val)
+		{
+			nodeptr z = search()
 		}
 
 		void deleteNode(value_type val)

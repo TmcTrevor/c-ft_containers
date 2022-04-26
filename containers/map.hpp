@@ -44,6 +44,7 @@ namespace ft {
                 	    return comp(x.first, y.first);
                 	}
 			};
+
             typedef ft::RBT<value_type, value_compare, allocator_type> RBT;
             typedef ft::BidiIterator<value_type, value_compare, Alloc > iterator;
             //typedef ft::BidiIterator<const_pointer> const_iterator;
@@ -88,7 +89,10 @@ namespace ft {
            // std::cout << it << std::endl;
             return it;
         }
-    
+        void erase(key_type)
+        {
+            
+        }
     };
 
     
