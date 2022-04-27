@@ -47,12 +47,12 @@ namespace ft {
 
             typedef ft::RBT<value_type, value_compare, allocator_type> RBT;
             typedef ft::BidiIterator<value_type, value_compare, Alloc > iterator;
-            //typedef ft::BidiIterator<const_pointer> const_iterator;
+            typedef ft::BidiIterator<const value_type, value_compare, Alloc > const_iterator;
             typedef ft::reverse_iterator<iterator> reverse_iterator;
-            //typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
+            typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
             typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
             typedef std::size_t     size_type;
-
+            typedef typename Node<value_type>::Nodeptr    nodeptr;
 
             //template <class Key, class T, class Compare, class Alloc>
 
@@ -60,11 +60,11 @@ namespace ft {
             RBT _rbt;
             key_compare _cmp;
 			allocator_type _alloc;
-			size_type size;
+			size_type size1;
             
         public :
             explicit map (const key_compare& comp = key_compare(),
-              const allocator_type& alloc = allocator_type()) : _cmp(comp), _alloc(alloc), size(0)
+              const allocator_type& alloc = allocator_type()) : _cmp(comp), _alloc(alloc), size1(0)
             {
 
             }
@@ -95,19 +95,173 @@ namespace ft {
             return it;
         }
 
+        const_iterator begin() const
+        {
+            return (const_iterator(_rbt.begin()));
+        }
 
         iterator end()
         {
-            iterator it(_rbt.end());
-            if (it.base() == NULL)
-                std::cout << "hello " << std::endl;
+            iterator it(_rbt.root, _rbt.end());
             return it;
         }
 
-        void erase(key_type)
+        const_iterator end() const
+        {
+            return (const_iterator(_rbt.root, _rbt.end()));
+        }
+
+        reverse_iterator rbegin()
+        {
+            reverse_iterator(RBT::find_max(_rbt.root));
+        }
+
+        const_reverse_iterator rbegin() const
+        {
+                const_reverse_iterator(RBT::find_max(_rbt.root));
+        }
+
+
+        reverse_iterator rend()
+        {
+                return reverse_iterator(end());
+        }
+        const_reverse_iterator rend() const
+        {
+            return reverse_iterator(end());
+        }
+
+
+        /** ************************************************************************** **/
+	    /**                               CAPACITY                                     **/
+	    /** ************************************************************************** **/
+
+        bool empty() const
+        {
+            return _rbt.empty();
+        }
+
+        size_type size() const
+        {
+            return _rbt.getSize();
+        }
+
+        size_type max_size() const
+        {
+            return _alloc.max_size();
+        }
+        
+         /** ************************************************************************** **/
+	/**                               ELEMENT ACCESS                               **/
+	/** ************************************************************************** **/
+       
+       mapped_type& operator[] (const key_type& k)
+       {
+        //    value_type a(k, mapped_type());
+
+        //   typename RBT::nodeptr node = _rbt.search(a);
+        //     return node->data.second;
+
+       }
+        /** ************************************************************************** **/
+	    /**                               Modifiers                                    **/
+	    /** ************************************************************************** **/
+
+	
+        ft::pair<iterator,bool> insert (const value_type& val)
+        {
+            //nodeptr a(val);
+            bool exists = false;
+            if (!_rbt.search(val))
+                exists = true;
+            nodeptr a = _rbt.insetINRbt(val);
+           // std::cout << exists << std::endl;
+            return ft::make_pair<iterator, bool>(iterator(_rbt.getRoot(), a), exists);
+        }
+     
+        iterator insert (iterator position, const value_type& val)
+        {
+             nodeptr a = _rbt.insetINRbt(val);
+             return iterator(_rbt.getRoot(), a);
+        }
+    
+        template <class InputIterator>
+        void insert (InputIterator first, InputIterator last)
+        {
+                while (first != last)
+                {
+                    this->insert(*first);
+                    first++;
+                }
+        }
+
+
+        void erase (iterator position)
+        {
+                _rbt.deleteNode(position.base());
+        }
+
+       void erase (const key_type& k)
         {
             
         }
+        void erase (iterator first, iterator last)
+        {
+
+        }
+
+        void swap (map& x)
+        {
+            RBT _tmpTree = x->_rbt;
+            size_type i = x->size();
+            x->_rbt = this->_rbt;
+            x->size1 =  this->size();
+            this->_rbt = _tmpTree;
+            this->size1 = i;
+        }
+        void clear()
+        {
+            //calling erase from begin() to end();
+        }
+
+        /** ************************************************************************** **/
+	    /**                               OBSERVERS                                    **/
+	    /** ************************************************************************** **/
+
+        key_compare key_comp() const
+        {
+            return _cmp;
+        }
+
+        value_compare value_comp() const
+        {
+            return value_compare(_cmp);
+        }
+         /** ************************************************************************** **/
+	    /**                               OPERATIONS                                    **/
+	    /** ************************************************************************** **/
+
+         iterator find (const key_type& k)
+         {
+            ft::pair<key_type, mapped_type> a(k, mapped_type()) ;
+            nodeptr node = _rbt.search(a);
+            return iterator(_rbt.getRoot(), a);
+         }
+
+        const_iterator find (const key_type& k) const
+        {
+            ft::pair<key_type, mapped_type>(k, mapped_type()) a;
+            nodeptr node = _rbt.search(a);
+            return const_iterator(_rbt.getRoot(), a);
+        }
+
+        size_type count (const key_type& k) const
+        {
+            if (find(k))
+                return 1;
+            return (0);
+        }
+
     };
 
     

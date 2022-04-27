@@ -2,111 +2,79 @@
 #define PAIR_HPP
 
 
-namespace ft {
+namespace ft{
 
-    template <class T1, class T2> 
-	struct pair
-	{
-		public : 
-		typedef T1 first_type;
-		typedef T1 second_type;
+template <class T1, class T2>
+struct pair
+{
+    public:
+        //Member types 
+        typedef T1  first_type;
+        typedef T2  second_type;
+        // Member variables
+        T1 first;
+        T2 second;
+        //Member functions
+                //Constructs
+        pair(): first(T1()), second(T2())//default 
+        {
+          // std::cout << "is here" << std::endl;
+            // first = T1();
+            // second = T2();
+        } 
+        template<class U, class V> 
+        pair (const pair<U, V>  &pr): first(pr.first), second(pr.second) {}// copy constructs
+        pair (const first_type& a, const second_type& b) : first(a), second(b){} //initialization constructs
+        // private:
+        ~pair(){} // dest
+        public:
+        pair<T1, T2> &operator = (const pair<T1, T2>& otherPair) 
+    	{
+        	first=otherPair.first;
+        	second=otherPair.second;
+       	 	return *this;
+    	}
+};
+//Non-member pair function overloads
+    template <class T1, class T2>
+  bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+  {
+      return (lhs.first == rhs.first && lhs.second == rhs.second);
+  }
+     template <class T1, class T2>
+  bool operator!= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+  {
+    return !(lhs == rhs); 
+  }
+  template <class T1, class T2>
+  bool operator<  (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+ { 
+    return lhs.first < rhs.first || (!(rhs.first < lhs.first) && lhs.second < rhs.second);
+ }
+ template <class T1, class T2>
+  bool operator<= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+    { 
+        return !(rhs < lhs); 
+    }
+template <class T1, class T2>
+  bool operator>  (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+{
+     return rhs < lhs; 
+}
 
+template <class T1, class T2>
+  bool operator>= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
+{ 
+    return !(lhs < rhs); 
+}
 
-		first_type first;
-		second_type second;
+template <class T1, class T2>
+ft::pair<T1, T2> make_pair (T1 x, T2 y)
+{
+    return (ft::pair<T1, T2>(x, y));
+}
 
-		pair() : first(first_type()), second(second_type())
-		{
-			// first = 0;
-			// second = 0;
-		}
-
-		template<class U, class V>
-		pair (const pair<U,V>& pr) : first(pr.first), second(pr.second) {}
-		// {
-		// 	first = pr.first;
-		// 	second = pr.second;
-		// }
-
-		pair (const first_type& a, const second_type& b) : first(a), second(b)
-		{
-
-		}
-
-		pair& operator= (const pair& pr)
-		{
-			 //first = pr.first;
-			 //second = pr.second;
-			return *this;
-		}
-
-		template <class T3, class T4>
-  		friend bool operator== (const pair<T3,T4>& lhs, const pair<T3,T4>& rhs);
-
-		template <class T3, class T4>
-  		friend bool operator!= (const pair<T3,T4>& lhs, const pair<T3,T4>& rhs);
-
-		template <class T3, class T4>
-  		friend bool operator<  (const pair<T3,T4>& lhs, const pair<T3,T4>& rhs);
-
-		template <class T3, class T4>
-  		friend bool operator<= (const pair<T3,T4>& lhs, const pair<T3,T4>& rhs);
-
-		template <class T3, class T4>
-  		friend bool operator>  (const pair<T3,T4>& lhs, const pair<T3,T4>& rhs);
-
-		template <class T3, class T4>
-  		friend bool operator>= (const pair<T3,T4>& lhs, const pair<T3,T4>& rhs);
-
-	};
-
-	template <class T1, class T2>
- 	bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{
-		return lhs.first==rhs.first && lhs.second==rhs.second;
-	}
-
-	template <class T1, class T2>
-  	bool operator!= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{
-		return !(lhs==rhs);
-	}
-
-	template <class T1, class T2>
-  	bool operator<  (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{
-		return lhs.first<rhs.first || (!(rhs.first<lhs.first) && lhs.second<rhs.second);
-	}
-
-	template <class T1, class T2>
-  	bool operator<= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{
-		return !(rhs<lhs);
-	}
-
-	template <class T1, class T2>
-  	bool operator>  (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{
-		return rhs<lhs;
-	}
-
-	template <class T1, class T2>
-  	bool operator>= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{
-		return !(lhs<rhs);
-	}
-
-	template <class T1,class T2>
-  	pair<T1,T2> make_pair (T1 x, T2 y)
-  	{
-  	  return ( pair<T1,T2>(x,y) );
-  	}
-	template<class T1, class T2>
-	std::ostream &operator<<(std::ostream &os, const pair<T1, T2> lhs)
-	{
-		os << lhs.first << " " << lhs.second;
-		return os;
-	}
 
 }
+
 #endif 

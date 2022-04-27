@@ -56,10 +56,14 @@
 //    std::cerr << a << " " <<std::endl;
 // }
 
+
 int main()
 {
-    // std::map<int, int> map1;
-    // map1.insert(std::make_pair(10,15));
+    //  std::map<int, int> map1;
+    //  std::pair< std::map<int, int>::iterator, bool> a;
+    // a = map1.insert(std::make_pair(10,15));
+    // a = map1.insert(std::make_pair(10,15));
+    // std::cout << a.second << std::endl;
     // // map1.insert(std::make_pair(101,15));
     // // map1.insert(std::make_pair(106,15));
     // // map1.insert(std::make_pair(11,15));
@@ -69,25 +73,39 @@ int main()
     // // ++mit;
     // std::cout << (*mit).first << std::endl;
 
-    ft::map<int, int> pq;
-    ft::pair<int, int> a;
-    a.first = 10;
-    a.second = 15;
-    //pq._rbt.insetINRbt(ft::make_pair(10, 1));
-    pq._rbt.insetINRbt(ft::make_pair(10, 15));
+     ft::map<int, int> pq;
+    // ft::pair<int, int> a;
+    // a.first = 10;
+    // a.second = 15;
+   // pq._rbt.insetINRbt(ft::make_pair(10, 1));
+   ft::pair<ft::map<int, int>::iterator, bool> q;
+   ft::map<int, int>::iterator qc = pq.begin();
     
-   pq._rbt.insetINRbt(ft::make_pair(30, 15));
-    pq._rbt.insetINRbt(ft::make_pair(15, 15));
+   q = pq.insert(ft::make_pair(10, 15));
+   q = pq.insert(ft::make_pair(30, 15));
+   q = pq.insert(ft::make_pair(15, 15));
+   q = pq.insert(ft::make_pair(29, 15));
+   q = pq.insert(ft::make_pair(34, 15));
+
+   pq.erase(qc);
+//    q = pq.insert(ft::make_pair(10, 15));
+    //pq._rbt.insetINRbt(ft::make_pair(10, 15));
+    //if (q.first.base())
+    //std::cout << q.second << std::endl;
+    
+    // pq._rbt.insetINRbt(ft::make_pair(30, 15));
+    // pq._rbt.insetINRbt(ft::make_pair(15, 15));
     // pq._rbt.insetINRbt(ft::make_pair(29, 15));
     // pq._rbt.insetINRbt(ft::make_pair(34, 15));
-    pq._rbt.inoderprint(pq._rbt.root);
+    //pq._rbt.inoderprint(pq._rbt.root);
     // ft::map<int, int>::iterator it = pq.begin();
-    // ft::map<int, int>::iterator it1 = pq.end();
+    //  ft::map<int, int>::iterator it1 = pq.end();
+     //std::cout << "dasd"<<std::endl;
     // std::cout << "--------------------------------" << std::endl;
-    // --it1;
+    //  --it1;
     // for (it = pq.end(); it != pq.begin(); --it)
     // {
-      //  std::cout << (*it1).first << std::endl;
+    //   std::cout << pq[10] << std::endl;
     // }
     //std::cout << (*it).first << std::endl;
    

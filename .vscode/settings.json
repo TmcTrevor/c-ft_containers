@@ -74,6 +74,7 @@
         "concepts": "cpp",
         "memory_resource": "cpp",
         "fstream": "cpp",
-        "ranges": "cpp"
+        "ranges": "cpp",
+        "__functional_03": "cpp"
     }
 }

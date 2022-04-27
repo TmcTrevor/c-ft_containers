@@ -149,11 +149,27 @@ namespace ft {
 		{
 			root = NULL;
 			nil = NULL;
+			size = 0;
 		}
 
 		~RBT()
 		{
 			clear_all(this->root);
+		}
+
+		// RBT(const RBT& a)
+		// {
+		// 	root = 
+		// }
+
+		nodeptr getRoot() const
+		{
+			return root;
+		}
+
+		size_type getSize() const
+		{
+			return size;
 		}
 
 		void    leftRotate(nodeptr x)
@@ -208,6 +224,22 @@ namespace ft {
 				update_root(root);
 			//}
 		}
+		nodeptr place_search(value_type a)
+		{
+			nodeptr x = this->root;
+			nodeptr y;
+
+			while (x != NULL)
+			{
+				y = x;
+				//oldfirst = x->data;
+				if (comp_(x->data, a))
+					x = x->right;
+				else if (comp_(a, x->data))
+				x = x->left;
+			}
+			return y;
+		}
 
 		nodeptr insertNode(nodeptr t, nodeptr new_node)
 		{
@@ -223,19 +255,11 @@ namespace ft {
 			}
 			else
 			{
-				value_type oldfirst  = x->data;
-				value_type newfirst = new_node->data;
-				while (x != NULL)
-				{
-					y = x;
-					oldfirst = x->data;
-					if (comp_(oldfirst, newfirst))
-						x = x->right;
-				   else if (comp_(newfirst, oldfirst))
-						x = x->left;
-				}
+				value_type oldfirst(x->data);
+				//value_type newfirst = new_node->data;
+				y = place_search(new_node->data);
 				new_node->parent = y;
-				if (comp_(newfirst, y->data))
+				if (comp_(new_node->data, y->data))
 					y->left = new_node;
 				else
 					y->right = new_node;
@@ -246,14 +270,23 @@ namespace ft {
 			return t;
 		}
 
-		void insetINRbt(value_type val)
+		nodeptr insetINRbt(value_type val)
 		{
+			nodeptr a;
+			 if ((a = search(val)))
+			 {
+				std::cout << a->data.first << std::endl;
+				 return NULL;
+			 }
 			nodeptr newNode = alloc.allocate(1);
 			alloc.construct(newNode, Node<value_type>(val));
+
 			root = insertNode(root, newNode);
+			size++;
 			//update_root(root);
 			
 			fixBRT(newNode);
+			return newNode;
 		}
 
 
@@ -748,7 +781,7 @@ namespace ft {
 			deleteNode(y);
 		}
 
-
+		
 		// void deleteNode(value_type val)
 		// {
 		// 	nodeptr z = search()
@@ -775,6 +808,7 @@ namespace ft {
 			if (z == NULL)
 				return ;
 			deleteNode(z);
+			size--;
 		}	
 
 
@@ -838,6 +872,9 @@ namespace ft {
 		// }
 
 
+		bool empty() const { if (root) return true; return false;}
+
+
 		void print2DUtil(nodeptr root, int space)
 {
 	// Base case
@@ -894,13 +931,14 @@ bool isBalanced(nodeptr root){
 
 			void	clear_all(nodeptr src)
 			{
-				if (src == NULL)
-					return ;
-				clear_all(src->left);
-				clear_all(src->right);
-				//_alloc.deallocate(src->data, 1);
-				alloc.destroy(src);
-				alloc.deallocate(src, 1);
+				if (src != NULL)
+				{
+					clear_all(src->left);
+					clear_all(src->right);
+					//_alloc.deallocate(src->data, 1);
+					alloc.destroy(src);
+					alloc.deallocate(src, 1);
+				}
 			}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		void	update_root(nodeptr x)

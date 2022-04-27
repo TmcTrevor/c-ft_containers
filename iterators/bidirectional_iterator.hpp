@@ -50,10 +50,20 @@ namespace ft
             
           
                 BidiIterator() {it = NULL; root = NULL;}
-                BidiIterator(nodeptr a) { if (a) it = a; else it = NULL; root = Node::find_root(a);}
+                BidiIterator(nodeptr a) : it(a) { Node::find_root(a); }
+                BidiIterator(nodeptr root, nodeptr a) : it(a)
+                {
+                    if (root)
+                        //std::cout << tree.root->data.first << std::endl;
+                        this->root = root;
+                }
+
                 template <typename it1>
                 BidiIterator(const BidiIterator<it1, value_compare, Alloc>& a) : it(a.base()) {this->root = a.root;} 
-                ~BidiIterator(){}
+                ~BidiIterator()
+                {
+                    
+                }
            ////////////////////////////////////////////////////
 
 
@@ -123,7 +133,7 @@ namespace ft
 
         BidiIterator &operator--()
         {
-            std::cout << root->data.first << std::endl;
+           // thisstd::cout << root->data.first << std::endl;
             if (it == NULL)
                 it = RBT::find_max(root);
             else
