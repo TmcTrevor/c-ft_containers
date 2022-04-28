@@ -53,6 +53,7 @@ namespace ft {
             typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
             typedef std::size_t     size_type;
             typedef typename Node<value_type>::Nodeptr    nodeptr;
+            typedef typename Node<value_type>::const_Nodeptr    const_nodeptr;
 
             //template <class Key, class T, class Compare, class Alloc>
 
@@ -102,13 +103,12 @@ namespace ft {
 
         iterator end()
         {
-            iterator it(_rbt.root, _rbt.end());
-            return it;
+            return iterator(_rbt.getRoot(), _rbt.end());
         }
 
         const_iterator end() const
         {
-            return (const_iterator(_rbt.root, _rbt.end()));
+            return (const_iterator(_rbt.getRoot(), _rbt.end()));
         }
 
         reverse_iterator rbegin()
@@ -250,7 +250,7 @@ namespace ft {
 
         const_iterator find (const key_type& k) const
         {
-            ft::pair<key_type, mapped_type>(k, mapped_type()) a;
+            ft::pair<key_type, mapped_type> a(k, mapped_type());
             nodeptr node = _rbt.search(a);
             return const_iterator(_rbt.getRoot(), a);
         }
@@ -261,6 +261,46 @@ namespace ft {
                 return 1;
             return (0);
         }
+
+        iterator lower_bound (const key_type& k)
+        {
+            std::cout << "lower_bound iter" << std::endl;
+            ft::pair<const key_type, mapped_type> a(k, mapped_type());
+            nodeptr node = _rbt.place_search(a);
+
+            if (node->data.first == k)
+                 return iterator(_rbt.getRoot(), node);
+            else if (!_cmp(node->data.first, k))
+            {
+                while (node->parent && !_cmp(node->data.first, k))
+                    node = node->parent;
+                return iterator(_rbt.getRoot(), node);
+            }
+            else  if (node && _cmp(node->data.first, k))
+                return iterator(_rbt.getRoot(),node);
+            return end();
+        }
+
+        const_iterator lower_bound (const key_type& k) const
+        {
+            std::cout << " const lower_bound iter" << std::endl;
+            ft::pair<const key_type, mapped_type> a(k, mapped_type());
+            nodeptr node = _rbt.place_search(a);
+
+            if (node->data.first == k)
+                 return const_iterator((_rbt.getRoot(), node));
+            else if (!_cmp(node->data.first, k))
+            {
+                while (node->parent && !_cmp(node->data.first, k))
+                    node = node->parent;
+                return const_iterator(_rbt.getRoot(), node);
+            }
+            else  if (node && _cmp(node->data.first, k))
+                return const_iterator(_rbt.getRoot(), node);
+            return end();
+        }
+
+        
 
     };
 

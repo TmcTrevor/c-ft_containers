@@ -3,21 +3,11 @@
 
 #include "iterator_traits.hpp"
 #include "../tools/RBT.hpp"
+//#include "../includes/mapInclude.hpp"
+// #include "../÷"
 
 namespace ft
 {
-
-  
-    // RANDOM_ACCESS_ITERATOR class
-
-      template <class T>
-	    std::ostream & operator<<(std::ostream &os, Node<T> const &c)
-	    {
-	    	std::cout << "dasdasd" << std::endl;
-             os << c->data.first;
-    	    os << c->data.second;
-	        return os;
-	    }
     template <class T, class value_compare, class Alloc >
     class BidiIterator
     {
@@ -29,13 +19,15 @@ namespace ft
              typedef std::ptrdiff_t difference_type;
 		   //  typedef typename ft::iterator_traits<T>::difference_type	difference_type;
 		// typedef typename ft::iterator_traits<T>::iterator_category iterator_category;
-        typedef typename ft::Node<iterator_type>  Node;
+             typedef typename ft::Node<iterator_type>  Node;
              typedef typename ft::Node<iterator_type>::Nodeptr    nodeptr;
+             typedef typename ft::Node<iterator_type>::Nodeptr    const_nodeptr;
              typedef ft::RBT<T, value_compare, Alloc> RBT;
             typedef std::bidirectional_iterator_tag iterator_category;
 
         private :
            // typedef ft::RBT<value_type, ft::value_compare, Alloc>::
+            typedef BidiIterator<const iterator_type, value_compare, Alloc > const_iterator;
             nodeptr root;
             // nodeptr max;
             nodeptr it;
@@ -50,20 +42,38 @@ namespace ft
             
           
                 BidiIterator() {it = NULL; root = NULL;}
-                BidiIterator(nodeptr a) : it(a) { Node::find_root(a); }
-                BidiIterator(nodeptr root, nodeptr a) : it(a)
+                BidiIterator(const nodeptr a) : it(a) { Node::find_root(a); }
+                BidiIterator(const nodeptr root, const nodeptr a) : it(a)
                 {
                     if (root)
                         //std::cout << tree.root->data.first << std::endl;
                         this->root = root;
                 }
-
+                //   BidiIterator(const_nodeptr root, const_nodeptr a) : it(a)
+                // {
+                //     if (root)
+                //         //std::cout << tree.root->data.first << std::endl;
+                //         this->root = root;
+                // }
+                operator const_iterator()
+	            {
+	            	// overload for const cast
+	            	return const_iterator(root, it);
+	            } 
+                // template<typename it1>
+                //  operator bidirectional_iterator<TT> () { return bidirectional_iterator<TT> (reinterpret_cast <typename bidirectional_iterator<TT>::node_ptr> (__current) , reinterpret_cast <typename bidirectional_iterator<TT>::node_ptr *> (__root)); }
+                // operator BidiIterator<it1, value_compare, Alloc> () { return BidiIterator<it1, value_compare, Alloc>(reinterpret_cast< typename BidiIterator<it1 , value_compare, Alloc>::nodeptr> (root), reinterpret_cast<typename BidiIterator<it1, value_compare, Alloc>::nodeptr>(it));}
                 template <typename it1>
                 BidiIterator(const BidiIterator<it1, value_compare, Alloc>& a) : it(a.base()) {this->root = a.root;} 
                 ~BidiIterator()
                 {
                     
                 }
+
+                // operator const_nodeptr() const
+                // {
+                //     return this->base();
+                // }
            ////////////////////////////////////////////////////
 
 
@@ -76,6 +86,7 @@ namespace ft
 
 
             nodeptr base() const { return it; }
+            // const_nodeptr base() const { return it; }
 
         /** ************************************************************************** */
 		/**                                COMPARAISON OPERATORS PROTOTYPES            */
@@ -83,6 +94,7 @@ namespace ft
         BidiIterator &operator=(BidiIterator const &c)
         {
             it = c.it;
+            root = c.root;
             return *this;
         }
 
@@ -144,13 +156,13 @@ namespace ft
         {
 
             BidiIterator copie(*this);
-            ++it;
+            ++(*this);
             return copie;
         }
         BidiIterator operator--(int)
         {
             BidiIterator copie(*this);
-            --it;
+            --(*this);
             return copie;
         }
         // pointer search()
@@ -204,12 +216,17 @@ namespace ft
       template <class it1, typename it2, class value_compare1, class Alloc1 >
     bool operator==(const BidiIterator<it1, value_compare1, Alloc1> &a, const BidiIterator <it2, value_compare1, Alloc1> &b)
     {
+        // if (a.base() == NULL && b.base() == NULL)
+        //     return true;
         return (a.it == b.it);
     }
 
       template <class it1, typename it2, class value_compare1, class Alloc1 >
     bool operator!=(const BidiIterator<it1, value_compare1, Alloc1> &a, const BidiIterator <it2, value_compare1, Alloc1> &b)
     {
+        // =std::cout << "dasd" << std::endl;
+        // if (a.base() == NULL && b.base() == NULL)
+        //     return false;
         return (a.it != b.it);
     }
 

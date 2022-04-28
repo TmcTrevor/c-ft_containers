@@ -2,7 +2,13 @@
 #define RBT_HPP
 
 #include <iostream>
-#include "pair.hpp"
+// #include "pair.hpp"
+#include "../iterators/bidirectional_iterator.hpp"  
+// #include "../containers/map.hpp"
+template <class T, class value_compare, class Alloc >
+class BidiIterator;
+
+
 #define BLACK 0
 #define RED   1
 #define COUNT 10
@@ -19,26 +25,6 @@
 
 namespace ft {
 
-
-// 	template <class key,class T, class Compare= std::less<key> >
-//  class value_compare
-//             {   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
-//                 typedef ft::pair<const key,T> value_type;
-//                 friend class map;
-//                	public:
-//                 //protected:
-//                 Compare comp;
-//                 value_compare (void) : comp() {}  // constructed with map's comparison object
-//                 value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
-//                 	typedef bool result_type;
-//                 	typedef value_type first_argument_type;
-//                 	typedef value_type second_argument_type;
-//                 	bool operator() (const value_type& x, const value_type& y) const
-//                 	{
-//                 	    return comp(x.first, y.first);
-//                 	}
-// 			};
-			
 	template <typename T >
 	struct Node {
 		public :
@@ -109,6 +95,11 @@ namespace ft {
 			// }
 		}
 
+		// operator const_Nodeptr() const 
+		// {
+		// 	return *this;
+		// }
+
 		static Nodeptr find_root(Nodeptr x)
 		{
 			return x->root;
@@ -131,8 +122,12 @@ namespace ft {
 			public :
 			typedef T value_type;
 			typedef typename Node<value_type>::Nodeptr    nodeptr;
+			typedef typename Node<value_type>::const_Nodeptr const_nodeptr;
 			typedef typename Node<value_type>::size_type size_type;
 			typedef typename Alloc::template rebind<Node<value_type> >::other allocator_type;
+			// typedef ft::BidiIterator<value_type, comp , Alloc > iterator;
+            // typedef ft::BidiIterator<const value_type, comp , Alloc > const_iterator;
+
 			
 
 
@@ -224,7 +219,7 @@ namespace ft {
 				update_root(root);
 			//}
 		}
-		nodeptr place_search(value_type a)
+		nodeptr place_search(value_type a) const
 		{
 			nodeptr x = this->root;
 			nodeptr y;
@@ -236,7 +231,9 @@ namespace ft {
 				if (comp_(x->data, a))
 					x = x->right;
 				else if (comp_(a, x->data))
-				x = x->left;
+					x = x->left;
+				else
+					return x;
 			}
 			return y;
 		}
@@ -408,7 +405,6 @@ namespace ft {
 							}
 							makeItBlack(y);
 							makeItRED(z);
-							std::cout << "hello" << std::endl;
 							leftRotate(z);
 							x = y;
 						}
@@ -811,7 +807,6 @@ namespace ft {
 			size--;
 		}	
 
-
 		nodeptr begin()
 		{
 			nodeptr z = find_min(root);
@@ -822,7 +817,34 @@ namespace ft {
 		{
 			return NULL;
 		}
+		// iterator begin()
+		// {
+		// 	iterator z(this->root, find_min(root));
+		// 	return z;
+		// }
 
+		// iterator end()
+		// {
+		// 	iterator z(this->root, NULL);
+		// 	return z;
+		// }
+
+		// const_iterator begin() const
+		// {
+		// 	const_iterator z(this->root, find_min(root));
+		// 	return z;
+		// }
+
+		// const_iterator end() const
+		// {
+		// 	const_iterator z(this->root, NULL);
+		// 	return z;
+		// }
+
+
+
+
+		// nodeptr lower_bound()
 		// void deleteNode(nodeptr node, first key)
 		// {
 		// 	nodeptr z = NULL;

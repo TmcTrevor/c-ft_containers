@@ -57,37 +57,106 @@
 // }
 
 
+
+
 int main()
 {
-    //  std::map<int, int> map1;
-    //  std::pair< std::map<int, int>::iterator, bool> a;
-    // a = map1.insert(std::make_pair(10,15));
-    // a = map1.insert(std::make_pair(10,15));
-    // std::cout << a.second << std::endl;
-    // // map1.insert(std::make_pair(101,15));
-    // // map1.insert(std::make_pair(106,15));
-    // // map1.insert(std::make_pair(11,15));
-    // std::map<int, int>::iterator mit = map1.end(); ;
-    // --mit;
-    // //++mit;
-    // // ++mit;
-    // std::cout << (*mit).first << std::endl;
+    // std::map<int, int> map;
 
-     ft::map<int, int> pq;
+    // map.insert(std::make_pair(10,15));
+    // std::map<int, int>::iterator it = map.begin();
+    // map.insert(std::make_pair(30,15));
+    // map.insert(std::make_pair(15,15));
+    // map.insert(std::make_pair(29,15));
+    // map.insert(std::make_pair(34,15));
+
+
+    // while (it != map.end())
+    // {
+    //     std::cout << (*it).first << std::endl;
+    //     it++;
+    // }
+
+
+    const ft::map<int, int> map;
+
+    // map.insert(ft::make_pair(10,15));
+    // map.insert(ft::make_pair(30,15));
+    // map.insert(ft::make_pair(15,15));
+    // map.insert(ft::make_pair(29,15));
+    // map.insert(ft::make_pair(34,15));
+
+    // ft::map<int, int>::iterator it = map.lower_bound(15);
+    ft::map<int, int>::iterator it = map.end();
+
+
+    //  if (it != map.end())
+    //     std::cout << "asda" << std::endl;
+    while (it != map.begin())
+    {
+        //std::cout <<"dasd" << std::endl;
+        std::cout << (*it).first << std::endl;
+        --it;
+    }
+}
+
+// int main()
+// {
+//      std::map<int, int> map1;
+//      std::pair< std::map<int, int>::iterator, bool> a;
+//     a = map1.insert(std::make_pair(10,15));
+//     a = map1.insert(std::make_pair(10,15));
+//     std::cout << a.second << std::endl;
+//     // map1.insert(std::make_pair(101,15));
+//     // map1.insert(std::make_pair(106,15));
+//     // map1.insert(std::make_pair(11,15));
+//     std::map<int, int>::iterator mit = map1.end(); ;
+//     --mit;
+//     //++mit;
+//     // ++mit;
+//     std::cout << (*mit).first << std::endl;
+
+//      ft::map<int, int> pq;
     // ft::pair<int, int> a;
     // a.first = 10;
     // a.second = 15;
    // pq._rbt.insetINRbt(ft::make_pair(10, 1));
-   ft::pair<ft::map<int, int>::iterator, bool> q;
-   ft::map<int, int>::iterator qc = pq.begin();
+//    ft::pair<ft::map<int, int>::iterator, bool> q;
     
-   q = pq.insert(ft::make_pair(10, 15));
-   q = pq.insert(ft::make_pair(30, 15));
-   q = pq.insert(ft::make_pair(15, 15));
-   q = pq.insert(ft::make_pair(29, 15));
-   q = pq.insert(ft::make_pair(34, 15));
+//    q = pq.insert(ft::make_pair(10, 15));
+//    q = pq.insert(ft::make_pair(30, 111));
+//    q = pq.insert(ft::make_pair(15, 12));
+//    q = pq.insert(ft::make_pair(29, 18));
+//    q = pq.insert(ft::make_pair(34, 1));
 
-   pq.erase(qc);
+//    ft::map<int, int>::iterator qc = pq.lower_bound(34);
+// //    pq.erase(qc);
+
+//     // for (qc = pq.begin(); qc != pq.end(); qc++)
+//         std::cout << (*qc).first << " -----" << (*qc).second << std::endl;
+//     qc++;
+//    // qc--;
+//     if (qc != pq.end())
+//         std::cout << "wqeqw" << std::endl;
+//    std::map<char,int> mymap;
+//   std::map<char,int>::iterator itlow,itup;
+
+//   mymap['a']=20;
+//   mymap['b']=40;
+//   mymap['c']=60;
+//   mymap['e']=80;
+//   mymap['f']=100;
+
+//   itlow=mymap.lower_bound ('d');  // itlow points to b
+// //   itup=mymap.upper_bound ('d');   // itup points to e (not d!)
+
+// // std::cout << (*itup).first << std::endl;
+// std::cout << (*itlow).first << std::endl;
+ // mymap.erase(itlow,itup);        // erases [itlow,itup)
+
+  // print content:
+//   for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+//     std::cout << it->first << " => " << it->second << '\n';
 //    q = pq.insert(ft::make_pair(10, 15));
     //pq._rbt.insetINRbt(ft::make_pair(10, 15));
     //if (q.first.base())
@@ -201,12 +270,12 @@ int main()
 //   //  std::cout << a.root->right->right->data.first << std::endl;
 // //    std::cout << a.root->left->left->data.first << std::endl;
 //   //std::cout <<  "------------------------------" << std::endl;
-   pq._rbt.printTree(pq._rbt.root, NULL, false);
+  // pq._rbt.printTree(pq._rbt.root, NULL, false);
 // //    a.print2DUtil(a.root, 0);
 //    //a.root =  a.insertNode(a.root, q);
 //     //std::cout << a.root->data.second << std::endl;
 //     // a.print_node(a.root);
-}
+// }
 
 
     //Y
