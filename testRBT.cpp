@@ -78,26 +78,26 @@ int main()
     // }
 
 
-    const ft::map<int, int> map;
+    ft::map<int, int> map;
 
-    // map.insert(ft::make_pair(10,15));
-    // map.insert(ft::make_pair(30,15));
-    // map.insert(ft::make_pair(15,15));
-    // map.insert(ft::make_pair(29,15));
-    // map.insert(ft::make_pair(34,15));
+    map.insert(ft::make_pair(10,15));
+    map.insert(ft::make_pair(30,15));
+    map.insert(ft::make_pair(15,15));
+    map.insert(ft::make_pair(29,15));
+    map.insert(ft::make_pair(34,15));
+    std::cout << map[15] << std::endl;
+    //  ft::map<int, int>::iterator it = map.lower_bound(15);
+    // // ft::map<int, int>::const_iterator it = map.end();
 
-    // ft::map<int, int>::iterator it = map.lower_bound(15);
-    ft::map<int, int>::iterator it = map.end();
 
-
-    //  if (it != map.end())
-    //     std::cout << "asda" << std::endl;
-    while (it != map.begin())
-    {
-        //std::cout <<"dasd" << std::endl;
-        std::cout << (*it).first << std::endl;
-        --it;
-    }
+    // //  if (it != map.end())
+    // //     std::cout << "asda" << std::endl;
+    // while (it != map.begin())
+    // {
+    //     //std::cout <<"dasd" << std::endl;
+    //         --it;
+    //     std::cout << (*it).first << std::endl;
+    // }
 }
 
 // int main()

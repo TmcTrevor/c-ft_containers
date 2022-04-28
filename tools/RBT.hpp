@@ -100,7 +100,7 @@ namespace ft {
 		// 	return *this;
 		// }
 
-		static Nodeptr find_root(Nodeptr x)
+		Nodeptr find_root(Nodeptr x)
 		{
 			return x->root;
 		}
@@ -150,6 +150,18 @@ namespace ft {
 		~RBT()
 		{
 			clear_all(this->root);
+		}
+
+		RBT &operator=(RBT const & a)
+		{
+			if (*this != a)
+			{
+				root = a.getRoot();
+				size = a.size();
+				alloc = a.alloc();
+				comp_ = a.comp();
+			}
+			return *this;
 		}
 
 		// RBT(const RBT& a)
@@ -497,7 +509,11 @@ namespace ft {
 			}
 			return y;
 		}
+			////////////////////////////////////////////////////////////////
 
+
+			
+			//////////////////		///////////////////////////////////////
 		
 		void rbTransplant(nodeptr u, nodeptr v) 
 		{
@@ -792,6 +808,7 @@ namespace ft {
 			if (z == NULL)
 				return ;
 			deleteNode(z);
+			size--;
 		}	
 
 		void deleteNode(nodeptr node, value_type key)
@@ -807,13 +824,13 @@ namespace ft {
 			size--;
 		}	
 
-		nodeptr begin()
+		nodeptr begin() const
 		{
 			nodeptr z = find_min(root);
 			return z;
 		}
 
-		nodeptr end()
+		nodeptr end() const
 		{
 			return NULL;
 		}
@@ -894,7 +911,7 @@ namespace ft {
 		// }
 
 
-		bool empty() const { if (root) return true; return false;}
+		bool empty() const { if (root) return false; return true;}
 
 
 		void print2DUtil(nodeptr root, int space)
