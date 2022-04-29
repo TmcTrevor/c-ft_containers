@@ -280,7 +280,7 @@ namespace ft {
 		nodeptr insetINRbt(value_type val)
 		{
 			nodeptr a;
-			 if ((a = search(root, val)))
+			 if ((a = search(val)))
 			{
 				std::cout << "dddd" << std::endl;
 				return NULL;
@@ -724,10 +724,9 @@ namespace ft {
 	
 
 
-		void deleteNode(nodeptr z, int a)
+		void deleteNode(nodeptr z)
 		{
 			nodeptr x, y;
-			(void)a;
 			if (z == NULL)
 				return;
 			y = nodeToReplace(z); // 250 // null
@@ -763,8 +762,8 @@ namespace ft {
 			{
 				if (z == this->root)
 				{
-					// std::swap(z->data, y->data);
-					mySwap(z, y);
+					std::swap(z->data, y->data);
+					//mySwap(z, y);
 					z->left = NULL;
 					z->right = NULL;
 					alloc.destroy(y);
@@ -787,10 +786,10 @@ namespace ft {
 				}
 				return ;
 			}/// if the node to be delete is Red 
-			mySwap(y, z);
-			// std::swap(y->data, z->data);
+			//mySwap(y, z);
+			 std::swap(y->data, z->data);
 			//std::cout << y->data.first << std::endl;
-			deleteNode(y, 0);
+			deleteNode(y);
 		}
 
 		void mySwap(nodeptr y, nodeptr z)
@@ -811,11 +810,13 @@ namespace ft {
 		{
 			nodeptr z = NULL;
 			//nodeptr x;
-			z = search(val);
+			// std::cout << val.first << std::endl;
+			z = search(root, val);
+			//std::cout << z->data.first << std::endl;
 
 			if (z == NULL)
 				return ;
-			deleteNode(z, 0);
+			deleteNode(z);
 			size--;
 		}	
 
@@ -919,7 +920,7 @@ namespace ft {
 		// }
 
 
-		bool empty() const { if (root) return false; return true;}
+		bool empty() const { if (getSize()) return false; return true;}
 
 
 		void print2DUtil(nodeptr root, int space)

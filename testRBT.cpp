@@ -173,31 +173,50 @@ int main()
         // }
         /*------------------------------------------------------------------------------------------*/
         /*------------------ std::map ---------------------*/
-        std::map<int, std::string> m1;
-        std::map<int, std::string> m2;
-        ft::map<int, std::string> ft_m1;
-        ft::map<int, std::string> ft_m2;
-        for (int i = 0; i < 5; ++i)
-        {
-            m1.insert(std::make_pair(i, "string1"));
-            m2.insert(std::make_pair(i, "string2"));
-            ft_m1.insert(ft::make_pair(i, "string1"));
-            ft_m2.insert(ft::make_pair(i, "string2"));
-        }
-        ft_m2.insert(ft::make_pair(0, "string1"));
-        //  m1 = m2;
-        // ft_m1 = ft_m2;
-        // // /*----------------------------------------------------*/
-        // // /*------------------ strings to store the results ----*/
-        // std::string res, ft_res;
-        // /*----------------------------------------------------*/
-        // for (std::map<int, std::string>::iterator it = m1.begin(); it != m1.end(); ++it) // fill res from m1
-        //     std::cout << " first "<< (*it).first << " --";
-        // std::cout << std::endl;
+//         {
+//             std::map<int, std::string> m1;
+//             std::map<int, std::string> m2;
+//             ft::map<int, std::string> ft_m1;
+//             ft::map<int, std::string> ft_m2;
+//             for (int i = 0; i < 5; ++i)
+//             {
+//                 m1.insert(std::make_pair(i, "string1"));
+//                 m2.insert(std::make_pair(i, "string2"));
+//                 ft_m1.insert(ft::make_pair(i, "string1"));
+//                 ft_m2.insert(ft::make_pair(i, "string2"));
+//             }
+//             // ft_m2.insert(ft::make_pair(0, "string1"));
+//             //  m1 = m2;
+//             ft_m1 = ft_m2;
+//             // // /*----------------------------------------------------*/
+//             // // /*------------------ strings to store the results ----*/
+//             // std::string res, ft_res;
+//             // /*----------------------------------------------------*/
+//             //for (std::map<int, std::string>::iterator it = m1.begin(); it != m1.end(); ++it) // fill  res from m1
+//             //     std::cout << " first "<< (*it).first << " --";
+//             // std::cout << std::endl;
+        
+//             //  ft::map<int, std::string>::iterator it = ft_m1.begin();
+//             //  while (it != ft_m1.end())
+//             //  {
+//             //      std::cout << "hhhh" << std::endl;
+//             //      it++;
+//             //  }
+//             // it--;
+//             // std::cout << " " << (*it).first << std::endl;
+//             for (std::map<int, std::string>::iterator it = ft_m1.begin(); it != ft_m1.end(); ++it) /  / fill ft_res from ft_m1
+//                  std::cout << " second "<< (*it).first << " --";
+//             std::cout << std::endl;
+// // 
+//             // ft_m1.erase(ft_m1.begin(), ft_m1.end());
+//             // m1.erase(m1.begin(), m1.end());
+//             // for (std::map<int, std::string>::iterator it = m1.begin(); it != m1.end(); ++it) //    fill ft_res from ft_m1
+//             //         std::cout << " first "<< (*it).first << " --";
+//             // std::cout << std::endl;
+//             for (ft::map<int, std::string>::iterator it = ft_m1.begin(); it != ft_m1.end(); ++it) //    fill ft_res from ft_m1
+//                     std::cout << " second "<< (*it).first << " --";
+//         }
 
-        // for (ft::map<int, std::string>::iterator it = ft_m1.begin(); it != ft_m1.end(); ++it) // fill ft_res from ft_m1
-        //     std::cout << " second "<< (*it).first << " --";
-        // std::cout << std::endl;            
 
         // EQUAL(res == ft_res);
     // }
