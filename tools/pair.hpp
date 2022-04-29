@@ -29,7 +29,7 @@ struct pair
         ~pair(){} // dest
         public:
         pair<T1, T2> &operator = (const pair<T1, T2>& otherPair) 
-    	{
+    	{ 
         	first=otherPair.first;
         	second=otherPair.second;
        	 	return *this;

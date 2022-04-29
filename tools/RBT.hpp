@@ -40,12 +40,12 @@ namespace ft {
 		Nodeptr right;
 		Nodeptr root;
 		//Alloc alloc;
-		size_type height;
-		size_type blackheight;
-		size_type redheight;
+		// size_type height;
+		// size_type blackheight;
+		// size_type redheight;
 		int color;
 
-		Node(T data) : data(data), parent(NULL), left(NULL), right(NULL), root(NULL),height(1), color(RED), blackheight(2), redheight(0)
+		Node(T data) : data(data), parent(NULL), left(NULL), right(NULL), root(NULL), color(RED)
 		{
 			//this->data = alloc.allocate(1);
 			//alloc.construct(this->data, T(data.first, data.second));
@@ -149,18 +149,16 @@ namespace ft {
 
 		~RBT()
 		{
-			clear_all(this->root);
+			//clear_all(this->root);
 		}
 
 		RBT &operator=(RBT const & a)
 		{
-			if (*this != a)
-			{
-				root = a.getRoot();
-				size = a.size();
-				alloc = a.alloc();
-				comp_ = a.comp();
-			}
+			root = a.getRoot();
+			size = a.size;
+			alloc = a.alloc;
+			comp_ = a.comp_;
+			//}
 			return *this;
 		}
 
@@ -282,11 +280,11 @@ namespace ft {
 		nodeptr insetINRbt(value_type val)
 		{
 			nodeptr a;
-			 if ((a = search(val)))
-			 {
-				std::cout << a->data.first << std::endl;
-				 return NULL;
-			 }
+			 if ((a = search(root, val)))
+			{
+				std::cout << "dddd" << std::endl;
+				return NULL;
+			}
 			nodeptr newNode = alloc.allocate(1);
 			alloc.construct(newNode, Node<value_type>(val));
 
@@ -439,7 +437,7 @@ namespace ft {
 				return x;
 		}
 
-		nodeptr search(value_type val)
+		nodeptr search(value_type val) const
 		{
 				nodeptr tmp = root;
 				while (1)
@@ -726,10 +724,10 @@ namespace ft {
 	
 
 
-		void deleteNode(nodeptr z)
+		void deleteNode(nodeptr z, int a)
 		{
 			nodeptr x, y;
-
+			(void)a;
 			if (z == NULL)
 				return;
 			y = nodeToReplace(z); // 250 // null
@@ -765,7 +763,8 @@ namespace ft {
 			{
 				if (z == this->root)
 				{
-					std::swap(z->data, y->data);
+					// std::swap(z->data, y->data);
+					mySwap(z, y);
 					z->left = NULL;
 					z->right = NULL;
 					alloc.destroy(y);
@@ -788,12 +787,21 @@ namespace ft {
 				}
 				return ;
 			}/// if the node to be delete is Red 
-			std::swap(y->data, z->data);
+			mySwap(y, z);
+			// std::swap(y->data, z->data);
 			//std::cout << y->data.first << std::endl;
-			deleteNode(y);
+			deleteNode(y, 0);
 		}
 
-		
+		void mySwap(nodeptr y, nodeptr z)
+		{
+			first a = y->data.first;
+			second b = y->data.second;
+			y->data.first = z->data.first;
+			y->data.second = z->data.second;
+			z->data.first  = a;
+			z->data.second = b;
+		}
 		// void deleteNode(value_type val)
 		// {
 		// 	nodeptr z = search()
@@ -802,27 +810,27 @@ namespace ft {
 		void deleteNode(value_type val)
 		{
 			nodeptr z = NULL;
-			nodeptr x, y;
+			//nodeptr x;
 			z = search(val);
 
 			if (z == NULL)
 				return ;
-			deleteNode(z);
+			deleteNode(z, 0);
 			size--;
 		}	
 
-		void deleteNode(nodeptr node, value_type key)
-		{
-			nodeptr z = NULL;
-			nodeptr x, y;
-			//std::cout << key << std::endl;
-			z = search(key);
+		// void deleteNode(nodeptr node, value_type key)
+		// {
+		// 	nodeptr z = NULL;
+		// 	nodeptr x, y;
+		// 	//std::cout << key << std::endl;
+		// 	z = search(key);
 
-			if (z == NULL)
-				return ;
-			deleteNode(z);
-			size--;
-		}	
+		// 	if (z == NULL)
+		// 		return ;
+		// 	deleteNode(z);
+		// 	size--;
+		// }	
 
 		nodeptr begin() const
 		{
@@ -992,20 +1000,20 @@ bool isBalanced(nodeptr root){
 			}	
 		}
 
-		 static void        inoderprint(nodeptr x)
-        {
-            if (x != NULL)
-            {
-                inoderprint(x->left);
-                std::cout << "(" << x->data.first << "), ";
-				if (x->root)
-                std::cout << " its root = " << x->root->data.first << "), ";
-				std::cout << std::endl;
-                // std::cout << "(" << x->right << "), ";
-                // std::cout << "(" << x->parent << "), ";
-                inoderprint(x->right);
-            }
-        }
+		//  static void        inoderprint(nodeptr x)
+        // {
+        //     if (x != NULL)
+        //     {
+        //         inoderprint(x->left);
+        //         std::cout << "(" << x->data.first << "), ";
+		// 		if (x->root)
+        //         std::cout << " its root = " << x->root->data.first << "), ";
+		// 		std::cout << std::endl;
+        //         // std::cout << "(" << x->right << "), ";
+        //         // std::cout << "(" << x->parent << "), ";
+        //         inoderprint(x->right);
+        //     }
+        // }
 
 
 				struct Trunk

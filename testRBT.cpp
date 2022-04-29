@@ -59,6 +59,8 @@
 
 
 
+#define EQUAL(x) ((x) ? (std::cout << "\033[1;32mAC\033[0m\n") : (std::cout << "\033[1;31mWA\033[0m\n"))
+
 int main()
 {
     // std::map<int, int> map;
@@ -77,18 +79,132 @@ int main()
     //     it++;
     // }
 
+    // ft::map<int, char> map;
 
-    ft::map<int, int> map;
+    // map.insert(ft::make_pair(10,'a'));
+    // map.insert(ft::make_pair(30,'a'));
+    // map.insert(ft::make_pair(15,'a'));
+    // map.insert(ft::make_pair(29,'a'));
+    // map.insert(ft::make_pair(34,'a'));
+    // ft::map<int, char> mp  = map;
 
-    map.insert(ft::make_pair(10,15));
-    map.insert(ft::make_pair(30,15));
-    map.insert(ft::make_pair(15,15));
-    map.insert(ft::make_pair(29,15));
-    map.insert(ft::make_pair(34,15));
-    std::cout << map[15] << std::endl;
-    //  ft::map<int, int>::iterator it = map.lower_bound(15);
-    // // ft::map<int, int>::const_iterator it = map.end();
+   // map.erase(30);
+    
+// //     // std::cout << map[15] << std::endl;
 
+
+// ft::map<int, char>::reverse_iterator my_rit2(map.begin());
+// my_rit2--;
+// std::cout << (*my_rit2).first << std::endl;
+
+// ft::map<int, char>::const_reverse_iterator c_it, c_ob(map.end()); 
+//  c_it = my_rit2;
+//   EQUAL(my_rit2->first == c_it->first && my_rit2->first == c_ob->first);
+      /*---------------------------------- time limit test --------------------------------------------*/
+        // {
+            //time_t start, end, diff;
+        //     std::map<int, char> m;
+        //     ft::map<int, char> my_m;
+
+        //     for (size_t i = 0; i < 1e3; i++)
+        //     {
+        //         m.insert(std::make_pair(i, 'X'));
+        //         my_m.insert(ft::make_pair(i, 'X'));
+        //     }
+
+        //    // start = get_time();
+        //     //std::map<int, char> copy_m(m);
+        //     // end = get_time();
+        //     // diff = end - start;
+        //     // diff = (diff) ? (diff * 20) : 20;
+
+        //     // alarm(diff);
+        //     ft::map<int, char> my_copy_m(my_m);
+        //     // alarm(0);
+        // }
+        // /*---------------------------------------------------------------------------------------------*/
+        // /*---------------------------- declare a vector and fill with 'a', and create a copy of it ------------------*/
+        // ft::map<int, char> m1;
+        // for (int i = 0; i < 10; i++)
+        //     m1.insert(ft::make_pair(i, 'a'));
+        // ft::map<int, char> copy_m(m1);
+        // /*-----------------------------------------------------------------------------------------------------------*/
+        // /*--------------- declare tow strings to store the results ------*/
+        // std::string res, res1;
+        // /*--------------------------------------------------------*/
+        // for (ft::map<int, char>::iterator it = m1.begin(); it != m1.end(); ++it) // fill res from m1
+        //     res += it->second;
+
+        // for (ft::map<int, char>::iterator it = copy_m.begin(); it != copy_m.end(); ++it) // fill res from copy_m
+        //     res1 += it->second;
+        // EQUAL(res == res1);
+//     //  ft::map<int, int>::reverse_iterator<std::map<int, int>::iterator> my_rit = map.begin();
+//     //  ft::reverse_iterator<std::map<int, int>::iterator> ob(my_rit);
+//     //  ft::map<int, int>::iterator it = map.lower_bound(15);
+//     ft::map<int, int>::reverse_iterator my_rit(map.end());
+//     ft::map<int, int>::reverse_iterator ob(my_rit);
+
+
+        // {
+        //    // time_t start, end, diff;
+        //     std::map<int, std::string> m1;
+        //     std::map<int, std::string> m2;
+        //     ft::map<int, std::string> ft_m1;
+        //     ft::map<int, std::string> ft_m2;
+        //     for (int i = 0; i < 100; ++i)
+        //     {
+        //         m1.insert(std::make_pair(i, "string1"));
+        //         m2.insert(std::make_pair(i, "string2"));
+        //         ft_m1.insert(ft::make_pair(i, "string1"));
+        //         ft_m2.insert(ft::make_pair(i, "string2"));
+        //     }
+
+        //     // start = get_time();
+        //     // m1 = m2;
+        //     // end = get_time();
+        //     // diff = end - start;
+        //     // diff = (diff) ? (diff * TIME_FAC) : TIME_FAC;
+        //     /*-----------------------------------------------------*/
+        //     /*------------------ ft::map ---------------------*/
+        //     // ualarm(diff * 1e3, 0);
+        //     ft_m1 = ft_m2;
+        //     // ualarm(0, 0);
+        //     /*----------------------------------------------------*/
+        // }
+        /*------------------------------------------------------------------------------------------*/
+        /*------------------ std::map ---------------------*/
+        std::map<int, std::string> m1;
+        std::map<int, std::string> m2;
+        ft::map<int, std::string> ft_m1;
+        ft::map<int, std::string> ft_m2;
+        for (int i = 0; i < 5; ++i)
+        {
+            m1.insert(std::make_pair(i, "string1"));
+            m2.insert(std::make_pair(i, "string2"));
+            ft_m1.insert(ft::make_pair(i, "string1"));
+            ft_m2.insert(ft::make_pair(i, "string2"));
+        }
+        ft_m2.insert(ft::make_pair(0, "string1"));
+        //  m1 = m2;
+        // ft_m1 = ft_m2;
+        // // /*----------------------------------------------------*/
+        // // /*------------------ strings to store the results ----*/
+        // std::string res, ft_res;
+        // /*----------------------------------------------------*/
+        // for (std::map<int, std::string>::iterator it = m1.begin(); it != m1.end(); ++it) // fill res from m1
+        //     std::cout << " first "<< (*it).first << " --";
+        // std::cout << std::endl;
+
+        // for (ft::map<int, std::string>::iterator it = ft_m1.begin(); it != ft_m1.end(); ++it) // fill ft_res from ft_m1
+        //     std::cout << " second "<< (*it).first << " --";
+        // std::cout << std::endl;            
+
+        // EQUAL(res == ft_res);
+    // }
+//     // std::cout <<    ( (*ob) == (*my_rit)) << std::endl;
+//     //std::cout << (*my_rit) << std::endl;
+//    EQUAL(*my_rit == *ob);
+    // std::cout << ((it1) == it) << std::endl;
 
     // //  if (it != map.end())
     // //     std::cout << "asda" << std::endl;
@@ -100,6 +216,11 @@ int main()
     // }
 }
 
+// ----------------------------------------------------------------
+
+//      15
+// 10         30
+//          29    
 // int main()
 // {
 //      std::map<int, int> map1;

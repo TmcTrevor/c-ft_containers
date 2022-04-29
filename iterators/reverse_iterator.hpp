@@ -23,7 +23,9 @@ namespace ft {
         public :
             ~reverse_iterator(){};
             
-            reverse_iterator() { rv = NULL; }
+            reverse_iterator() : rv(iterator_type()) 
+            { //rv = NULL; 
+            }
             
             reverse_iterator(iterator_type rv) { this->rv = rv; }
             
@@ -37,7 +39,9 @@ namespace ft {
             reference operator*() const 
             {
                 iterator_type tmp = rv;
+                //std::cout << tmp.base()->data.first << std::endl;
                 --tmp;
+                //std::cout << "dasda" << std::endl;
                 return (*tmp);
             }
 

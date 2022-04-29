@@ -127,13 +127,19 @@ namespace ft
 
         reference operator*()
         {
-           // std::cout << "reference operator = " << it << std::endl;
-            return (*it).data;
+        //    std::cout << "reference operator = " << std::endl;
+            // if (it == NULL)
+            //     return ;
+            // return it->data;
+            return *(operator->());
         }
 
         pointer operator->() const
         {
-            return it->data;
+            if (it == NULL)
+                return NULL ;
+            return &(it->data);
+            //return (&operator*());
         }
 
         BidiIterator &operator++()
@@ -152,9 +158,10 @@ namespace ft
             if (it == NULL)
                 it = find_max(root);
             else
-                it =predecessor(it);
+                it = predecessor(it);
             return *this;
         }
+
         BidiIterator operator++(int)
         {
 
@@ -239,8 +246,8 @@ namespace ft
       template <class Node, class it1, typename it2, class value_compare1, class Alloc1 >
     bool operator==(const BidiIterator<Node, it1, value_compare1, Alloc1> &a, const BidiIterator <Node, it2, value_compare1, Alloc1> &b)
     {
-        // if (a.base() == NULL && b.base() == NULL)
-        //     return true;
+        if (a.base() == NULL && b.base() == NULL)
+            return true;
         return (a.it == b.it);
     }
 
@@ -248,8 +255,8 @@ namespace ft
     bool operator!=(const BidiIterator<Node, it1, value_compare1, Alloc1> &a, const BidiIterator <Node, it2, value_compare1, Alloc1> &b)
     {
         // =std::cout << "dasd" << std::endl;
-        // if (a.base() == NULL && b.base() == NULL)
-        //     return false;
+        if (a.base() == NULL && b.base() == NULL)
+            return false;
         return (a.it != b.it);
     }
 

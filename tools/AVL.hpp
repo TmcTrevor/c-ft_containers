@@ -111,15 +111,9 @@ namespace ft {
                //first rfirst = t->right->data.first;
                //std::cout << oldfirst << std::endl;
                 if (comp_(newfirst,oldfirst))
-                {
                     t->left = insertNode(t->left, new_node);
-                    std::cout << "dasdasd 1÷÷" << std::endl;
-                }
                 else if (comp_(oldfirst,newfirst))
-                {
                     t->right = insertNode(t->right, new_node);
-                    std::cout << "dasdasd" << std::endl;
-                }
                 else    // duplicated key
                      return t;
                 // t->height = 1 + max(height(t->left) , height(t->right));
@@ -138,7 +132,7 @@ namespace ft {
                     // {
                     //     std::cout << "right is NULL" << std::endl;
                     // }
-                   std:: cout << t->data.first << std::endl;
+                   //std:: cout << t->data.first << std::endl;
                     t = t->right;
                 }
             }
