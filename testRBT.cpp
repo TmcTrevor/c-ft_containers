@@ -280,7 +280,7 @@ void iterator_tests(void)
              ft::map<int, int>::iterator  eit1 = --m1.end();
             // tmp = eit->first;
             m.erase(eit);
-            m1.erase(eit);
+            //m1.erase(eit);
             // for (; it != m.end(); ++it)
             //   //  res += it->first;
             //     std::cout << (*it).first << std::endl;
@@ -353,14 +353,75 @@ void iterator_tests(void)
     // EQUAL(*my_it != *tmp && *my_it == *(my_m.begin()));
 }
 
+void element_access()
+{
+    ft::map<int, char> map;
+
+    map.insert(ft::make_pair(10,'a'));
+    map.insert(ft::make_pair(30,'a'));
+    map.insert(ft::make_pair(15,'a'));
+    map.insert(ft::make_pair(29,'a'));
+    map.insert(ft::make_pair(34,'a'));
+
+    // std::cout << map[10] << ft::endl;
+    ft::map<int, char>::iterator it = map.begin();
+   std::cout << map[10] << std::endl;
+    while (it != map.end())
+    {
+            std::cout << it->first << std::endl;
+        it++;
+    }
+}
+
+void assignmentWithlgh()
+{
+    std::map<int, std::string> m1;
+        std::map<int, std::string> m2;
+        ft::map<int, std::string> ft_m1;
+        ft::map<int, std::string> ft_m2;
+
+        for (int i = 0; i < 20; ++i)
+        {
+            m1.insert(std::make_pair(i, "string1"));
+            ft_m1.insert(ft::make_pair(i, "string1"));
+        }
+
+        for (int i = 0; i < 10; ++i)
+        {
+            m2.insert(std::make_pair(i, "string2"));
+            ft_m2.insert(ft::make_pair(i, "string2"));
+        }
+        m1 = m2;
+        /*-----------------------------------------------------*/
+        /*------------------ ft::map ---------------------*/
+        ft_m1 = ft_m2;
+       ft_m1.clear();
+       ft_m1.clear();
+        /*----------------------------------------------------*/
+        /*------------------ strings to store the results ----*/
+        // std::string res, ft_res;
+        // /*----------------------------------------------------*/
+        // for (std::map<int, std::string>::iterator it = m1.begin(); it != m1.end(); ++it) // fill res from m1
+        //     res += it->second;
+
+        std::cout << std::endl;
+        for (ft::map<int, std::string>::iterator it = ft_m1.begin(); it != ft_m1.end(); ++it) // fill ft_res from ft_m1
+        std::cout << it->first << " " << std::endl;
+        std::cout << std::endl;
+        //     ft_res += it->second;
+
+        // EQUAL(res == ft_res);
+}
+
 int main()
 {
-   //iterator_tests();
-   test_map_assignment_operator();
+    //element_access();
+//    iterator_tests();
+   //test_map_assignment_operator();
+   assignmentWithlgh();
     // ft::map<int, int> map;
 
     // map.insert(std::make_pair(10,15));
-    // ft::map<int, int>::iterator it = map.begin();
     // map.insert(std::make_pair(30,15));
     // map.insert(std::make_pair(15,15));
     // map.insert(std::make_pair(29,15));

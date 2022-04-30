@@ -98,7 +98,7 @@ namespace ft
         map &operator=(const map &t)
         {
            // std::cout << "operator = " << std::endl;
-            if (size() != 0)
+            if (size1 != 0)
                 this->clear();
             this->insert(t.begin(), t.end());
             this->_alloc = t._alloc;
@@ -186,16 +186,17 @@ namespace ft
         /**                               ELEMENT ACCESS                               **/
         /** ************************************************************************** **/
 
-        mapped_type &operator[](const key_type &k)
-        {
-            value_type a(k, mapped_type());
-            // nodeptr node = _rbt.search(a);
+        // mapped_type &operator[](const key_type &k)
+        // {
+        //     value_type a(k, mapped_type());
+        //     // nodeptr node = _rbt.search(a);
 
-            return (*((this->insert(ft::make_pair(k, mapped_type()))).first)).second;
-            //   typename RBT::nodeptr node = _rbt.search(a);
+        //     return (*((this->insert(a).first))).second;
+        //     //   typename RBT::nodeptr node = _rbt.search(a);
 
-            //     return node->data.second;
-        }
+        //     //     return node->data.second;
+        // }
+        mapped_type& operator[] (const key_type& k) { return (*((this->insert(ft::make_pair(k,mapped_type()))).first)).second; }
         /** ************************************************************************** **/
         /**                               Modifiers                                    **/
         /** ************************************************************************** **/
@@ -265,18 +266,28 @@ namespace ft
 
         void erase(iterator first, iterator last)
         {
-            ft::vector<key_type> a(0, 0);
-            if (_rbt.empty() == true)
-                return;
-             iterator it(first);
-             iterator it1(last);
-            while (it1 != begin())
+            // ft::vector<key_type> a(0, 0);
+            // if (_rbt.empty() == true)
+            //     return;
+            //  iterator it(first);
+            //  iterator it1(last);
+            // while (it1 != begin())
+            // {
+            //      a.insert(a.begin(), it.base()->data.first);
+            //     --it1;
+            // }
+            // for (typename ft::vector<key_type>::iterator it2 = a.begin(); it2 != a.end(); ++it2)
+            //     this->erase(*it2);
+             if (_rbt.empty())
+                return ;
+                int a = 1;
+            while (first != last)
             {
-                 a.insert(a.begin(), it.base()->data.first);
-                --it1;
+                // std::cout << " test " << a << std::endl;
+                this->erase(first);
+                first++;
+                a++;
             }
-            for (typename ft::vector<key_type>::iterator it2 = a.begin(); it2 != a.end(); ++it2)
-                this->erase(*it2);
         }
 
         void swap(map &x)
@@ -292,7 +303,7 @@ namespace ft
         void clear()
         {
             // calling erase from begin() to end();
-            this->erase(begin(),end());
+            this->erase(begin(), end());
         }
 
         /** ************************************************************************** **/
@@ -315,22 +326,24 @@ namespace ft
         iterator find(const key_type &k)
         {
             value_type a(k, mapped_type());
-            nodeptr node = _rbt.search(a);
+            nodeptr node = _rbt.search(_rbt.getRoot(), a);
             return iterator(_rbt.getRoot(), node);
         }
 
         const_iterator find(const key_type &k) const
         {
             value_type a(k, mapped_type());
-            nodeptr node = _rbt.search(a);
+            nodeptr node = _rbt.search(_rbt.getRoot(), a);
             return const_iterator(_rbt.getRoot(), node);
         }
 
         size_type count(const key_type &k) const
         {
-            value_type a(k, mapped_type());
-            if (_rbt.search(a))
-                return 1;
+             value_type a(k, mapped_type());
+            // nodeptr node = _rbt.search(_rbt.getRoot(), a);
+            // if (node)
+            //     return 1;
+            static_cast<void>(a);
             return (0);
         }
 
