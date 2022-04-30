@@ -7,7 +7,6 @@
 #include "../tools/RBT.hpp"
 #include "../iterators/reverse_iterator.hpp"
 #include "vector.hpp"
-#include <vector>
 
 namespace ft
 {
@@ -98,12 +97,16 @@ namespace ft
 
         map &operator=(const map &t)
         {
-            // this->size1 = t.size1;
-            if (_rbt.getSize() != 0)
+           // std::cout << "operator = " << std::endl;
+            if (size() != 0)
                 this->clear();
             this->insert(t.begin(), t.end());
             this->_alloc = t._alloc;
             this->_cmp = t._cmp;
+           //std::cout << "t = " << t.size() << std::endl;
+           //std::cout << "this = " << size() << std::endl;
+            this->size1 = t.size();
+           //std::cout << "this = " << this->size1 << std::endl;
             // _rbt = t._rbt;
             // }
             return *this;
@@ -112,7 +115,7 @@ namespace ft
         ~map()
         {
             // std::cout << " sad" << std::endl;
-            clear();
+            //clear();
         }
         /** ************************************************************************** */
         /**                               ITERATORS                                    */
@@ -171,7 +174,7 @@ namespace ft
 
         size_type size() const
         {
-            return _rbt.getSize();
+            return size1;
         }
 
         size_type max_size() const
@@ -201,11 +204,10 @@ namespace ft
         {
             nodeptr a;
             bool exists = false;
+
             if ((a = _rbt.search(_rbt.getRoot(), val)))
-            {
                 exists = true;
-            }
-            // std::cout << "insert" << std::endl;
+            //std::cout << "insert" << std::endl;
             a = _rbt.insetINRbt(val);
             if (a)
                 size1++;
@@ -236,7 +238,7 @@ namespace ft
             // std::cout << "erase" << std::endl;
             if (_rbt.empty() == true)
                 return;
-           // std::cout << "erase" << std::endl;
+          //  std::cout << "erase" << std::endl;
             value_type a(position.base()->data.first, mapped_type());
             _rbt.deleteNode(a);
             size1--;
@@ -263,36 +265,16 @@ namespace ft
 
         void erase(iterator first, iterator last)
         {
-            // static_cast<void>(first);
-            // static_cast<void>(last);
             ft::vector<key_type> a(0, 0);
-
-        
             if (_rbt.empty() == true)
                 return;
              iterator it(first);
-             iterator it1(end());
-             //size
+             iterator it1(last);
             while (it1 != begin())
             {
-                // std::cout << it.base()->data.first << std::endl;
                  a.insert(a.begin(), it.base()->data.first);
-
                 --it1;
             }
-
-            // if (first == begin()  && last == end())
-            //     std::cout << " asdad " << std::endl;
-            // ft::vector<key_type>
-            // while (it != last)
-            // {
-            //     // iterator it = first;
-            //     //last = it1;
-            //      //std::cout << "help" << std::endl;
-            //     this->erase(it);
-            //     ++it;
-            // }
-
             for (typename ft::vector<key_type>::iterator it2 = a.begin(); it2 != a.end(); ++it2)
                 this->erase(*it2);
         }

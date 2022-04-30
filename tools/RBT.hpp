@@ -281,10 +281,7 @@ namespace ft {
 		{
 			nodeptr a;
 			 if ((a = search(val)))
-			{
-				std::cout << "dddd" << std::endl;
 				return NULL;
-			}
 			nodeptr newNode = alloc.allocate(1);
 			alloc.construct(newNode, Node<value_type>(val));
 
@@ -425,17 +422,27 @@ namespace ft {
 		}
 
 
+		// nodeptr search(nodeptr x, value_type val)
+		// {
+		// 	if (x == NULL)
+		// 		return NULL;
+		// 	if (comp_(val, x->data) && x->left)
+		// 		return search(x->left, val);
+		// 	else if (comp_(x->data, val) && x->right)
+		// 		return search(x->right, val);
+		// 	else
+		// 		return x;
+		// }
 		nodeptr search(nodeptr x, value_type val)
 		{
-			if (x == NULL)
-				return NULL;
-			if (comp_(val, x->data) && x->left)
-				return search(x->left, val);
-			else if (comp_(x->data, val) && x->right)
-				return search(x->right, val);
-			else
+			if (x == NULL || x->data.first == val.first)
 				return x;
+			if (comp_(val, x->data))
+				return search(x->left, val);
+			else
+				return search(x->right, val);
 		}
+
 
 		nodeptr search(value_type val) const
 		{
@@ -806,12 +813,13 @@ namespace ft {
 		// 	nodeptr z = search()
 		// }
 
+
 		void deleteNode(value_type val)
 		{
 			nodeptr z = NULL;
 			//nodeptr x;
 			// std::cout << val.first << std::endl;
-			z = search(root, val);
+			z = search(val);
 			//std::cout << z->data.first << std::endl;
 
 			if (z == NULL)
