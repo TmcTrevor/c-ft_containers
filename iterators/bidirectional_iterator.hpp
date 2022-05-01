@@ -145,20 +145,31 @@ namespace ft
         BidiIterator &operator++()
         {
             //  if (it == RBT::find_max(root))
-            if (it == find_max(root))
-                it = NULL;
-            else
+            //  if (it == successor(it))
+            //     std::cout << " adasdasdas" << std::endl;
+            // std::cout << root->data.first << std::endl;
+             if (it == find_max(root))
+                 it = NULL;
+             else
+             {   
+                // std::cout << it->first << std::endl;
                 it = successor(it);
+                root = it->find_root(it);
+                // std::cout << it->first << std::endl;
+             }
             return *this;
         }
 
         BidiIterator &operator--()
         {
-            // std::cout << root->data.first << std::endl;
-            if (it == NULL)
-                it = find_max(root);
-            else
+            //std::cout << root->data.first << std::endl;
+             if (it == NULL)
+                 it = find_max(root);
+             else
+             {
                 it = predecessor(it);
+                root = it->find_root(it);
+            }
             return *this;
         }
 
@@ -168,6 +179,17 @@ namespace ft
             BidiIterator copie(*this);
             ++(*this);
             return copie;
+            // Node tmp(it);
+            // Node root1(root);
+            // if (it == find_max(root))
+            //     it = NULL;
+            // else 
+            // {
+            //     it = successor(it);
+            //      root = it->find_root(it);
+            // }
+            // return BidiIterator(tmp, root1);
+
         }
         BidiIterator operator--(int)
         {
@@ -227,11 +249,13 @@ namespace ft
 			if (x->right != NULL)
 				return (find_min(x->right));
 			y = x->parent;
+           // std::cout << "----------1---------" << x->data.first << " y = " << y->data.first << "-------------" <<std::endl;;
 			while (y && x == y->right)
 			{
 				x = y;
 				y = y->parent;
 			}
+           // std::cout << "----------1---------" << y->data.first << "-------------" <<std::endl;;
 			return y;
 		}
         

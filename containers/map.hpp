@@ -98,9 +98,10 @@ namespace ft
         map &operator=(const map &t)
         {
            // std::cout << "operator = " << std::endl;
-            if (size1 != 0)
-                this->clear();
-            this->insert(t.begin(), t.end());
+           // if (size1 != 0)
+            this->clear();
+             this->insert(t.begin(), t.end());
+            //_rbt = t._rbt;
             this->_alloc = t._alloc;
             this->_cmp = t._cmp;
            //std::cout << "t = " << t.size() << std::endl;
@@ -280,13 +281,11 @@ namespace ft
             //     this->erase(*it2);
              if (_rbt.empty())
                 return ;
-                int a = 1;
             while (first != last)
             {
                 // std::cout << " test " << a << std::endl;
                 this->erase(first);
                 first++;
-                a++;
             }
         }
 

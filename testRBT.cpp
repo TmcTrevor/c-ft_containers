@@ -365,13 +365,178 @@ void element_access()
 
     // std::cout << map[10] << ft::endl;
     ft::map<int, char>::iterator it = map.begin();
-   std::cout << map[10] << std::endl;
+    std::cout << map[10] << std::endl;
     while (it != map.end())
     {
             std::cout << it->first << std::endl;
         it++;
     }
 }
+
+
+// void fixDoubleBlack(RedBlack *targetNode)
+// 			{
+// 				if (targetNode == root)
+// 				// Reached root
+// 					return;
+			
+// 				RedBlack *sib = sibling(targetNode);
+// 				RedBlack *parent = targetNode->parent;
+// 				if (sib == NULL)
+// 				{
+// 					// No sibiling, double black pushed up
+// 					fixDoubleBlack(parent);
+// 				}
+// 				else
+// 				{
+// 					if (sib->color == RED)
+// 					{
+// 						// sib red
+// 						parent->color = RED;
+// 						sib->color = BLACK;
+// 						if (isOnLeft(sib))
+// 						{
+// 							// left case
+// 							rotateRight(root, parent);
+// 						}
+// 						else
+// 						{
+// 							// right case
+// 							rotateLeft(root, parent);
+// 						}
+// 						fixDoubleBlack(targetNode);
+// 					}
+// 					else
+// 					{
+// 						// Sibling black
+// 						if (hasRedChild(sib))
+// 						{
+// 							// at least 1 red children
+// 							if (sib->left != NULL && sib->left->color == RED)
+// 							{
+// 								if (isOnLeft(sib))
+// 								{
+// 									// left left
+// 									sib->left->color = sib->color;
+// 									sib->color = parent->color;
+// 									rotateRight(root, parent);
+// 								}
+// 								else
+// 								{
+// 									// right left
+// 									sib->left->color = parent->color;
+// 									rotateRight(root, sib);
+// 									rotateLeft(root, parent);
+// 								}
+// 							}
+// 							else
+// 							{
+// 								if (isOnLeft(sib))
+// 								{
+// 									// left right
+// 									sib->right->color = parent->color;
+// 									rotateLeft(root, sib);
+// 									rotateRight(root, parent);
+// 								}
+// 								else
+// 								{
+// 									// right right
+// 									sib->right->color = sib->color;
+// 									sib->color = parent->color;
+// 									rotateLeft(root, parent);
+// 								}
+// 							}
+// 							parent->color = BLACK;
+// 						}
+// 						else
+// 						{
+// 							// 2 black children
+// 							sib->color = RED;
+// 							if (parent->color == BLACK)
+// 								fixDoubleBlack(parent);
+// 							else
+// 								parent->color = BLACK;
+// 						}
+// 					}
+// 				}
+// 			}
+// void deleteNode(RedBlack *&targetNode)
+// {
+// 	RedBlack *nodeReplaceTarget = BSTreplace(targetNode); // looking here debug
+
+// 	// True when u and v are both black
+// 	bool rtBlack = ((nodeReplaceTarget == NULL || nodeReplaceTarget->color == BLACK) && (targetNode->color == BLACK));
+// 	RedBlack *parentTarget = targetNode->parent;
+
+// 	if (nodeReplaceTarget == NULL) 
+// 	{
+// 		// nodeReplaceTarget is NULL therefore targetNode is leaf
+// 		if (targetNode == root)
+// 		{
+// 			// targetNode is root, making root null
+// 			root = NULL;
+// 		}
+// 		else
+// 		{
+// 			if (rtBlack)
+// 			{
+// 				// u and targetNode both black
+// 				// targetNode is leaf, fix double black at targetNode
+// 				fixDoubleBlack(targetNode);
+// 			}
+// 			else
+// 			{
+// 				RedBlack *tmp = sibling(targetNode);
+// 				// u or targetNode is red
+// 				if (tmp != NULL)
+// 					// sibling is not null, make it red"
+// 					tmp->color = RED;
+// 			}
+// 			// delete targetNode from the tree
+// 			if (isOnLeft(targetNode))
+// 				parentTarget->left = NULL;
+// 			else
+// 				parentTarget->right = NULL;
+// 		}
+// 		_allocRebind.destroy(targetNode);
+// 		_allocRebind.deallocate(targetNode, 1);
+// 		return;
+// 	}
+
+// 	if (targetNode->left == NULL || targetNode->right == NULL)
+// 	{
+// 		// targetNode has 1 child
+// 		if (targetNode == root)
+// 		{
+// 			std::swap(targetNode->data, nodeReplaceTarget->data);
+// 			targetNode->left = targetNode->right = NULL;
+// 			_allocRebind.destroy(nodeReplaceTarget);
+// 			_allocRebind.deallocate(nodeReplaceTarget, 1);
+// 		}
+// 		else
+// 		{
+// 			// Detach targetNode from tree and motargetNodee u up
+// 			if (isOnLeft(targetNode))
+// 				parentTarget->left = nodeReplaceTarget;
+// 			else
+// 				parentTarget->right = nodeReplaceTarget;
+// 			_allocRebind.destroy(targetNode);
+// 			_allocRebind.deallocate(targetNode, 1);
+// 			nodeReplaceTarget->parent = parentTarget;
+// 			if (rtBlack)
+// 				// u and v both black, fix double black at u
+// 				fixDoubleBlack(nodeReplaceTarget);
+// 			else
+// 				// u or v red, color u black
+// 				nodeReplaceTarget->color = BLACK;
+// 		}
+// 		return;
+// 	}
+// 	// v has 2 children, swap values with successor and recurse
+// 	swapValues(nodeReplaceTarget, targetNode);
+// 	deleteNode(nodeReplaceTarget);
+// }
+			
 
 void assignmentWithlgh()
 {
@@ -394,23 +559,174 @@ void assignmentWithlgh()
         m1 = m2;
         /*-----------------------------------------------------*/
         /*------------------ ft::map ---------------------*/
-        ft_m1 = ft_m2;
-       ft_m1.clear();
-       ft_m1.clear();
+       // ft_m1.clear();
+         //ft_m1 = ft_m2;
+    //  for (ft::map<int, std::string>::iterator it = ft_m1.begin(); it != ft_m1.end(); ++it)
+    //  {
+    //     std::cout << it->first << " "<< std::endl;
+    //     ft_m1._rbt.deleteNode(it.base()->data);
+    //     ft_m1._rbt.deleteNode(it.base()->data);
+
+    //     //ft_m1.erase(it->first);
+    //  }
+    int i = 0;
+    while (i < ft_m1.size()) 
+    {
+        std::cout << i << std::endl;
+        ft_m1._rbt.deleteNode(ft::make_pair(i, "string2"));
+        i++;
+    }
+      // ft_m1.clear();
+      // ft_m1.clear();
         /*----------------------------------------------------*/
         /*------------------ strings to store the results ----*/
         // std::string res, ft_res;
         // /*----------------------------------------------------*/
         // for (std::map<int, std::string>::iterator it = m1.begin(); it != m1.end(); ++it) // fill res from m1
-        //     res += it->second;
+        // {std::cout << it->first << " ";
+        // std::cout << std::endl;}
+            // res += it->second;
 
         std::cout << std::endl;
         for (ft::map<int, std::string>::iterator it = ft_m1.begin(); it != ft_m1.end(); ++it) // fill ft_res from ft_m1
-        std::cout << it->first << " " << std::endl;
+        std::cout << it->first << " ";
         std::cout << std::endl;
         //     ft_res += it->second;
 
         // EQUAL(res == ft_res);
+}
+void test_iter_after_delete()
+{
+     ft::map<int, int> map;
+
+    // map.insert(ft::make_pair(10,'a'));
+    // map.insert(ft::make_pair(30,'a'));
+    // map.insert(ft::make_pair(15,'a'));
+    // map.insert(ft::make_pair(29,'a'));
+    // map.insert(ft::make_pair(34,'a'));
+     int myints[] = {12, 82, 37, 64, 15};
+    for (size_t i = 0; i < 1; ++i)
+        map.insert(ft::make_pair(myints[i], i));
+     map.clear();
+    // map.erase(12);
+    //map._rbt.printTree(map._rbt.getRoot(), NULL, false);
+    
+    for (ft::map<int, int>::iterator it = map.begin(); it != map.end(); ++it) // fill ft_res from ft_m1
+    // {
+    //     // std::cout << "--------------------------------";
+         std::cout << it->first << " " << std::endl;
+    //     // std::cout << "-------------------" << (--map.end())->first << "-------------"<<std::endl;
+    //     // std::cout << std::endl;
+    //     //  std::cout << std::endl;
+    //     //  std::cout << std::endl;
+    //     //  std::cout << std::endl;
+    //     //  std::cout << std::endl;
+    //    map.erase(it);
+    //     // ft::map<int, int>::iterator it1(it);
+    //     // it1++;
+    //     // if (it1 == (--map.end()))
+    //     //     std::cout << "yup" << std::endl;
+    //     // std::cout << "-------------------" << it->first << "-------------" <<std::endl;;
+    //     // std::cout << "-------------------" << (--map.end())->first << "-------------" <<std::endl;;
+    //      map._rbt.printTree(map._rbt.getRoot(), NULL, false);
+    // }
+
+
+}
+
+void testonassign()
+{
+        /*-------------------------------------- time limit test -----------------------------------*/
+   {
+        /*-------------------------------------- time limit test -----------------------------------*/
+        // {
+        //     time_t start, end, diff;
+        //     /*------------------ std::map ---------------------*/
+        //     std::map<int, std::string> m1;
+        //     std::map<int, std::string> m2;
+        //     ft::map<int, std::string> ft_m1;
+        //     ft::map<int, std::string> ft_m2;
+
+        //     for (int i = 0; i < 1e4; ++i)
+        //     {
+        //         m1.insert(std::make_pair(i, "string1"));
+        //         ft_m1.insert(ft::make_pair(i, "string1"));
+        //     }
+
+        //     for (int i = 0; i < 1e2; ++i)
+        //     {
+        //         m2.insert(std::make_pair(i, "string2"));
+        //         ft_m2.insert(ft::make_pair(i, "string2"));
+        //     }
+        //     start = get_time();
+        //     m1 = m2;
+        //     end = get_time();
+        //     diff = end - start;
+        //     diff = (diff) ? (diff * TIME_FAC) : TIME_FAC;
+        //     /*-----------------------------------------------------*/
+        //     /*------------------ ft::map ---------------------*/
+        //     ualarm(diff * 1e3, 0);
+        //     ft_m1 = ft_m2;
+        //     ualarm(0, 0);
+        //     /*----------------------------------------------------*/
+        // }
+        /*------------------------------------------------------------------------------------------*/
+        /*------------------ std::map ---------------------*/
+        std::map<int, std::string> m1;
+        std::map<int, std::string> m2;
+        ft::map<int, std::string> ft_m1;
+        ft::map<int, std::string> ft_m2;
+
+        for (int i = 0; i < 20; ++i)
+        {
+            m1.insert(std::make_pair(i, "string1"));
+            ft_m1.insert(ft::make_pair(i, "string1"));
+        }
+
+        for (int i = 0; i < 10; ++i)
+        {
+            m2.insert(std::make_pair(i, "string2"));
+            ft_m2.insert(ft::make_pair(i, "string2"));
+        }
+        m1 = m2;
+        /*-----------------------------------------------------*/
+        /*------------------ ft::map ---------------------*/
+        ft_m1 = ft_m2;
+        /*----------------------------------------------------*/
+        /*------------------ strings to store the results ----*/
+        std::string res, ft_res;
+        /*----------------------------------------------------*/
+        for (std::map<int, std::string>::iterator it = m1.begin(); it != m1.end(); ++it) // fill res from m1
+            res += it->second;
+
+        for (ft::map<int, std::string>::iterator it = ft_m1.begin(); it != ft_m1.end(); ++it) // fill ft_res from ft_m1
+            ft_res += it->second;
+
+        EQUAL(res == ft_res);
+    }
+}
+
+void Random_test()
+{
+    ft::map<int, char> map;
+
+    map.insert(ft::make_pair(10,'a'));
+    map.insert(ft::make_pair(30,'a'));
+    map.insert(ft::make_pair(15,'a'));
+    map.insert(ft::make_pair(29,'a'));
+    map.insert(ft::make_pair(34,'a'));
+
+    // std::cout << map[10] << ft::endl;
+    ft::map<int, char>::iterator it = map.begin();
+    // map.clear();
+    // map.erase(10);
+    map._rbt.deleteNode(ft::make_pair(10, 'a'));
+   // std::cout << map[10] << std::endl;
+    while (it != map.end())
+    {
+            std::cout << it->first << std::endl;
+        ++it;
+    }
 }
 
 int main()
@@ -418,7 +734,10 @@ int main()
     //element_access();
 //    iterator_tests();
    //test_map_assignment_operator();
-   assignmentWithlgh();
+   Random_test();
+//    test_iter_after_delete();
+  // testonassign();
+   //assignmentWithlgh();
     // ft::map<int, int> map;
 
     // map.insert(std::make_pair(10,15));

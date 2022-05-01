@@ -102,7 +102,9 @@ namespace ft {
 
 		Nodeptr find_root(Nodeptr x)
 		{
-			return x->root;
+			if (x)
+				return x->root;
+			return NULL;
 		}
 
 			
@@ -697,6 +699,19 @@ namespace ft {
 								//w->color = y->color;
 								leftRotate(y);
 							}
+							// if (isleft(w))
+							// {
+							// 	w->right->color = y->color;
+							// 	//w->color = y->color;
+							// 	leftRotate(w);
+							// 	rightRotate(y);
+							// }
+							// else
+							// {
+							// 	w->right->color = w->color;
+							// 	w->color = y->color;
+							// 	leftRotate(y);
+							// }
 						}
 						makeItBlack(y);
 					}
@@ -730,6 +745,74 @@ namespace ft {
 
 	
 
+		// 	void deleteNode(nodeptr z)
+		// {
+		// 	nodeptr x, y;
+
+		// 	if (z == NULL)
+		// 		return;
+		// 	y = nodeToReplace(z); // 250 // null
+		// 	//std::cout <<" dasdasd = " << y->data.first << std::endl;
+		// 	bool doubleBlack = (isBlack(y) && isBlack(z));
+		// 	//std::cout << "y = " << y->data.first << " db = " << doubleBlack << std::endl;
+		// 	if (!y)
+		// 	{
+		// 		if (z == this->root)
+		// 			this->root = NULL;
+		// 		else
+		// 		{
+		// 		// std::cout << "asdasd" << std::endl;
+		// 			if (doubleBlack)
+		// 				fixDoubleBlack(z);
+		// 			else
+		// 			{
+		// 				x = sibling(z);
+		// 				if (x)
+		// 					makeItRED(x);
+		// 			}
+		// 			if (isleft(z))
+		// 				z->parent->left = NULL;
+		// 			else
+		// 				z->parent->right = NULL;
+		// 		}
+		// 		alloc.destroy(z);
+		// 		alloc.deallocate(z, 1);
+		// 		return ;
+				
+		// 	}
+		// 	if (!z->left || !z->right)
+		// 	{
+		// 		if (z == this->root)
+		// 		{
+		// 			// std::swap(z->data, y->data);
+		// 			mySwap(z, y);
+		// 			z->left = NULL;
+		// 			z->right = NULL;
+		// 			alloc.destroy(y);
+		// 			alloc.deallocate(y, 1);
+		// 		}
+		// 		else
+		// 		{
+		// 			if (isleft(y))
+		// 				z->parent->left = y;
+		// 			else
+		// 				z->parent->right = y;
+		// 			nodeptr w  = z->parent;
+		// 			alloc.destroy(z);
+		// 			alloc.deallocate(z, 1);
+		// 			y->parent = w;
+		// 			if (doubleBlack)
+		// 				fixDoubleBlack(y);
+		// 			else
+		// 				makeItBlack(y);
+		// 		}
+		// 		return ;
+		// 	}/// if the node to be delete is Red 
+		// 	mySwap(y, z);
+		// 	// std::swap(y->data, z->data);
+		// 	//std::cout << y->data.first << std::endl;
+		// 	deleteNode(y);
+		// }
 
 		void deleteNode(nodeptr z)
 		{
@@ -778,6 +861,18 @@ namespace ft {
 				}
 				else
 				{
+					// if (isleft(z))
+					// 	z->parent->left = y;
+					// else
+					// 	z->parent->right = y;
+					// nodeptr w  = z->parent;
+					// alloc.destroy(z);
+					// alloc.deallocate(z, 1);
+					// y->parent = w;
+					// if (doubleBlack)
+					// 	fixDoubleBlack(y);
+					// else
+					// 	makeItBlack(y);
 					if (isleft(y))
 						z->parent->left = y;
 					else
@@ -794,187 +889,38 @@ namespace ft {
 				return ;
 			}/// if the node to be delete is Red 
 			mySwap(y, z);
-			// std::swap(y->data, z->data);
+			//std::swap(y->data, z->data);
 			//std::cout << y->data.first << std::endl;
 			deleteNode(y);
 		}
 
-
-		// 	void	deleteNode(value_type key)
-		// {
-		// 	nodeptr	z; // the node to be deleted
-		// 	nodeptr	y; // z's successor
-		// 	nodeptr	x; // x : y's child, which takes y's place in the tree. Before being deleted.
-		// 				// x : keeps track of y's original position 
-		// 	nodeptr	x_parent;
-		// 	bool		y_original_color;
-			
-		// 	z = search(root, key);
-		// 	if (!z)
-		// 		return ;
-		// 	if (z == root && !z->right && !z->left)
-		// 	{
-		// 		root = NULL;
-		// 		alloc.destroy(z);
-		// 		alloc.deallocate(z, 1);
-		// 		return;
-		// 	}
-		// 	y = z;
-		// 	y_original_color = y->color;
-		// 	if (!z->left)
-		// 	{
-		// 		x = y->right;
-		// 		if (!x)
-		// 			x_parent = y->parent;
-				
-		// 		rbTransplant(z, z->right); // replace z by its right child
-		// 	}
-		// 	else if (!z->right)
-		// 	{
-		// 		x = y->left;
-		// 		if (!x)
-		// 			x_parent = y->parent;
-		// 		rbTransplant(z, z->left); // replace z by its left child
-		// 	}
-		// 	else
-		// 	{
-		// 		// y = find_min(z->right); // y is the successor.
-		// 		y = successor(z);
-		// 		y_original_color = y->color;
-		// 		x = y->right;
-		// 		if (!x)
-		// 			x_parent = y->parent;
-		// 		if (y->parent == z)
-		// 			x_parent = y;
-		// 		else
-		// 		{
-		// 			// swap y and its right so y become a leaf node
-		// 			// so it becomes easier to remove z.
-		// 			rbTransplant(y, y->right);
-		// 			y->right = z->right;
-		// 			y->right->parent = y;
-		// 		}
-		// 		rbTransplant(z, y);
-		// 		y->left = z->left;
-		// 		y->left->parent = y;
-		// 		y->color = z->color;
-		// 	}
-		// 	// delete z;
-		// 	// _alloc.destroy(z);
-		// 	// _alloc.deallocate(z, 1);
-		// 	if (y_original_color == BLACK)
-		// 	{
-		// 		// fixDelete(x);
-		// 		// * RB-DELETE-FIXUP
-		// 		nodeptr	s;
-		// 		nodeptr	p;
-		// 	//? double black accurs when you move or remove a black node y,
-		// 	//? we transfer its blakness to x (y's original position).
-		// 	//? In other words, the extra black on a node is reflected in x's pointing to the node rather than in the color attribute.
-		// 		while (x != root && isBlack(x)) //? x always point to a nonroot, doubly black node : whithin the while loop 
-		// 		{
-		// 			x_parent = x != NULL ? x->parent : x_parent;
-		// 			if (x == x_parent->left)
-		// 			{
-		// 				s = x_parent->right;
-		// 				// case 3.1 
-		// 				if (isRed(s))
-		// 				{
-		// 					s->color = BLACK;
-		// 					x_parent->color = RED;
-		// 					leftRotate(x_parent);
-		// 					s = x_parent->right;
-		// 				}
-		// 				// case 3.2
-		// 				if (isBlack(s->left) && isBlack(s->right))
-		// 				{
-		// 					s->color = RED;
-		// 					x = x_parent;
-		// 				}
-		// 				else
-		// 				{
-		// 					if (isBlack(s->right))
-		// 					{
-		// 						// case 3.3
-		// 						s->left->color = BLACK;
-		// 						s->color = RED;
-		// 						rightRotate(s);
-		// 						s = x_parent->right;
-		// 					}
-		// 					// case 3.4
-		// 					s->color = x_parent->color;
-		// 					x_parent->color = BLACK;
-		// 					if (s->right)
-		// 						s->right->color = BLACK;
-		// 					leftRotate(x_parent);
-		// 					x = root;
-		// 				}
-		// 			}
-		// 			else
-		// 			{
-		// 				s = x_parent->left;
-		// 				if (s->color == RED)
-		// 				{
-		// 					s->color = BLACK;
-		// 					x_parent->color = RED;
-		// 					rightRotate(x_parent);
-		// 					s = x_parent->left;
-		// 				}
-		// 				if (isBlack(s->right) && isBlack(s->left))
-		// 				{
-		// 					s->color = RED;
-		// 					x = x_parent;
-		// 				}
-		// 				else
-		// 				{
-		// 					if (isBlack(s->left))
-		// 					{
-		// 						// case 3.3
-		// 						s->right->color = BLACK;
-		// 						s->color = RED;
-		// 						leftRotate(s);
-		// 						s = x_parent->left;
-		// 					}
-		// 					// case 3.4
-		// 					s->color = x_parent->color;
-		// 					x_parent->color = BLACK;
-		// 					if (s->left)
-		// 						s->left->color = BLACK;
-		// 					rightRotate(x_parent);
-		// 					x = root;
-		// 				}
-		// 			}
-		// 		}
-		// 		x->color = BLACK;
-		// 		alloc.destroy(z);
-		// 		alloc.deallocate(z, 1);
-		// 	}
-		// }
 		void mySwap(nodeptr y, nodeptr z)
 		{
-			first a = y->data.first;
-			second b = y->data.second;
-			y->data.first = z->data.first;
-			y->data.second = z->data.second;
-			z->data.first  = a;
-			z->data.second = b;
-			// nodeptr w = y;
-			// y = z;
-			// z = y;
+			// first a = y->data.first;
+			// second b = y->data.second;
+			// y->data.first = z->data.first;
+			// y->data.second = z->data.second;
+			// z->data.first  = a;
+			// z->data.second = b;
+			// value_type a  = y->data;
+			// y->data = z->data;
+			// z->data = a;
+			nodeptr w = y;
+			y = z;
+			z = y;
 		}
 		// void deleteNode(value_type val)
 		// {
 		// 	nodeptr z = search()
 		// }
-
+		
 
 		void deleteNode(value_type val)
 		{
 			nodeptr z = NULL;
 			//nodeptr x;
-			//std::cout << val.first << std::endl;
-
-			z = search(val);
+			// std::cout << val.first << std::endl;
+			z = search(root, val);
 			//std::cout << z->data.first << std::endl;
 
 			if (z == NULL)
